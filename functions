@@ -1,0 +1,172 @@
+# setting some default values
+NOCOR=${NOCOR:-0}
+NOMENU=${NOMENU:-0}
+NOPRECMD=${NOPRECMD:-0}
+COMMAND_NOT_FOUND=${COMMAND_NOT_FOUND:-0}
+GRML_ZSH_CNF_HANDLER=${GRML_ZSH_CNF_HANDLER:-/usr/share/command-not-found/command-not-found}
+BATTERY=${BATTERY:-0}
+GRMLSMALL_SPECIFIC=${GRMLSMALL_SPECIFIC:-1}
+GRML_ALWAYS_LOAD_ALL=${GRML_ALWAYS_LOAD_ALL:-0}
+ZSH_NO_DEFAULT_LOCALE=${ZSH_NO_DEFAULT_LOCALE:-0}
+
+#f2# Find history events by search pattern and list them by date.
+whatwhen()  {
+    emulate -L zsh
+    local usage help ident format_l format_s first_char remain first last
+    usage='USAGE: whatwhen [options] <searchstring> <search range>'
+    #  help='Use' \`'whatwhen -h'\'' for further explanations.' # no idea why this doesn't work --obreitwi, 21-06-10 17:37:19
+    ident=${(l,${#${:-Usage: }},, ,)}
+    format_l="${ident}%s\t\t\t%s\n"
+    format_s="${format_l//(\\t)##/\\t}"
+    # Make the first char of the word to search for case
+    # insensitive; e.g. [aA]
+    first_char=[${(L)1[1]}${(U)1[1]}]
+    remain=${1[2,-1]}
+    # Default search range is `-100'.
+    first=${2:-\-100}
+    # Optional, just used for `<first> <last>' given.
+    last=$3
+    case $1 in
+        ("")
+            printf '%s\n\n' 'ERROR: No search string specified. Aborting.'
+            printf '%s\n%s\n\n' ${usage} ${help} && return 1
+        ;;
+        (-h)
+            printf '%s\n\n' ${usage}
+            print 'OPTIONS:'
+            printf $format_l '-h' 'show help text'
+            print '\f'
+            print 'SEARCH RANGE:'
+            printf $format_l "'0'" 'the whole history,'
+            printf $format_l '-<n>' 'offset to the current history number; (default: -100)'
+            printf $format_s '<[-]first> [<last>]' 'just searching within a give range'
+            printf '\n%s\n' 'EXAMPLES:'
+            printf ${format_l/(\\t)/} 'whatwhen grml' '# Range is set to -100 by default.'
+            printf $format_l 'whatwhen zsh -250'
+            printf $format_l 'whatwhen foo 1 99'
+        ;;
+        (\?)
+            printf '%s\n%s\n\n' ${usage} ${help} && return 1
+        ;;
+        (*)
+            # -l list results on stout rather than invoking $EDITOR.
+            # -i Print dates as in YYYY-MM-DD.
+            # -m Search for a - quoted - pattern within the history.
+            fc -li -m "*${first_char}${remain}*" $first $last
+        ;;
+    esac
+# }}}
+}
+
+# It's shameless stolen from <http://www.vim.org/tips/tip.php?tip_id=167>
+#f5# Use \kbd{vim} as your manpage reader
+vman() {
+    emulate -L zsh
+    man $* | col -b | view -c 'set ft=man nomod nolist' -
+}
+
+multicat() {
+	for fname in $*; do
+		for count in {0..$(( ${#fname} + 9 ))};do
+			echo -n "#"
+		done
+		echo ""
+		echo "# FILE: $fname #"
+		for count in {0..$(( ${#fname} + 9 ))};do
+			echo -n "#"
+		done
+		echo ""
+		cat $fname
+	done
+}
+zle -N multicat
+
+setkipproxy() {
+	export HTTP_PROXY="http://proxy.kip.uni-heidelberg.de:8080"
+	export FTP_PROXY="http://proxy.kip.uni-heidelberg.de:8080"
+	export HTTPS_PROXY="http://proxy.kip.uni-heidelberg.de:8080"
+}
+zle -N setkipproxy
+
+setnoproxy() {
+	unset HTTP_PROXY
+	unset FTP_PROXY
+	unset HTTPS_PROXY
+}
+zle -N setnoproxy
+
+# print all arguments on new lines
+printl() {
+	for a in "$@"; do echo $a; done
+}
+zle -N printl
+
+# print all arguments with pwd prepended
+printp() {
+	for a in "$@"; do echo $(pwd -P)/$a; done
+}
+zle -N printp
+#
+# print all arguments with custom prefix
+printc() {
+	for a in "${@:2}"; do echo $1/$a; done
+}
+zle -N printc
+
+# cp a file, inserting the directory name into the real filename
+# (implemented in python now)
+# cpd () {
+	# SRC=$1
+	# TARGET_FOLDER=$2
+	# filename=$(basename $SRC)
+	# last_dir=$(basename $(dirname $SRC))
+	# cp -v ${SRC} ${TARGET_FOLDER}/${last_dir}_${filename}
+# }
+
+
+# generate a random string of length $1
+rstr() {
+	if [[ $# > 0 ]]; then
+		strlen="$1"
+	else
+		strlen="8"
+	fi
+	cat /dev/urandom 2>/dev/null | tr -cd "[:alnum:]" 2>/dev/null | head -c ${strlen}
+}
+zle -N rstr
+
+
+popen() { 
+	if [[ $# == 0 ]]; then
+		ilab -ic "import cPickle as pickle";
+	elif [[ $# == 1 ]]; then
+		ipython -ic "import cPickle as pickle; ${1:t:r} = pickle.load( open( '${1}', 'r' ))"
+	else
+		ipython -ic "import cPickle as pickle; ${2} = pickle.load( open( '${1}', 'r' ))"
+	fi
+}
+zle -N popen
+
+foreground-vim() {
+	fg %vim
+}
+zle -N foreground-vim
+bindkey '^Z' foreground-vim
+
+find_in_hist() {
+	grep -ri $1 ~/.logs
+}
+zle -N find_in_hist
+
+tmux-launch-and-configure() {
+	tmux new-session -d -s $1
+	tmux source "$HOME/.tmux/$1.conf"
+	tmux attach -t $1
+}
+zle -N tmux-launch-and-configure
+
+get-modeline() {
+	cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
+}
+zle -N get-modeline
+

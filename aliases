@@ -1,0 +1,124 @@
+# croped version ov mplayer to match aspect ratio of screen
+alias mp="mplayer -panscan 1.0"
+
+#open dialog
+# alias open="gnome-open"
+
+# default parameters
+alias ls="ls --color"
+#  alias ll="ls -hl"
+# some more ls aliases
+alias ll='ls -lhF'
+alias lld='ls -lhFd *(/)'
+alias l1='ls -1'
+alias la='ls -A'
+alias l='ls -CF'
+alias d='dirs -v'
+alias dg='dirs -v | grep'
+alias wgetcd='wget --content-disposition'
+
+alias ilab="ipython -ic 'import numpy as np; import pylab as p; import matplotlib as mpl'"
+alias ilab2="ipython2 -ic 'import numpy as np; import pylab as p; import matplotlib as mpl'"
+
+alias calc="ipython -ic 'from math import *; from scipy.constants import *'"
+alias calc2="ipython2 -ic 'from math import *; from scipy.constants import *'"
+
+# alias ack='ack-grep -H --color --nogroup --column'
+# alias ackc='ack -H --color'
+
+alias psg='ps aux | grep'
+
+# open tmux in 256 color mode and attach to running session
+# -u for utf8 display
+alias tm="tmux -2 -u attach"
+# open tmux to attach to session <target>
+alias tma="tmux -2 -u attach-session -t"
+# open tmux in 256 color mode
+alias tmux="tmux -2"
+
+# vim with encryption
+# alias vime="vim -u ~/git/usualStuff/vim/vimencrypt -x"
+
+# default parameters for feh
+alias fehm="feh -dx."
+
+# update
+alias apt_update="sudo aptitude update; sudo aptitude full-upgrade"
+
+# git update submodules
+# alias gsu="git submodule init && git submodule update"
+alias gsu="git submodule update --recursive --init"
+
+#svn connections
+#  alias sumpf="svn checkout https://mathphys.fsk.uni-heidelberg.de/svn/sumpf /Users/Sebastian/Documents/Projekte/MathPhys"
+
+# Make grep more colorful
+alias grepc="grep --color"
+
+# Schneller Zugriff auf tief vergrabene Uni Sachen
+
+# Pyhton interactiven interpreter mit startupfile aufrufen
+
+# Advanced Aliases (man zshbuiltins)
+# ==================================
+# Suffix: .txt -> vim, .com -> $BROWSER
+# Global: P V H T G X ZF NE NO DN
+
+# Suffix aliases
+#  alias -s txt=open /Applications/TextMate.app
+#  alias -s pdf=open /Applications/Preview.app/Contents/MacOS/Preview
+alias -s txt=vim
+# alias -s py=vim
+alias -s pdf=evince
+
+# Global aliases
+alias -g C=' | wc -l'
+alias -g G=' | grep --color'
+alias -g H=' | head'
+alias -g P=' | less'
+alias -g T=' | tail'
+alias -g V=' | vim -'
+alias -g X=' | xargs'
+alias -g DN=/dev/null
+alias -g NE="2> /dev/null" # No Errors
+alias -g NO="1> /dev/null" # No Output
+alias -g NA="&> /dev/null" # No Output
+
+alias -g less='less -R'
+
+alias -g js='j --stat'
+
+# Some intuitive aliases for chmod
+alias rw-='chmod 600'
+alias rwx='chmod 700'
+alias r--='chmod 644'
+alias r-x='chmod 755'
+
+# for file navigation
+alias  ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+
+# reload zsh config
+alias zsh_reload='source ~/.zshrc'
+
+alias ww='whatwhen'
+
+alias h='find_in_hist'
+
+# List recent directories
+alias cdl='cdr -l'
+
+alias kb_intl='setxkbmap us intl -model pc105; xmodmap ~/.xmodmap'
+alias kb_us='setxkbmap us -model pc105; xmodmap ~/.xmodmap'
+
+# export PAGER=~/git/usualStuff/vim/tools/vimpager/vimpager
+# alias less=$PAGER
+# alias zless=$PAGER
+
+alias gitlg="PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
+
+alias tu="source <(tmux showenv | \grep '=' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":')"
+alias tmlac="tmux-launch-and-configure"
+

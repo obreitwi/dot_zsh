@@ -1,0 +1,81 @@
+export HOME='/afsuser/obreitwi'
+export AFSHOME='/afsuser/obreitwi'
+export FNBHOME='/srv/homes/obreitwi'
+alias setAFS='export HOME=$AFSHOME'
+alias setFNB='export HOME=$FNBHOME'
+cd ~
+
+alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
+alias ssh_gc="ssh-add ~/.ssh/keys/id_gc"
+
+# export PATH='/fastnbig/home/obreitwi/usr/bin':$PATH
+# export PYTHONPATH=\
+# '/fastnbig/home/obreitwi/.local/lib/python2.6/site-packages'\
+# :'/usr/local/lib/python2.6/dist-packages'\
+# :'/usr/lib/python2.6/dist-packages'\
+# :'/fastnbig/home/obreitwi/usr/lib/python2.6'\
+# :'/fastnbig/home/obreitwi/usr/lib/python2.6/site-packages'\
+# :'/fastnbig/home/obreitwi/git/model-kth-l23/analysis'\
+# :'/fastnbig/home/obreitwi/usr/lib'\
+# :$PYTHONPATH
+# export TMPDIR='/fastnbig/home/obreitwi/local_tmp'
+#
+export PYTHONPATH=\
+$HOME/git/model-kth-l23/analysis\
+:$HOME/usr/lib/python2.6/site-packages\
+:$PYTHONPATH
+
+alias -g SIMULTI='$FNBHOME/git/model-kth-l23/model_ultimate/main.py'
+alias -g SIMNO='$FNBHOME/git/model-kth-l23/model_non_ortho/main.py'
+alias -g ANAONE='$FNBHOME/git/model-kth-l23/analysis/analyze_one.py'
+alias -g ANACOMP='$FNBHOME/git/KTH23_Custom/check_patterns/check_pattern_completion.py'
+
+# export LD_LIBRARY_PATH=\
+# :'/fastnbig/home/obreitwi/usr/lib'\
+# :'/fastnbig/home/obreitwi/usr/boost/lib'\
+# :$LD_LIBRARY_PATH
+
+# export PYTHONDIR='/usr/local/lib/python2.6'
+# export PYTHONINC='/usr/include/python2.6'
+# export BOOSTINC='~/usr/include/boost'
+
+# alias tmux='tmuxc'
+
+# Copy Xauthority if we are not in tmux
+refresh_display() {
+	if [ -z $TMUX ]; then
+		cp /afsuser/obreitwi/.Xauthority $FNBHOME
+		echo -n $DISPLAY > $FNBHOME/.display
+	else
+		export DISPLAY=`cat $FNBHOME/.display`
+	fi
+}
+refresh_display
+zle -N refresh_display
+
+
+show_job_detail (){
+	for jobid in $(squeue -h | grep "$USER" | cut -d ' ' -f 2 | xargs); do
+		echo -n "$jobid\t"; scontrol show job $jobid | grep "^\s*$1=" | sed "s:^\s*$1=::"
+	done
+}
+zle -N show_job_detail
+
+show_job_commands() {
+	show_job_detail Command
+}
+zle -N show_job_commands
+
+
+# alias cat_params='python $FNBHOME/git/KTH23_Custom/cat_params.py'
+alias do_raster='python $FNBHOME/git/KTH23_Custom/do_raster_plot.py'
+
+# Work around for broken cdr -l
+# alias cdl='cat -n ~/.chpwd-recent-dirs'
+
+# module
+source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
+
+source $HOME/.zsh/special/check_sims
+
+# vim: ft=zsh

@@ -1,0 +1,191 @@
+#  source $HOME/.zsh/prompt
+#  source $HOME/.zsh/lscolors
+#  source $HOME/.zsh/aliases
+
+#  source $HOME/.zsh/bindkeys
+#  if [ -e $HOME/.zsh/private ]; then
+	#  source $HOME/.zsh/private
+#  fi
+
+#  # check for host specific configs
+#  [ -f ~/.zsh/zshrc_$HOST ] && source ~/.zsh/zshrc_$HOST
+
+# support for 256 colors
+#  if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+	#  export TERM='xterm-256color'
+#  else
+	#  export TERM='xterm-color'
+#  fi
+
+autoload -U compinit && compinit
+
+# Usefull keep command
+autoload -U keeper && keeper
+
+setopt hist_ignore_all_dups
+setopt EXTENDED_HISTORY
+
+# reclaim ctrl-s
+stty stop undef
+stty start undef
+
+# clever comments on shell start
+#fortune | cowsay -f /opt/local/share/cowsay/cows/$(ls -1 /opt/local/share/cowsay/cows | unsort | head -n 1)
+
+# history settings
+HISTSIZE=1000000
+SAVEHIST=1000000
+HISTFILE=~/.zsh_history
+setopt APPEND_HISTORY
+
+function precmd() {
+    if [ "$(id -u)" -ne 0 ]; then
+        FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
+        echo "$USER@`hostname`:`pwd` [$(date -u)] `\history -1`" >> ${FULL_CMD_LOG}
+    fi
+}
+
+# keep background processes at full speed
+setopt NOBGNICE
+
+# Ignore globbings that don't match anything
+setopt NULL_GLOB
+
+# Extended globbing
+setopt EXTENDED_GLOB
+
+# When use with urxvt backspace is correct
+#stty erase "^H"
+
+# Setup new style completion system. To see examples of the old style (compctl
+# based) programmable completion, check Misc/compctl-examples in the zsh
+# distribution.
+
+# Completion Styles
+# list of completers to use
+zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+
+# zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+
+# allow one error for every three characters typed in approximate completer
+zstyle -e ':completion:*:approximate:*' max-errors \
+    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+
+# insert all expansions for expand completer
+zstyle ':completion:*:expand:*' tag-order all-expansions
+
+# formatting and messages
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for: %d'
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+
+# match uppercase from lowercase
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+
+setopt vi
+
+##########################
+## bindkey options
+##########################
+
+# Funktioniert nicht? O.o
+# bindkey -M menuselect 'i' accept-and-menu-complete
+#  bindkey -e
+
+##########################
+# vi functionality
+#########################
+bindkey -v
+##########################
+##  Fragen und Anmerkungen
+##########################
+
+# Warum funktioniert bei mir A die interaktive Hilfe nicht, also das ding mit Yes, No, Edit, Abort
+# Wie funktioniert diese Baum Ansicht beim kill
+
+# mit aliased $ALIAS lassen sich Variablen on the fly anpassen
+# mit vared $VARIABLE lassen sich Variablen on the fly anpassen
+
+# mit $CDPATH kann man die Verzeichnisse setzen, in welchen auto_cd suchen soll
+
+# mit C-v bekommt man das quote von dem was man danach tippt
+# Z.b. eintippen bindkey C-v backspace <funktion> liefert
+
+# mit !<command> erhält man den zuletzt eintippten command der auf <command> zutrifft
+# mit <command> !$ erhält man den command mit den zuletzt eingetippten parametern
+
+# Mit **/* kann man einen Befehl rekursiv ausführen
+
+#######################
+## aus dem ZSH-Workshop
+#######################
+
+# displays a menu for tabbing around
+zstyle ':completion:*' menu yes=long-list
+zstyle ':completion:*' menu select=2
+
+# zstyle ':completion:*:*:kill:*' command 'ps -u$USER -o pid,%cpu,tty,cputime,cmd'
+
+# Most Massively Useful Option ever!
+# protects you from "you shoot yourself in the foot".
+setopt rm_star_wait
+setopt auto_pushd pushd_ignore_dups pushd_minus pushd_silent
+
+# All running shells have the same history - always!
+setopt share_history
+# No duplicates...
+setopt hist_ignore_dups
+# Don't put commands starting with a space character into the history
+setopt hist_ignore_space
+
+# short for loops containing just one command:
+#   for f (*.html)   mv $f ${f:r}.php
+setopt short_loops
+
+# cd to directory just by giving it's name
+#setopt auto_cd
+
+# This controls what the line editor considers a word. By default it
+# includes '/', which makes it so that when I M-del (attempting to erase
+# a directory in a path), I erase the whole path. Annoying.
+# WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>' # (default)
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+export EDITOR="vim"
+
+#######################
+## User contributions #
+#######################
+# Remember recent directories beyond session and shell
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+add-zsh-hook -Uz zsh_directory_name zsh_directory_name_cdr
+
+# completion for above
+zstyle ':completion:*:*:cdr:*:*' menu selection
+zstyle ':chpwd:*' recent-dirs-max 30
+zstyle ':chpwd:*' recent-dirs-prune parent
+
+
+# 'ctrl-x r' will complete the 12 last modified (mtime) files/directories
+zle -C newest-files complete-word _generic
+bindkey '^B' newest-files
+zstyle ':completion:newest-files:*' completer _files
+zstyle ':completion:newest-files:*' file-patterns '*(omN[1,12])'
+zstyle ':completion:newest-files:*' menu select yes
+zstyle ':completion:newest-files:*' sort false
+zstyle ':completion:newest-files:*' matcher-list 'b:=*' # important
+
+zstyle ':completion:*:processes' command 'ps -ax'
+zstyle ':completion:*:processes-names' command 'ps -aeo comm='
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:*:killall:*:processes-names' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:*:killall:*' menu yes select
+

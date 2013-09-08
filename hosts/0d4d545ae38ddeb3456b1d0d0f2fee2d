@@ -1,0 +1,7 @@
+# alias -g vim="vim -c 'set nolist'"
+
+export PYTHONPATH=\
+"$HOME/usr/lib/python2.6/site-packages"\
+:$PYTHONPATH
+
+# vim: ft=zsh

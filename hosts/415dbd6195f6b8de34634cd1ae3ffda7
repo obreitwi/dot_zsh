@@ -1,0 +1,10 @@
+#  export HOME=/home/obreitwi
+#  export AFSHOME='/afsuser/obreitwi'
+#  export FNBHOME='/home/obreitwi'
+#  alias setAFS='export HOME=$AFSHOME'
+#  alias setFNB='export HOME=$FNBHOME'
+#  cd ~
+
+alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
+alias ssh_gc='ssh-add ~/.ssh/keys/id_gc'
+

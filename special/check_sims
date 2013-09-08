@@ -1,0 +1,38 @@
+
+show_failed_sims() {
+	for f in $*; do
+		if [ $(( `grep "Simulation runtime" $f/output/master.log 2>/dev/null | wc -l` )) -eq 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_failed_sims
+
+show_failed_anas() {
+	for f in $*; do
+		if [ $(( `grep "Whole analysis" $f/output/analysis.log 2>/dev/null | wc -l` )) -eq 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_failed_anas
+
+show_done_sims() {
+	for f in $*; do
+		if [ $(( `grep "Simulation runtime" $f/output/master.log 2>/dev/null | wc -l` )) -gt 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_done_sims
+
+show_done_anas() {
+	for f in $*; do
+		if [ $(( `grep "Whole analysis" $f/output/analysis.log 2>/dev/null | wc -l` )) -gt 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_done_anas
+
+# vim: ft=zsh

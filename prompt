@@ -1,0 +1,39 @@
+show_prompt () {
+# get colors with the colors module
+set prompt_subst
+
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+    colors
+fi
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE ORANGE; do
+    eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+    eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+    (( count = $count + 1 ))
+done
+
+PR_NO_COLOR="%{$terminfo[sgr0]%}"
+
+# we have to use double quotes for this one to evaluate the colors
+PROMPT="\
+┌─[$PR_LIGHT_GREEN%n$PR_NO_COLOR@$PR_LIGHT_YELLOW%m$PR_NO_COLOR:$PR_BLUE%~$PR_NO_COLOR]
+└─☉ "
+# └─⬧ "
+# └─⧫ "
+# ━
+# └─☉ "
+
+
+
+# OLD PROMPT
+# PROMPT="[%~]
+# $PR_LIGHT_GREEN%n$PR_NO_COLOR@$PR_LIGHT_YELLOW%m$PR_NO_COLOR: "
+
+#$PR_GREEN%n$PR_NO_COLOR@$PR_LIGHT_YELLOW%m$PR_NO_COLOR: "
+
+RPROMPT="$PR_YELLOW(%?)${PR_GREEN}[%!]$PR_NO_COLOR "
+
+# export PS1="%(0#.ROOT.) %B%n%b@%m %~: "
+}
+
+show_prompt

@@ -1,0 +1,2 @@
+# Tell zsh where some additional functions are
+fpath=(/fastnbig/home/obreitwi/zsh_functions/Chpwd $fpath)

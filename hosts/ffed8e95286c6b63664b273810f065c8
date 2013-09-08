@@ -1,0 +1,18 @@
+alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
+alias ssh_gc="ssh-add ~/.ssh/keys/id_gc"
+alias ssh_home="ssh-add ~/.ssh/keys/id_home"
+
+alias wc3_mv="mv -v /cygdrive/f/War3Reps/* /cygdrive/c/Program Files\ \(x86\)/Warcraft\ III/Replay"
+alias cpVim="rm -rv /cygdrive/f/Appz/vim/vimfiles; mkdir /cygdrive/f/Appz/vim/vimfiles; cp -Lvr ~/.vim/* /cygdrive/f/Appz/vim/vimfiles/"
+
+alias dfVimp="vimdiff ~/winhome/_vimperatorrc ~/git/usualStuff/vimperator/vimperatorrc"
+
+# Initialize SSH agent
+
+SSHAGENT=/usr/bin/ssh-agent
+SSHAGENTARGS="-s"
+if [ -z "$SSH_AUTH_SOCK" -a -x "$SSHAGENT" ]; then
+	eval `$SSHAGENT $SSHAGENTARGS`
+	trap "kill $SSH_AGENT_PID" 0
+fi
+

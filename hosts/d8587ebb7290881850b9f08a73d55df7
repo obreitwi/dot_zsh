@@ -1,0 +1,4 @@
+
+# SSH Keybindings
+alias ssh_gc="ssh-add ~/.ssh/keys/id_gc"
+

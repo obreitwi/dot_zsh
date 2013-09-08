@@ -1,0 +1,57 @@
+export PATH=$HOME/bin:$PATH
+#MANPATH=$MANPATH:
+
+export EDITOR="vim"
+
+# This is used for auto_cmd
+# CDPATH=.:..:~
+
+# Less Colors for Man Pages
+# export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
+# export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
+# export LESS_TERMCAP_me=$'\E[0m'           # end mode
+# export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
+# export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
+# export LESS_TERMCAP_ue=$'\E[0m'           # end underline
+# export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+
+export GREP_OPTIONS="--color=auto"
+
+# vidir arguments
+export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
+
+#VISIONS PATHS
+#  if [ $HOST = Styx ]; then
+	#  export VISION_OFFSET_PATH=$HOME/Documents/Project/Vision
+#  else
+	#  export VISION_OFFSET_PATH=$HOME/project
+#  fi
+
+#  export SYMAP2IC_PATH=$VISION_OFFSET_PATH/symap2ic
+#  export FPGASYSTEM_PATH=$SYMAP2IC_PATH/components/fpgasystem
+#  export FPGASYSTEMPATH=$FPGASYSTEM_PATH
+#  export SPIKEYHAL_PATH=$SYMAP2IC_PATH/components/SpikeyHAL
+#  export SPIKEYHALPATH=$SPIKEYHAL_PATH
+#  export SCTRL_PATH=$SYMAP2IC_PATH/components/SCtrlTP/userspace
+#  export SCTRLPATH=$SCTRL_PATH
+#  export PYNNHW_PATH=$SYMAP2IC_PATH/components/pynnhwGM/src/hardware
+#  export PYNN_HW_PATH=$PYNNHW_PATH
+#  export COMMPATH=$SYMAP2IC_PATH/components/common
+#  export WDPATH=$COMMPATH/windriver621
+#  export CONFIGTOOL_PATH=$PYNN_HW_PATH/stage2/ConfigTool
+#  export QTPATH=/usr/include/qt3
+#  export QTDIR=/usr/include/qt3
+#  export BOOSTINC=/usr/include/boost
+#  export PYTHONINC=/usr/include/python2.5
+#  export BOOSTVERSION=boost_python-mt-py25
+#  export LD_LIBRARY_PATH=$PYNNHW_PATH/basics/:$LD_LIBRARY_PATH
+#  export LIQUID_PATH=$SYMAP2IC_PATH/components/PyNN-Scripts/liquid_computing_stage1
+
+#  export PYTHONPATH=$PYNNHW_PATH/stage1gm2/pyhal:$PYNNHW_PATH/stage2/pyhal:$PYTHONPATH
+
+#KIP Proxy
+#export ftp_proxy="proxy.kip.uni-heidelberg.de:8080"
+#export https_proxy="https://proxy.kip.uni-heidelberg.de:8080"
+#export http_proxy="http://proxy.kip.uni-heidelberg.de:8080"
+#export socks_proxy="socks://proxy.kip.uni-heidelberg.de:1080"
+

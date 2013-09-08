@@ -1,0 +1,52 @@
+alias ssh_home="ssh-add ~/.ssh/keys/id_home"
+export no_proxy="localhost,127.0.0.0/8,*.local"
+
+# export PATH=/usr/local/texlive/2010/bin/x86_64-linux:$PATH
+export PATH=$HOME/usr/bin:$PATH
+# export MANPATH=/usr/local/texlive/2010/texmf/doc/man:$MANPATH
+# export INFOPATH=/usr/local/texlive/2010/texmf/doc/info:$INFOPATH
+export PYTHONPATH=\
+$HOME/git/usualStuff/tools/pythonscripts\
+:$HOME/usr/lib/python2.7/site-packages\
+:$HOME/python-libs\
+:/home/obreitwi/git/model-kth-l23/analysis\
+:/usr/local/lib/python2.7/site-packages
+
+export LD_LIBRARY_PATH=~/usr/lib
+
+NETDEV=$(ip link | grep "^.:" | grep "state UP" | cut -d " " -f 2 | sed "s/://" | tail -n 1)
+export LOCALDOMAIN=$(dhcpcd -U $NETDEV | grep -v "servers" |  grep "domain_name" | sed -e "s/^.*=//")
+
+
+export CPATH=.\
+:$HOME"/usr/include"
+
+export SEMF_LOGTOFILE=""
+
+alias cat_params='python ~/git/l23custom/cat_params.py'
+
+alias check_mail='socksify offlineimap'
+alias send_mail='ssh root bash \~/bin/msmtp-runqueue'
+
+alias ack='ack-grep'
+
+alias pudb='python -m pudb.run'
+
+source $HOME/.zsh/special/check_sims
+
+alias nm-tags="mv ~/.mail/.notmuch{,.old} && notmuch new && ssh root notmuch dump | notmuch restore && rm -r ~/.mail/.notmuch.old"
+
+watchstream() {
+	$( livestreamer -e $* -c -l none ) -S localhost:8080 | vlc -
+}
+zle -N watchstream
+
+alias -g pacc=pacman-color
+compdef _pacman pacc
+compdef _pacman yaourt
+
+# somehow it does not work atm when spawned from xmonad
+alias "sspc"="lolictrl -spc"
+alias "sscp"="lolictrl -scp"
+
+# vim: ft=zsh

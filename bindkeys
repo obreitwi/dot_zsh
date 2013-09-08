@@ -1,0 +1,77 @@
+# press "ctrl-e d" to insert the actual date in the form yyyy-mm-dd
+insert-datestamp_minsec() { LBUFFER+=${(%):-'%D{%Y-%m-%d_%H-%M-%S}'}; }
+zle -N insert-datestamp_minsec
+
+bindkey -r '^E'
+#k# Insert a timestamp on the command line (yyyy-mm-dd_HH-MM-SS)
+bindkey '^Em' insert-datestamp_minsec
+
+# press "ctrl-e d" to insert the actual date in the form yyyy-mm-dd
+insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
+zle -N insert-datestamp
+
+#k# Insert a timestamp on the command line (yyyy-mm-dd)
+bindkey '^Ed' insert-datestamp
+
+bindkey '^T' push-line
+
+# run command line as user root via sudo:
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER" && zle end-of-line
+}
+zle -N sudo-command-line
+
+# run vman on current command
+vman-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != vman\ * ]] && BUFFER="vman $BUFFER" && zle end-of-line
+}
+zle -N vman-command-line
+
+# init-script
+init-command-line() {
+    #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
+    [[ $BUFFER != sudo\ /etc/init.d/* ]] && BUFFER="sudo /etc/init.d/$BUFFER" && zle end-of-line
+}
+zle -N init-command-line
+
+# append detach symbols
+append-detach-command-line() {
+    #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
+    [[ $BUFFER != *\&\| ]] && BUFFER="$BUFFER &|" && zle end-of-line
+}
+zle -N append-detach-command-line
+
+append-detach-no-output-command-line() {
+    #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
+    [[ $BUFFER != *\&\| ]] && BUFFER="$BUFFER NA &|" && zle end-of-line
+}
+zle -N append-detach-no-output-command-line
+
+#k# Put the current command line into a \kbd{sudo} call
+bindkey "^Os" sudo-command-line
+bindkey "^Ov" vman-command-line
+bindkey "^Oi" init-command-line
+bindkey "^Od" append-detach-command-line
+bindkey "^Oe" append-detach-no-output-command-line
+
+# we also want the binding in command mode
+bindkey -M vicmd "^Os" sudo-command-line
+bindkey -M vicmd "^Ov" vman-command-line
+bindkey -M vicmd "^Od" append-detach-command-line
+bindkey -M vicmd "^Oe" append-detach-no-output-command-line
+
+# multiline mode
+bindkey "^J" vi-open-line-below
+
+# Search history
+bindkey "^R" history-incremental-search-backward
+bindkey "^N" history-incremental-search-forward 
+
+autoload -U edit-command-line
+zle -N edit-command-line
+# Edit command line in external editor
+# bindkey "^K" edit-command-line 
+bindkey -M vicmd v edit-command-line
+
