@@ -122,3 +122,8 @@ alias gitlg="PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%
 alias tu="source <(tmux showenv | \grep '=' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":')"
 alias tmlac="tmux-launch-and-configure"
 
+# hub alias
+if (( $+commands[hub] )); then
+	$(hub alias -s)
+fi
+

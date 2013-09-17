@@ -70,6 +70,8 @@ else
 		# export LC_ALL=
 	fi
 
+	# source $HOME/.zsh/completion/*.zsh_completion
+
 	# finally load gmrl zshrc - now only used for neat little functions
 	#  source $HOME/.zsh/zshrc_grml
 fi
