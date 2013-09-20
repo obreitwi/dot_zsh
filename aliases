@@ -49,6 +49,8 @@ alias apt_update="sudo aptitude update; sudo aptitude full-upgrade"
 # alias gsu="git submodule init && git submodule update"
 alias gsu="git submodule update --recursive --init"
 
+alias gsur="git submodule update --recursive --init --remote"
+
 #svn connections
 #  alias sumpf="svn checkout https://mathphys.fsk.uni-heidelberg.de/svn/sumpf /Users/Sebastian/Documents/Projekte/MathPhys"
 
