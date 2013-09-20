@@ -30,6 +30,8 @@ else
 	# check for host specific configs
 	[ -f ~/.zsh/hosts/$ENCHOST ] && source ~/.zsh/hosts/$ENCHOST
 
+	[[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
+	# if there is a local version, source it as well
 	[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 	# support for 256 colors
