@@ -86,7 +86,7 @@ alias -g NE="2> /dev/null" # No Errors
 alias -g NO="1> /dev/null" # No Output
 alias -g NA="&> /dev/null" # No Output
 
-alias -g less='less -R'
+alias less='less -R'
 
 alias js='j --stat'
 
