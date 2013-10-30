@@ -12,9 +12,9 @@ export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib/R/lib:$HOME/usr/lib:$LD_LIBRARY_P
 export PYTHONPATH=/home/obreitwi/git/usualStuff/tools/pythonscripts\
 :/usr/lib/graphviz/python27\
 :/home/obreitwi/git/model-kth-l23/analysis\
-:$HOME/usr/lib/python2.7/site-packages\
-:/usr/local/lib/python2.7/site-packages\
 :$PYTHONPATH
+# :$HOME/usr/lib/python2.7/site-packages\
+# :/usr/local/lib/python2.7/site-packages\
 
 # export PATH=/usr/local/texlive/2010/bin/x86_64-linux:$PATH
 export PATH=\
