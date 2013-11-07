@@ -10,6 +10,7 @@ alias ssh_kip="ssh-add ~/.ssh/keys/id_kip"
 export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib/R/lib:$HOME/usr/lib:$LD_LIBRARY_PATH
 
 export PYTHONPATH=/home/obreitwi/git/usualStuff/tools/pythonscripts\
+:$HOME/usr/lib/python2.7/site-packages\
 :/usr/lib/graphviz/python27\
 :/home/obreitwi/git/model-kth-l23/analysis\
 :$PYTHONPATH
