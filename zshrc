@@ -45,7 +45,7 @@ else
 		# fi
 		if [[ -n $DISPLAY ]]; then
 			export TERM='rxvt-unicode-256color'
-			export LANG='en_US.UTF-8'
+			export LANG='en_US.UTF8'
 		else
 			export TERM='linux'
 			# export LANG='en_US.iso88591'
