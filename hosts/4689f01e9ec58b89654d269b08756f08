@@ -9,8 +9,6 @@ cd ~
 alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
 alias ssh_gc="ssh-add ~/.ssh/keys/id_gc"
 
-export PATH=$HOME'/usr/bin':$PATH
-
 # export PYTHONPATH=\
 # $HOME'/.local/lib/python2.6/site-packages'\
 # :'/usr/local/lib/python2.6/dist-packages'\

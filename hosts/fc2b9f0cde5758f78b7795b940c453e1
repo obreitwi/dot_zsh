@@ -19,7 +19,6 @@ export PYTHONPATH=/home/obreitwi/git/usualStuff/tools/pythonscripts\
 
 # export PATH=/usr/local/texlive/2010/bin/x86_64-linux:$PATH
 export PATH=\
-$HOME/usr/bin:\
 /usr/lib/gettext:\
 /usr/share/texmf/scripts/latex-make:\
 $HOME/.gem/ruby/2.0.0/bin:\
