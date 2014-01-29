@@ -22,7 +22,7 @@ alias ssh_gc="ssh-add ~/.ssh/keys/id_gc"
 #
 export PYTHONPATH=\
 $HOME/git/model-kth-l23/analysis\
-:$HOME/usr/lib/python2.6/site-packages\
+:$HOME/usr/lib/python2.7/site-packages\
 :$PYTHONPATH
 
 alias -g SIMULTI='$FNBHOME/git/model-kth-l23/model_ultimate/main.py'
@@ -30,10 +30,9 @@ alias -g SIMNO='$FNBHOME/git/model-kth-l23/model_non_ortho/main.py'
 alias -g ANAONE='$FNBHOME/git/model-kth-l23/analysis/analyze_one.py'
 alias -g ANACOMP='$FNBHOME/git/KTH23_Custom/check_patterns/check_pattern_completion.py'
 
-# export LD_LIBRARY_PATH=\
-# :'/fastnbig/home/obreitwi/usr/lib'\
-# :'/fastnbig/home/obreitwi/usr/boost/lib'\
-# :$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=\
+$HOME/usr/lib\
+:$LD_LIBRARY_PATH
 
 # export PYTHONDIR='/usr/local/lib/python2.6'
 # export PYTHONINC='/usr/include/python2.6'
@@ -77,5 +76,9 @@ alias do_raster='python $FNBHOME/git/KTH23_Custom/do_raster_plot.py'
 source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
 
 source $HOME/.zsh/special/check_sims
+
+export MODULEPATH=\
+$HOME/usr/opt/modules/versions\
+:$MODULEPATH
 
 # vim: ft=zsh
