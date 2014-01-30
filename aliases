@@ -4,6 +4,9 @@ alias mp="mplayer -panscan 1.0"
 #open dialog
 # alias open="gnome-open"
 
+# aura without powerpill
+alias auraP="aura --no-pp"
+
 # default parameters
 alias ls="ls --color"
 #  alias ll="ls -hl"
