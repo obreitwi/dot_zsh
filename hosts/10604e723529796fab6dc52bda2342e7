@@ -13,8 +13,8 @@ $HOME/git/usualStuff/tools/pythonscripts\
 
 export LD_LIBRARY_PATH=~/usr/lib
 
-NETDEV=$(ip link | grep "^.:" | grep "state UP" | cut -d " " -f 2 | sed "s/://" | tail -n 1)
-export LOCALDOMAIN=$(dhcpcd -U $NETDEV | grep -v "servers" |  grep "domain_name" | sed -e "s/^.*=//")
+# NETDEV=$(ip link | grep "^.:" | grep "state UP" | cut -d " " -f 2 | sed "s/://" | tail -n 1)
+# export LOCALDOMAIN=$(dhcpcd -U $NETDEV | grep -v "servers" |  grep "domain_name" | sed -e "s/^.*=//")
 
 
 export CPATH=.\
@@ -24,12 +24,12 @@ export SEMF_LOGTOFILE=""
 
 alias cat_params='python ~/git/l23custom/cat_params.py'
 
-alias check_mail='socksify offlineimap'
-alias send_mail='ssh root bash \~/bin/msmtp-runqueue'
+# alias check_mail='socksify offlineimap'
+# alias send_mail='ssh root bash \~/bin/msmtp-runqueue'
 
 alias ack='ack-grep'
 
-alias pudb='python -m pudb.run'
+# alias pudb='python -m pudb.run'
 
 source $HOME/.zsh/special/check_sims
 
@@ -45,7 +45,9 @@ compdef _pacman pacc
 compdef _pacman yaourt
 
 # somehow it does not work atm when spawned from xmonad
-alias "sspc"="lolictrl -spc"
-alias "sscp"="lolictrl -scp"
+# alias "sspc"="lolictrl -spc"
+# alias "sscp"="lolictrl -scp"
+
+setkipproxy
 
 # vim: ft=zsh

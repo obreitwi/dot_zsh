@@ -82,9 +82,9 @@ multicat() {
 zle -N multicat
 
 setkipproxy() {
-	export HTTP_PROXY="http://proxy.kip.uni-heidelberg.de:8080"
-	export FTP_PROXY="http://proxy.kip.uni-heidelberg.de:8080"
-	export HTTPS_PROXY="http://proxy.kip.uni-heidelberg.de:8080"
+	export HTTP_PROXY="http://proxy2.kip.uni-heidelberg.de:8080"
+	export FTP_PROXY="http://proxy2.kip.uni-heidelberg.de:8080"
+	export HTTPS_PROXY="http://proxy2.kip.uni-heidelberg.de:8080"
 }
 zle -N setkipproxy
 
