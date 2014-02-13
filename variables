@@ -20,6 +20,11 @@ export GREP_OPTIONS="--color=auto"
 # vidir arguments
 export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
 
+export MANPATH=\
+$HOME/usr/share/man:\
+$MANPATH
+
+
 #VISIONS PATHS
 #  if [ $HOST = Styx ]; then
 	#  export VISION_OFFSET_PATH=$HOME/Documents/Project/Vision
