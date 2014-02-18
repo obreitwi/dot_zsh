@@ -22,8 +22,8 @@ whatwhen()  {
     # insensitive; e.g. [aA]
     first_char=[${(L)1[1]}${(U)1[1]}]
     remain=${1[2,-1]}
-    # Default search range is `-100'.
-    first=${2:-\-100}
+    # Default search range is `-1000'.
+    first=${2:-\-1000}
     # Optional, just used for `<first> <last>' given.
     last=$3
     case $1 in
@@ -41,7 +41,7 @@ whatwhen()  {
             printf $format_l '-<n>' 'offset to the current history number; (default: -100)'
             printf $format_s '<[-]first> [<last>]' 'just searching within a give range'
             printf '\n%s\n' 'EXAMPLES:'
-            printf ${format_l/(\\t)/} 'whatwhen grml' '# Range is set to -100 by default.'
+            printf ${format_l/(\\t)/} 'whatwhen grml' '# Range is set to -1000 by default.'
             printf $format_l 'whatwhen zsh -250'
             printf $format_l 'whatwhen foo 1 99'
         ;;
@@ -169,4 +169,20 @@ get-modeline() {
 	cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
 }
 zle -N get-modeline
+
+slurm-get-job-ids() {
+	if [[ $# > 1 ]]; then
+		state=$1
+	else
+		state="PD"
+	fi
+	squeue -h | grep obreitwi | grep "\bPD\b" | cut -d " " -f 3
+}
+zle -N slurm-get-job-ids
+
+# nicer git log
+gitlg() {
+	PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
+}
+zle -N gitlg
 

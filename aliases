@@ -122,8 +122,6 @@ alias kb_us='setxkbmap us -model pc105; xmodmap ~/.xmodmap'
 # alias less=$PAGER
 # alias zless=$PAGER
 
-alias gitlg="PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --"
-
 alias tu="source <(tmux showenv | \grep '=' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":')"
 alias tmlac="tmux-launch-and-configure"
 
