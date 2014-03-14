@@ -186,3 +186,28 @@ gitlg() {
 }
 zle -N gitlg
 
+
+svg_to_pdf() {
+	origin=$1
+	extension=${origin:e}
+	if [[ "$extension" != "svg" ]]; then
+		echo "Wrong extension!" >&2
+	else
+		target="${origin:r}.pdf"
+		inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
+	fi
+}
+zle -N svg_to_pdf
+
+svg_to_png() {
+	origin=$1
+	extension=${origin:e}
+	if [[ "$extension" != "svg" ]]; then
+		echo "Wrong extension!" >&2
+	else
+		target="${origin:r}.png"
+		inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
+	fi
+}
+zle -N svg_to_png
+
