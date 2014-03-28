@@ -1,38 +1,79 @@
 
-show_failed_sims() {
+kth_show_failed_sims() {
 	for f in $*; do
 		if [ $(( `grep "Simulation runtime" $f/output/master.log 2>/dev/null | wc -l` )) -eq 0 ]; then
 			echo $f
 		fi
 	done
 }
-zle -N show_failed_sims
+zle -N kth_show_failed_sims
 
-show_failed_anas() {
+kth_show_failed_anas() {
 	for f in $*; do
 		if [ $(( `grep "Whole analysis" $f/output/analysis.log 2>/dev/null | wc -l` )) -eq 0 ]; then
 			echo $f
 		fi
 	done
 }
-zle -N show_failed_anas
+zle -N kth_show_failed_anas
 
-show_done_sims() {
+kth_show_done_sims() {
 	for f in $*; do
 		if [ $(( `grep "Simulation runtime" $f/output/master.log 2>/dev/null | wc -l` )) -gt 0 ]; then
 			echo $f
 		fi
 	done
 }
-zle -N show_done_sims
+zle -N kth_show_done_sims
 
-show_done_anas() {
+kth_show_done_anas() {
 	for f in $*; do
 		if [ $(( `grep "Whole analysis" $f/output/analysis.log 2>/dev/null | wc -l` )) -gt 0 ]; then
 			echo $f
 		fi
 	done
 }
-zle -N show_done_anas
+zle -N kth_show_done_anas
+
+
+########
+# SEMf #
+########
+
+show_failed_sims() {
+	for f in $*; do
+		if [ $(( `grep "Run completed." ${f:r}/data.log 2>/dev/null | wc -l` )) -eq 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_failed_sims
+
+show_done_sims() {
+	for f in $*; do
+		if [ $(( `grep "Run completed." ${f:r}/data.log 2>/dev/null | wc -l` )) -gt 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_done_sims
+
+show_failed_sims_folder() {
+	for f in $*; do
+		if [ $(( `grep "Run completed." $f/data.log 2>/dev/null | wc -l` )) -eq 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_failed_sims_folder
+
+show_done_sims_folder() {
+	for f in $*; do
+		if [ $(( `grep "Run completed." $f/data.log 2>/dev/null | wc -l` )) -gt 0 ]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_done_sims_folder
 
 # vim: ft=zsh
