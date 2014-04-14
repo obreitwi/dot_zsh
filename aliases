@@ -43,7 +43,7 @@ alias tmux="tmux -2"
 # alias vime="vim -u ~/git/usualStuff/vim/vimencrypt -x"
 
 # default parameters for feh
-alias fehm="feh -dx."
+alias fehm="feh -dx. -A 'echo %f'"
 
 # update
 alias apt_update="sudo aptitude update; sudo aptitude full-upgrade"
