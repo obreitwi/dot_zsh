@@ -3,6 +3,8 @@ export AFSHOME='/afsuser/obreitwi'
 export FNBHOME='/srv/homes/obreitwi'
 alias setAFS='export HOME=$AFSHOME'
 alias setFNB='export HOME=$FNBHOME'
+
+export TMPDIR=/scratch/obreitwi/tmp_cluster
 cd ~
 
 alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
@@ -54,7 +56,7 @@ zle -N refresh_display
 
 
 show_job_detail (){
-	for jobid in $(squeue -h | grep "$USER" | cut -d ' ' -f 2 | xargs); do
+	for jobid in $(get_job_ids); do
 		echo -n "$jobid\t"; scontrol show job $jobid | grep "^\s*$1=" | sed "s:^\s*$1=::"
 	done
 }
@@ -65,6 +67,39 @@ show_job_commands() {
 }
 zle -N show_job_commands
 
+get_job_ids() {
+	squeue -h -u $USER -o %i
+}
+zle -N get_job_ids
+
+get_active_eta() {
+	if [[ $# -eq 0 ]]; then
+		folders=("$(pwd)")
+	else
+		folders=($@[@])
+	fi
+	for jobid in $(get_job_ids); do
+		file="slurm-$jobid.out"
+		for folder in $folders; do
+			filename="$folder/$file" 
+			if [[ -a "$filename" ]]; then
+				echo -n "$jobid: "
+				grep ETA "$filename" | tail -n 1
+			fi
+		done
+	done
+}
+zle -N get_active_eta
+
+get_active_eta_short() {
+	if [[ $# -eq 0 ]]; then
+		print "Need at least one argument."
+	fi
+	args=($@[@])
+	num_dirs=$args[0]
+	args[0]=()
+	get_active_eta $args[@] | sed "s:</\([^/]\+/\)\{$num_dirs\}:<(...):"
+}
 
 # alias cat_params='python $FNBHOME/git/KTH23_Custom/cat_params.py'
 alias do_raster='python $FNBHOME/git/KTH23_Custom/do_raster_plot.py'
@@ -86,5 +121,10 @@ $HOME/usr/include\
 :$CPATH
 
 alias -g srunb="srun --partition=batch"
+
+alias -g DEFCTRL_II=simrun,comp_samples,comp_dist,comp_ll,comp_aff,plot_dii_aff_ll_ws_b_r,ani_dii_aff_ll_ws_b_r,plot_spk_pat
+alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_aff,plot_dii_aff_ll_ws_b_r,ani_dii_aff_ll_ws_b_r,plot_spk_pat
+
+module load vim
 
 # vim: ft=zsh

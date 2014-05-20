@@ -22,6 +22,7 @@ export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
 
 export MANPATH=\
 $HOME/usr/share/man:\
+/usr/share/man:\
 $MANPATH
 
 
@@ -60,3 +61,4 @@ $MANPATH
 #export http_proxy="http://proxy.kip.uni-heidelberg.de:8080"
 #export socks_proxy="socks://proxy.kip.uni-heidelberg.de:1080"
 
+# vim: ft=zsh
