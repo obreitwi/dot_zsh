@@ -1,0 +1,18 @@
+#compdef semf
+_all_semf_controllers() {
+	semf list -t controller -n -H 2>/dev/null | sed "s:\(.*\)\s(\(.*\))$:\1\n\2:"
+}
+
+# echo $(_all_semf_controllers)
+
+_controllers() {
+	_values -s , "Controllers" $(_all_semf_controllers)
+}
+
+_arguments \
+	'(-c --controller)'{-c,--controller}'[Controllers to run.]:Controllers:_controllers' \
+	'*:input files:_files -g "*.(yaml|py|json)(.)"'
+
+
+#vim: ft=zsh
+

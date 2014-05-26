@@ -76,4 +76,77 @@ show_done_sims_folder() {
 }
 zle -N show_done_sims_folder
 
+get_active_eta() {
+	if [[ $# -eq 0 ]]; then
+		folders=("$(pwd)")
+	else
+		folders=($@[@])
+	fi
+	for jobid in $(get_job_ids); do
+		file="slurm-$jobid.out"
+		for folder in $folders; do
+			filename="$folder/$file" 
+			if [[ -a "$filename" ]]; then
+				echo -n "$jobid: "
+				grep ETA "$filename" | tail -n 1
+			fi
+		done
+	done
+}
+zle -N get_active_eta
+
+get_active_eta_short() {
+	if [[ $# -eq 0 ]]; then
+		print "Need at least one argument."
+	fi
+	args=($@[@])
+	num_dirs=$args[0]
+	args[0]=()
+	get_active_eta $args[@] | sed "s:</\([^/]\+/\)\{$num_dirs\}:<(...):"
+}
+zle -N get_active_eta_short
+
+
+show_failed_plots() {
+	for f in $@; do
+		plot_files=( ${f:r}/plots/{dii,dist}_*_-001.png )
+		if [[ $#plot_files -eq 0 ]]; then
+			echo $f
+		fi
+	done
+}
+zle -N show_failed_plots
+
+
+#########
+# SLURM #
+#########
+
+show_job_detail() {
+	for jobid in $(get_job_ids); do
+		echo -n "$jobid\t"; scontrol show job $jobid | grep "^\s*$1=" | sed "s:^\s*$1=::"
+	done
+}
+zle -N show_job_detail
+
+show_job_commands() {
+	show_job_detail Command
+}
+zle -N show_job_commands
+
+get_job_ids() {
+	squeue -h -u $USER -o %i
+}
+zle -N get_job_ids
+
+shorten_paths() {
+	num_squashed_paths=8
+	if [[ $# -ge 1 ]]; then
+		num_squashed_paths=$1
+	fi
+	echo sed "s:<\(/[^/]\+\)\{$num_squashed_paths\}:<…:g"
+}
+zle -N shorten_paths
+
+
 # vim: ft=zsh
