@@ -144,7 +144,7 @@ shorten_paths() {
 	if [[ $# -ge 1 ]]; then
 		num_squashed_paths=$1
 	fi
-	echo sed "s:<\(/[^/]\+\)\{$num_squashed_paths\}:<…:g"
+	echo sed "s:\(/[^/]\+\)\{$num_squashed_paths\}:(…):g"
 }
 zle -N shorten_paths
 

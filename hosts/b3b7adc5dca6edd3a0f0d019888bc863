@@ -1,10 +1,11 @@
-export HOME='/afsuser/obreitwi'
+export HOME='/home/obreitwi'
 export AFSHOME='/afsuser/obreitwi'
 export FNBHOME='/srv/homes/obreitwi'
+export WANGHOME='/wang/users/obreitwi'
 alias setAFS='export HOME=$AFSHOME'
 alias setFNB='export HOME=$FNBHOME'
 
-export TMPDIR=/scratch/obreitwi/tmp_cluster
+export TMPDIR=/wang/users/obreitwi/tmp_cluster
 cd ~
 
 alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
@@ -27,10 +28,10 @@ $HOME/git/model-kth-l23/analysis\
 :$HOME/usr/lib/python2.7/site-packages\
 :$PYTHONPATH
 
-alias -g SIMULTI='$FNBHOME/git/model-kth-l23/model_ultimate/main.py'
-alias -g SIMNO='$FNBHOME/git/model-kth-l23/model_non_ortho/main.py'
-alias -g ANAONE='$FNBHOME/git/model-kth-l23/analysis/analyze_one.py'
-alias -g ANACOMP='$FNBHOME/git/KTH23_Custom/check_patterns/check_pattern_completion.py'
+alias -g SIMULTI='$HOME/git/model-kth-l23/model_ultimate/main.py'
+alias -g SIMNO='$HOME/git/model-kth-l23/model_non_ortho/main.py'
+alias -g ANAONE='$HOME/git/model-kth-l23/analysis/analyze_one.py'
+alias -g ANACOMP='$HOME/git/KTH23_Custom/check_patterns/check_pattern_completion.py'
 
 export LD_LIBRARY_PATH=\
 $HOME/usr/lib\
@@ -45,17 +46,17 @@ $HOME/usr/lib\
 # Copy Xauthority if we are not in tmux
 refresh_display() {
 	if [ -z $TMUX ]; then
-		cp /afsuser/obreitwi/.Xauthority $FNBHOME
-		echo -n $DISPLAY > $FNBHOME/.display
+		cp /afsuser/obreitwi/.Xauthority $HOME
+		echo -n $DISPLAY > $HOME/.display
 	else
-		export DISPLAY=`cat $FNBHOME/.display`
+		export DISPLAY=`cat $HOME/.display`
 	fi
 }
-refresh_display
+# refresh_display
 zle -N refresh_display
 
-# alias cat_params='python $FNBHOME/git/KTH23_Custom/cat_params.py'
-alias do_raster='python $FNBHOME/git/KTH23_Custom/do_raster_plot.py'
+# alias cat_params='python $HOME/git/KTH23_Custom/cat_params.py'
+alias do_raster='python $HOME/git/KTH23_Custom/do_raster_plot.py'
 
 # Work around for broken cdr -l
 # alias cdl='cat -n ~/.chpwd-recent-dirs'
@@ -75,8 +76,8 @@ $HOME/usr/include\
 
 alias -g srunb="srun --partition=batch"
 
-alias -g DEFCTRL_II=simrun,comp_samples,comp_dist,comp_ll,comp_aff,plot_dii_aff_ll_ws_b_r,ani_dii_aff_ll_ws_b_r,plot_spk_pat
-alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_aff,plot_dii_aff_ll_ws_b_r,ani_dii_aff_ll_ws_b_r,plot_spk_pat
+alias -g DEFCTRL_II=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,plot_dii_taff_ll_ws_b_r,ani_dii_taff_ll_ws_b_r,plot_spk_pat
+alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,plot_dii_taff_ll_ws_b_r,ani_dii_taff_ll_ws_b_r,plot_spk_pat
 
 module load vim
 
