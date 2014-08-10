@@ -27,9 +27,6 @@ else
 		source $HOME/.zsh/private
 	fi
 
-	# check for host specific configs
-	[ -f ~/.zsh/hosts/$ENCHOST ] && source ~/.zsh/hosts/$ENCHOST
-
 	[[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
 	# if there is a local version, source it as well
 	[[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
@@ -71,6 +68,10 @@ else
 		# export LC_IDENTIFICATION="en_US.UTF-8"
 		# export LC_ALL=
 	fi
+
+	# check for host specific configs
+	[ -f ~/.zsh/hosts/$ENCHOST ] && source ~/.zsh/hosts/$ENCHOST
+
 
 	# source $HOME/.zsh/completion/*.zsh_completion
 
