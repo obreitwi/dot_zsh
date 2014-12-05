@@ -23,6 +23,8 @@ autoload -U compinit && compinit
 # Usefull keep command
 autoload -U keeper && keeper
 
+autoload -U zmv
+
 setopt hist_ignore_all_dups
 setopt EXTENDED_HISTORY
 setopt GLOB_COMPLETE
