@@ -42,9 +42,14 @@ alias -g pacc=pacman-color
 compdef _pacman pacc
 compdef _pacman yaourt
 
+alias -g fehs="fehm --action1 'feh -dx. $(dirname %f)/spikes_*.png'"
+
 # somehow it does not work atm when spawned from xmonad
 # alias "sspc"="lolictrl -spc"
 # alias "sscp"="lolictrl -scp"
+
+export PLOT_II="plots/dii_taff_ll_ws_b_r_-001.png"
+export PLOT="plots/dist_taff_ll_ws_b_r_-001.png"
 
 setkipproxy
 
