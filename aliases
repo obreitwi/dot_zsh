@@ -123,7 +123,7 @@ alias kb_us='setxkbmap us -model pc105; xmodmap ~/.xmodmap'
 # alias less=$PAGER
 # alias zless=$PAGER
 
-alias tmu="source <(tmux showenv | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
+alias tmu="source <(tmux showenv | grep -v '^-' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
 alias tmlac="tmux-launch-and-configure"
 
 # # hub alias

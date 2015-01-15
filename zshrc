@@ -40,9 +40,12 @@ else
 		# else
 			# export TERM='xterm-color'
 		# fi
-		if [[ -n $DISPLAY ]]; then
+		# if [[ -n $DISPLAY ]]; then
+			# export TERM='rxvt-unicode-256color'
+			# export LANG='en_US.UTF8'
+		infocmp rxvt-unicode-256color &>/dev/null
+		if [[ $? -eq 0 ]]; then
 			export TERM='rxvt-unicode-256color'
-			export LANG='en_US.UTF8'
 		else
 			export TERM='linux'
 			# export LANG='en_US.iso88591'
