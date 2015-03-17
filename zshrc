@@ -47,7 +47,7 @@ else
 		if [[ $? -eq 0 ]]; then
 			export TERM='rxvt-unicode-256color'
 		else
-			export TERM='linux'
+			# export TERM='linux'
 			# export LANG='en_US.iso88591'
 			# export LANG='en_US.UTF8'
 		fi
