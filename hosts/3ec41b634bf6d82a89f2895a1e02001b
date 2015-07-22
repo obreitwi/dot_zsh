@@ -1,1 +1,84 @@
-b3b7adc5dca6edd3a0f0d019888bc863
+export HOME='/home/obreitwi'
+export AFSHOME='/afsuser/obreitwi'
+export FNBHOME='/srv/homes/obreitwi'
+export WANGHOME='/wang/users/obreitwi'
+alias setAFS='export HOME=$AFSHOME'
+alias setFNB='export HOME=$FNBHOME'
+
+export TMPDIR=/wang/users/obreitwi/tmp_cluster
+cd ~
+
+alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
+alias ssh_gc="ssh-add ~/.ssh/keys/id_gc"
+
+# export PATH='/fastnbig/home/obreitwi/usr/bin':$PATH
+# export PYTHONPATH=\
+# '/fastnbig/home/obreitwi/.local/lib/python2.6/site-packages'\
+# :'/usr/local/lib/python2.6/dist-packages'\
+# :'/usr/lib/python2.6/dist-packages'\
+# :'/fastnbig/home/obreitwi/usr/lib/python2.6'\
+# :'/fastnbig/home/obreitwi/usr/lib/python2.6/site-packages'\
+# :'/fastnbig/home/obreitwi/git/model-kth-l23/analysis'\
+# :'/fastnbig/home/obreitwi/usr/lib'\
+# :$PYTHONPATH
+# export TMPDIR='/fastnbig/home/obreitwi/local_tmp'
+#
+export PYTHONPATH=\
+$HOME/git/model-kth-l23/analysis\
+:$HOME/usr/lib/python2.7/site-packages\
+:$PYTHONPATH
+
+alias -g SIMULTI='$HOME/git/model-kth-l23/model_ultimate/main.py'
+alias -g SIMNO='$HOME/git/model-kth-l23/model_non_ortho/main.py'
+alias -g ANAONE='$HOME/git/model-kth-l23/analysis/analyze_one.py'
+alias -g ANACOMP='$HOME/git/KTH23_Custom/check_patterns/check_pattern_completion.py'
+
+export LD_LIBRARY_PATH=\
+$HOME/usr/lib\
+:$LD_LIBRARY_PATH
+
+# export PYTHONDIR='/usr/local/lib/python2.6'
+# export PYTHONINC='/usr/include/python2.6'
+# export BOOSTINC='~/usr/include/boost'
+
+# alias tmux='tmuxc'
+
+# Copy Xauthority if we are not in tmux
+refresh_display() {
+	if [ -z $TMUX ]; then
+		cp /afsuser/obreitwi/.Xauthority $HOME
+		echo -n $DISPLAY > $HOME/.display
+	else
+		export DISPLAY=`cat $HOME/.display`
+	fi
+}
+# refresh_display
+zle -N refresh_display
+
+# alias cat_params='python $HOME/git/KTH23_Custom/cat_params.py'
+alias do_raster='python $HOME/git/KTH23_Custom/do_raster_plot.py'
+
+# Work around for broken cdr -l
+# alias cdl='cat -n ~/.chpwd-recent-dirs'
+
+# module
+source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
+
+source $HOME/.zsh/special/check_sims
+
+export MODULEPATH=\
+$HOME/opt/modules/versions\
+:$MODULEPATH
+
+export CPATH=\
+$HOME/usr/include\
+:$CPATH
+
+alias -g srunb="srun --partition=batch"
+
+alias -g DEFCTRL_II=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
+alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
+
+module load vim
+
+# vim: ft=zsh
