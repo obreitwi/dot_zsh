@@ -62,7 +62,7 @@ alias do_raster='python $HOME/git/KTH23_Custom/do_raster_plot.py'
 # alias cdl='cat -n ~/.chpwd-recent-dirs'
 
 # module
-source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
+# source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
 
 source $HOME/.zsh/special/check_sims
 
@@ -76,8 +76,11 @@ $HOME/usr/include\
 
 alias -g srunb="srun --partition=batch"
 
+alias -g DEFCTRL_MNIST=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_ro_max,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
 alias -g DEFCTRL_II=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
-alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
+alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dist_taff_ll_ws_b_r,comp_aff,ani_dist_aff_ll_ws_b_r,plot_spk_pat
+
+alias -g VALIDATE_SWEEP='2>&1 | sed "s/.*Will write://" | $(shorten_paths) | sort | uniq -c | sort -n'
 
 module load vim
 

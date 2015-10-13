@@ -118,6 +118,16 @@ show_failed_plots() {
 zle -N show_failed_plots
 
 
+show_rate_eta() {
+	for jid in $(squeue -h -u $USER -t R -o %A); do
+		eta=$(grep ETA slurm-${jid}.out | sed -e "s/.*\(Elapsed:.*\)$/\1/"| tail -1)
+		file="slurm-$jid.out"
+		rate=$(grep "</.*Avg rate net" slurm-$jid.out | tail -1 | sed -e "s:.*<\([A-Za-z0-9_-\/]\+\)>.*Avg rate net\: \(.*\)$:\2 \1:" | $(shorten_paths 11))
+		echo "$rate $eta $file"
+	done | sort -g
+}
+zle -N show_rate_eta
+
 #########
 # SLURM #
 #########

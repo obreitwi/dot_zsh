@@ -79,6 +79,7 @@ alias -g srunb="srun --partition=batch"
 alias -g DEFCTRL_II=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
 alias -g DEFCTRL=simrun,comp_samples,comp_dist,comp_ll,comp_test_sim,comp_taff,comp_mut_inf,comp_sm_com_uni,comp_ro_com,plot_dii_taff_ll_ws_b_r,comp_aff,ani_dii_aff_ll_ws_b_r,plot_spk_pat
 
-module load vim
+module load vim/7.4-891
+module load tmux/2.0
 
 # vim: ft=zsh
