@@ -4,7 +4,7 @@ export no_proxy="localhost,127.0.0.0/8,*.local"
 # export PATH=/usr/local/texlive/2010/bin/x86_64-linux:$PATH
 # export MANPATH=/usr/local/texlive/2010/texmf/doc/man:$MANPATH
 # export INFOPATH=/usr/local/texlive/2010/texmf/doc/info:$INFOPATH
-export PATH=$PATH:/opt/android-sdk/platform-tools
+export PATH=$PATH:/opt/android-sdk/platform-tools:/home/obreitwi/.gem/ruby/2.3.0/bin
 export PYTHONPATH=\
 :$HOME/usr/lib/python2.7/site-packages\
 :/home/obreitwi/git/model-kth-l23/analysis\
