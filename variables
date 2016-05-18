@@ -3,6 +3,8 @@ export PATH=$HOME/.local/bin:$HOME/usr/bin:$PATH
 
 export EDITOR="vim"
 
+export VIRTUAL_ENV_DISABLE_PROMPT="true"
+
 # This is used for auto_cmd
 # CDPATH=.:..:~
 

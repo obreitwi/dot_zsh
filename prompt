@@ -1,7 +1,18 @@
+setopt PROMPT_SUBST
+setopt promptsubst
+setopt PROMPTSUBST
+
+venv_precmd() {
+if ! [ -z "${VIRTUAL_ENV}" ]; then
+    VENV="<$(basename "${VIRTUAL_ENV}")> "
+else
+    VENV=""
+fi
+}
+add-zsh-hook precmd venv_precmd
+
 show_prompt () {
 # get colors with the colors module
-set prompt_subst
-
 autoload colors zsh/terminfo
 if [[ "$terminfo[colors]" -ge 8 ]]; then
     colors
@@ -31,7 +42,7 @@ PROMPT="\
 
 #$PR_GREEN%n$PR_NO_COLOR@$PR_LIGHT_YELLOW%m$PR_NO_COLOR: "
 
-RPROMPT="$PR_YELLOW(%?)${PR_GREEN}[%!]$PR_NO_COLOR "
+RPROMPT="$PR_MAGENTA\$VENV$PR_YELLOW(%?)${PR_GREEN}[%!]$PR_NO_COLOR "
 
 # export PS1="%(0#.ROOT.) %B%n%b@%m %~: "
 }
