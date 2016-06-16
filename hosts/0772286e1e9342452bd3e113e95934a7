@@ -1,0 +1,4 @@
+
+export PYTHONPATH=$HOME/usr/lib/python2.7/site-packages:$PYTHONPATH
+export LANG=en_US.UTF-8
+
