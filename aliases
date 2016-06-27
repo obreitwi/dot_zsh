@@ -126,6 +126,8 @@ alias kb_us='setxkbmap us -model pc105; xmodmap ~/.xmodmap'
 alias tmu="source <(tmux showenv | grep -v '^-' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
 alias tmlac="tmux-launch-and-configure"
 
+alias nvlcc="nvlc --no-color"
+
 # # hub alias
 # if (( $+commands[hub] )); then
 	# $(hub alias -s)
