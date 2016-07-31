@@ -214,3 +214,8 @@ svg_to_png() {
 }
 zle -N svg_to_png
 
+to_mp3() {
+	ffmpeg -i "$1" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${1:t:r}.mp3"
+}
+zle -N to_mp3
+
