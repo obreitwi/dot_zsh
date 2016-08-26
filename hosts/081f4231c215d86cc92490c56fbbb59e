@@ -1,0 +1,6 @@
+export TMPDIR=/wang/users/obreitwi/tmp_cluster
+
+# module
+source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
+
+# vim: ft=zsh
