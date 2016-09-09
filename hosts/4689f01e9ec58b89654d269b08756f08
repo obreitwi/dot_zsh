@@ -66,7 +66,7 @@ source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
 
 source $HOME/.zsh/special/check_sims
 
-export MODULEPATH=$HOME/opt/modules/versions/jessie:$MODULEPATH
+export MODULEPATH=$HOME/opt/modules/versions:$MODULEPATH
 
 export CPATH=\
 $HOME/usr/include\

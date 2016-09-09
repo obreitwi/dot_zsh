@@ -1,6 +1,9 @@
 export TMPDIR=/wang/users/obreitwi/tmp_cluster
 
+setkipproxy
+
 # module
 source /afs/kip.uni-heidelberg.de/projects/vision/definst_software/zshrc
+source /wang/environment/software/jessie/_spack/share/spack/setup-env.sh
 
 # vim: ft=zsh

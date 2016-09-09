@@ -66,156 +66,164 @@ vman() {
 }
 
 multicat() {
-	for fname in $*; do
-		for count in {0..$(( ${#fname} + 9 ))};do
-			echo -n "#"
-		done
-		echo ""
-		echo "# FILE: $fname #"
-		for count in {0..$(( ${#fname} + 9 ))};do
-			echo -n "#"
-		done
-		echo ""
-		cat $fname
-	done
+    for fname in $*; do
+        for count in {0..$(( ${#fname} + 9 ))};do
+            echo -n "#"
+        done
+        echo ""
+        echo "# FILE: $fname #"
+        for count in {0..$(( ${#fname} + 9 ))};do
+            echo -n "#"
+        done
+        echo ""
+        cat $fname
+    done
 }
 zle -N multicat
 
 setkipproxy() {
-	export no_proxy="localhost,127.0.0.1,.kip.uni-heidelberg.de"
-	export http_proxy=http://proxy2.kip.uni-heidelberg.de:8080
-	export ftp_proxy=http://proxy2.kip.uni-heidelberg.de:8080
-	export https_proxy=http://proxy2.kip.uni-heidelberg.de:8080
+    export no_proxy="localhost,127.0.0.1,.kip.uni-heidelberg.de"
+    export http_proxy=http://proxy2.kip.uni-heidelberg.de:8080
+    export ftp_proxy=http://proxy2.kip.uni-heidelberg.de:8080
+    export https_proxy=http://proxy2.kip.uni-heidelberg.de:8080
 }
 zle -N setkipproxy
 
 
 setnoproxy() {
-	unset no_proxy
-	unset http_proxy
-	unset ftp_proxy
-	unset https_proxy
+    unset no_proxy
+    unset http_proxy
+    unset ftp_proxy
+    unset https_proxy
 }
 zle -N setnoproxy
 
 # print all arguments on new lines
 printl() {
-	for a in "$@"; do echo $a; done
+    for a in "$@"; do echo $a; done
 }
 zle -N printl
 
 # print all arguments with pwd prepended
 printp() {
-	for a in "$@"; do echo $(pwd -P)/$a; done
+    for a in "$@"; do echo $(pwd -P)/$a; done
 }
 zle -N printp
 #
 # print all arguments with custom prefix
 printc() {
-	for a in "${@:2}"; do echo $1/$a; done
+    for a in "${@:2}"; do echo $1/$a; done
 }
 zle -N printc
 
 # cp a file, inserting the directory name into the real filename
 # (implemented in python now)
 # cpd () {
-	# SRC=$1
-	# TARGET_FOLDER=$2
-	# filename=$(basename $SRC)
-	# last_dir=$(basename $(dirname $SRC))
-	# cp -v ${SRC} ${TARGET_FOLDER}/${last_dir}_${filename}
+    # SRC=$1
+    # TARGET_FOLDER=$2
+    # filename=$(basename $SRC)
+    # last_dir=$(basename $(dirname $SRC))
+    # cp -v ${SRC} ${TARGET_FOLDER}/${last_dir}_${filename}
 # }
 
 
 # generate a random string of length $1
 rstr() {
-	if [[ $# > 0 ]]; then
-		strlen="$1"
-	else
-		strlen="8"
-	fi
-	cat /dev/urandom 2>/dev/null | tr -cd "[:alnum:]" 2>/dev/null | head -c ${strlen}
+    if [[ $# > 0 ]]; then
+        strlen="$1"
+    else
+        strlen="8"
+    fi
+    cat /dev/urandom 2>/dev/null | tr -cd "[:alnum:]" 2>/dev/null | head -c ${strlen}
 }
 zle -N rstr
 
 
 popen() { 
-	if [[ $# == 0 ]]; then
-		ilab -ic "import cPickle as pickle";
-	elif [[ $# == 1 ]]; then
-		ipython -ic "import cPickle as pickle; ${1:t:r} = pickle.load( open( '${1}', 'r' ))"
-	else
-		ipython -ic "import cPickle as pickle; ${2} = pickle.load( open( '${1}', 'r' ))"
-	fi
+    if [[ $# == 0 ]]; then
+        ilab -ic "import cPickle as pickle";
+    elif [[ $# == 1 ]]; then
+        ipython -ic "import cPickle as pickle; ${1:t:r} = pickle.load( open( '${1}', 'r' ))"
+    else
+        ipython -ic "import cPickle as pickle; ${2} = pickle.load( open( '${1}', 'r' ))"
+    fi
 }
 zle -N popen
 
 foreground-vim() {
-	fg %vim
+    fg %vim
 }
 zle -N foreground-vim
 bindkey '^Z' foreground-vim
 
 find_in_hist() {
-	grep -ri $1 ~/.logs
+    grep -ri $1 ~/.logs
 }
 zle -N find_in_hist
 
 tmux-launch-and-configure() {
-	tmux new-session -d -s $1
-	tmux source "$HOME/.tmux/$1.conf"
-	tmux attach -t $1
+    tmux new-session -d -s $1
+    tmux source "$HOME/.tmux/$1.conf"
+    tmux attach -t $1
 }
 zle -N tmux-launch-and-configure
 
 get-modeline() {
-	cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
+    cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
 }
 zle -N get-modeline
 
 slurm-get-job-ids() {
-	if [[ $# > 1 ]]; then
-		state=$1
-	else
-		state="PD"
-	fi
-	squeue -h | grep obreitwi | grep "\bPD\b" | cut -d " " -f 3
+    if [[ $# > 1 ]]; then
+        state=$1
+    else
+        state="PD"
+    fi
+    squeue -h | grep obreitwi | grep "\bPD\b" | cut -d " " -f 3
 }
 zle -N slurm-get-job-ids
 
 # nicer git log
 gitlg() {
-	PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
+    PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
 }
 zle -N gitlg
 
 
 svg_to_pdf() {
-	origin=$1
-	extension=${origin:e}
-	if [[ "$extension" != "svg" ]]; then
-		echo "Wrong extension!" >&2
-	else
-		target="${origin:r}.pdf"
-		inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
-	fi
+    origin=$1
+    extension=${origin:e}
+    if [[ "$extension" != "svg" ]]; then
+        echo "Wrong extension!" >&2
+    else
+        target="${origin:r}.pdf"
+        inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
+    fi
 }
 zle -N svg_to_pdf
 
 svg_to_png() {
-	origin=$1
-	extension=${origin:e}
-	if [[ "$extension" != "svg" ]]; then
-		echo "Wrong extension!" >&2
-	else
-		target="${origin:r}.png"
-		inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
-	fi
+    origin=$1
+    extension=${origin:e}
+    if [[ "$extension" != "svg" ]]; then
+        echo "Wrong extension!" >&2
+    else
+        target="${origin:r}.png"
+        inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
+    fi
 }
 zle -N svg_to_png
 
 to_mp3() {
-	ffmpeg -i "$1" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${1:t:r}.mp3"
+    ffmpeg -i "$1" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${1:t:r}.mp3"
 }
 zle -N to_mp3
 
+get_eta() {
+    for f in "$@"; do
+        grep "ETA" $f | tail -n 1
+    done
+}
+zle -N get_eta
+
+# vim: ft=zsh
