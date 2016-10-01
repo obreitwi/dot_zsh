@@ -52,6 +52,10 @@ alias -g fehs="fehm --action1 'feh -dx. $(dirname %f)/spikes_*.png'"
 export PLOT_II="plots/dii_taff_ll_ws_b_r_-001.png"
 export PLOT="plots/dist_taff_ll_ws_b_r_-001.png"
 
+if [[ -o login ]]; then
+    export GPG_TTY=$(tty)
+fi
+
 setkipproxy
 
 # vim: ft=zsh

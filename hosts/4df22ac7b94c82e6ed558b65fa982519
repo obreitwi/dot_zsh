@@ -1,0 +1,5 @@
+
+if [[ -o login ]]; then
+    export GPG_TTY=$(tty)
+fi
+

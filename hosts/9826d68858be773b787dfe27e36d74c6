@@ -35,6 +35,10 @@ alias -g pacc=pacman-color
 compdef _pacman pacc
 compdef _pacman yaourt
 
+if [[ -o login ]]; then
+    export GPG_TTY=$(tty)
+fi
+
 source /etc/profile.d/autojump.zsh
 
 # vim: ft=zsh
