@@ -1,4 +1,4 @@
-export TMPDIR=/wang/users/obreitwi/tmp_cluster
+export TMPDIR=/wang/users/obreitwi/tmp_cluster/$(hostname)
 
 setkipproxy
 

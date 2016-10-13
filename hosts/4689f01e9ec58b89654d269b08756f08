@@ -5,7 +5,7 @@ export WANGHOME='/wang/users/obreitwi'
 alias setAFS='export HOME=$AFSHOME'
 alias setFNB='export HOME=$FNBHOME'
 
-export TMPDIR=/wang/users/obreitwi/tmp_cluster
+export TMPDIR=/wang/users/obreitwi/tmp_cluster/$(hostname)
 cd ~
 
 alias ssh_kp='ssh-add ~/.ssh/keys/id_kip'
