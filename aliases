@@ -128,6 +128,10 @@ alias tmlac="tmux-launch-and-configure"
 
 alias nvlcc="nvlc --no-color"
 
+alias mosh_ice='mosh --port=57022 --ssh="ssh -p 7022" gitviz.kip.uni-heidelberg.de'
+alias mosh_hel='mosh --port=61022 --ssh="ssh -p 11022" gitviz.kip.uni-heidelberg.de'
+alias mosh_beli='mosh --port=62022 --ssh="ssh -p 12022" gitviz.kip.uni-heidelberg.de'
+
 # # hub alias
 # if (( $+commands[hub] )); then
 	# $(hub alias -s)
