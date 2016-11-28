@@ -1,13 +1,5 @@
 
-# get md5sum of hostname
-mdh() {
-    if [[ $# == 0 ]]; then
-        input=$HOST
-    else
-        input=$1
-    fi
-    echo $(set -- $(echo "$input" | md5sum -); echo $1)
-}
+source rc-functions
 ENCHOST=$(mdh)
 
 # host specific configs that have to be loaded before anything else

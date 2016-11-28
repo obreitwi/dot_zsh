@@ -226,4 +226,13 @@ get_eta() {
 }
 zle -N get_eta
 
+export_spack() {
+    # $1: root path to export
+    local rootpath="$1"
+    export_path PATH "$rootpath/bin"
+    export_path LD_LIBRARY_PATH "$rootpath/lib"
+    export_path MANPATH "$rootpath/share/man"
+    export_path PYTHONPATH "$rootpath/lib/python2.7/site-packages"
+}
+
 # vim: ft=zsh
