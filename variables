@@ -1,5 +1,12 @@
 export PATH=$HOME/.local/bin:$HOME/usr/bin:$PATH
+export LD_LIBRARY_PATH=$HOME/.local/lib:$LD_LIBRARY_PATH
 #MANPATH=$MANPATH:
+
+if command -v lsb_release 2>&1 >/dev/null; then
+    DISTNAME=$(lsb_release -c -s)
+    export PATH=$HOME/.local-$DISTNAME/bin:$PATH
+    export LD_LIBRARY_PATH=$HOME/.local-$DISTNAME/lib:$LD_LIBRARY_PATH
+fi
 
 export EDITOR="vim"
 
@@ -23,7 +30,7 @@ export VIRTUAL_ENV_DISABLE_PROMPT="true"
 export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
 
 export MANPATH=\
-$HOME/usr/share/man:\
+$HOME/.local/share/man:\
 /usr/share/man:\
 $MANPATH
 

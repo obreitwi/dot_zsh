@@ -1,5 +1,10 @@
 #!/bin/bash
 
+<<<<<<< b98c3b2b2ea46b47f2699d3d72154c2205bca723
+=======
+# Quick install script to setup all symlinks
+
+>>>>>>> cluster updates
 # SRCFLD=$(dirname $(realpath $0))
 SRCFLD=$(dirname $(readlink -m "$0"))
 
