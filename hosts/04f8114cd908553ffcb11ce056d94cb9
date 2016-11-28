@@ -1,0 +1,4 @@
+
+source $HOME/.spack/share/spack/setup-env.sh
+
+# vim: ft=zsh
