@@ -1,5 +1,5 @@
 
-source rc-functions
+source $HOME/.zsh/rc_functions
 ENCHOST=$(mdh)
 
 # host specific configs that have to be loaded before anything else

@@ -1,0 +1,54 @@
+# functions to use in the rc files (primarily)
+
+# get md5sum of hostname
+mdh() {
+    if [[ $# == 0 ]]; then
+        input=$HOST
+    else
+        input=$1
+    fi
+    echo $(set -- $(echo "$input" | md5sum -); echo $1)
+}
+zle -N mdh
+
+# add path to environment variable if it is not contained already
+export_path() {
+    # $1: name of environment variable
+    # $2: path
+    local envvar="$1"
+    local path_to_add="$2"
+    # if eval "echo \$${envvar}" | grep -qvF "${path_to_add}"
+    # eval "echo \$${envvar}"
+    if eval "echo \$${envvar}" | grep -qvF "${path_to_add}"
+    then
+        # eval "echo $envvar: \$$envvar"
+        # echo "export ${envvar}=${path_to_add}:\$${envvar}"
+        eval "export ${envvar}=${path_to_add}:\$${envvar}"
+    fi
+}
+zle -N export_path
+
+# prepend path to environment variable
+prepend_path() {
+    # $1: name of environment variable
+    # $2: path
+    local envvar="$1"
+    local path_to_add=$(echo "$2" | sed -e 's/[]\/$*.^|[]/\\&/g')
+    local cleanenv=$(eval "echo \$$envvar" | sed -e "s/$path_to_add:\\?//g")
+    # echo "export ${envvar}=${path_to_add}:${cleanenv}"
+    eval "export ${envvar}=${path_to_add}:${cleanenv}"
+}
+zle -N prepend_path
+
+export_root() {
+    # $1: root path to export
+    local rootpath="$1"
+    prepend_path PATH "$rootpath/bin"
+    prepend_path LD_LIBRARY_PATH "$rootpath/lib"
+    prepend_path MANPATH "$rootpath/share/man"
+    prepend_path PYTHONPATH "$rootpath/lib/python2.7/site-packages"
+}
+zle -N export_root
+
+
+# vim: ft=zsh

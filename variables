@@ -1,13 +1,11 @@
-export_path PATH $HOME/.local/bin
-export_path PATH $HOME/usr/bin
-export_path LD_LIBRARY_PATH $HOME/.local/lib:$LD_LIBRARY_PATH
-#MANPATH=$MANPATH:
 
 if command -v lsb_release 2>&1 >/dev/null; then
     DISTNAME=$(lsb_release -c -s)
-    export_path PATH $HOME/.local-$DISTNAME/bin:$PATH
-    export_path LD_LIBRARY_PATH $HOME/.local-$DISTNAME/lib:$LD_LIBRARY_PATH
+    export_root $HOME/.local-$DISTNAME
 fi
+
+# export_root $HOME/usr
+export_root $HOME/.local
 
 export EDITOR="vim"
 
@@ -29,9 +27,6 @@ export VIRTUAL_ENV_DISABLE_PROMPT="true"
 
 # vidir arguments
 export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
-
-export_path MANPATH $HOME/.local/share/man
-
 
 #VISIONS PATHS
 #  if [ $HOST = Styx ]; then
