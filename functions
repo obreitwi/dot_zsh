@@ -84,7 +84,7 @@ zle -N multicat
 setkipproxy() {
     export no_proxy="localhost,127.0.0.1,.kip.uni-heidelberg.de"
     export http_proxy=http://proxy2.kip.uni-heidelberg.de:8080
-    export ftp_proxy=http://proxy2.kip.uni-heidelberg.de:8080
+    export ftp_proxy=http://proxy2.kip.uni-heidelberg.de:21
     export https_proxy=http://proxy2.kip.uni-heidelberg.de:8080
 }
 zle -N setkipproxy
@@ -159,19 +159,17 @@ bindkey '^Z' foreground-vim
 find_in_hist() {
     grep -ri $1 ~/.logs
 }
-zle -N find_in_hist
+alias fih=find_in_list
 
 tmux-launch-and-configure() {
     tmux new-session -d -s $1
     tmux source "$HOME/.tmux/$1.conf"
     tmux attach -t $1
 }
-zle -N tmux-launch-and-configure
 
 get-modeline() {
     cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
 }
-zle -N get-modeline
 
 slurm-get-job-ids() {
     if [[ $# > 1 ]]; then
@@ -181,13 +179,11 @@ slurm-get-job-ids() {
     fi
     squeue -h | grep obreitwi | grep "\bPD\b" | cut -d " " -f 3
 }
-zle -N slurm-get-job-ids
 
 # nicer git log
 gitlg() {
     PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
 }
-zle -N gitlg
 
 
 svg_to_pdf() {
@@ -200,7 +196,6 @@ svg_to_pdf() {
         inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
     fi
 }
-zle -N svg_to_pdf
 
 svg_to_png() {
     origin=$1
@@ -212,33 +207,29 @@ svg_to_png() {
         inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
     fi
 }
-zle -N svg_to_png
 
 to_mp3() {
     ffmpeg -i "$1" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${1:t:r}.mp3"
 }
-zle -N to_mp3
 
 get_eta() {
     for f in "$@"; do
         grep "ETA" $f | tail -n 1
     done
 }
-zle -N get_eta
 
 uniq_lines() {
-
+    cat -n $1 | sort -uk2 | sort -nk1 | cut -f2-
 }
-zle -N uniq_lines
 
-spack_load() {
+spack_modules() {
     TMPFILE="$(mktemp)"
     for mod in "$@"; do
-        echo "Loading $mod…"
+        (echo "Loading $mod…" 1>&2)
         spack module loads -r $mod >> $TMPFILE
     done
-    echo "Committing…"
-    source =(cat -n $TMPFILE | sort -uk2 | sort -nk1 | cut -f2-)
+    (echo "Committing…" 1>&2)
+    uniq_lines $TMPFILE
     rm $TMPFILE
 }
 
@@ -269,6 +260,10 @@ END
                 args=("${@[1,-2]}")
         }
         PAGER="less -g -s '+/$expr'" man "${=args}"
+}
+
+spack_load() {
+    source =(spack_modules "$@")
 }
 
 # vim: ft=zsh
