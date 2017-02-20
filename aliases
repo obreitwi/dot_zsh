@@ -101,10 +101,16 @@ alias r--='chmod 644'
 alias r-x='chmod 755'
 
 # for file navigation
-alias  ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
+myalias='..'
+mycmd='cd ..'
+for i in {1..20}; do
+    eval "alias ${myalias}='${mycmd}'"
+    myalias="${myalias}."
+    mycmd="${mycmd}/.."
+done
+
+unset mycmd
+unset myalias
 
 # reload zsh config
 alias zsh_reload='source ~/.zshrc'
@@ -143,4 +149,6 @@ alias mosh_beli='mosh --port=62087 --ssh="ssh -p 12022" gitviz.kip.uni-heidelber
 
 alias lp_1="lp -o fit-to-page -o sides=one-sided -o media=A4 -d"
 alias lp_2="lp -o fit-to-page -o sides=two-sided-long-edge -o media=A4 -d"
+
+# vim: ft=zsh
 
