@@ -141,3 +141,6 @@ alias mosh_beli='mosh --port=62087 --ssh="ssh -p 12022" gitviz.kip.uni-heidelber
 	# $(hub alias -s)
 # fi
 
+alias lp_1="lp -o fit-to-page -o sides=one-sided -o media=A4 -d"
+alias lp_2="lp -o fit-to-page -o sides=two-sided-long-edge -o media=A4 -d"
+
