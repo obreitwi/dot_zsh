@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Quick install script to setup all symlinks
+
 # SRCFLD=$(dirname $(realpath $0))
 SRCFLD=$(dirname $(readlink -m "$0"))
 
