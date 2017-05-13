@@ -64,7 +64,6 @@ $LD_LIBRARY_PATH
 alias -g pacc=pacman-color
 compdef _pacman pacc
 compdef _pacman yaourt
-alias -g monoff="xset dpms force off"
 alias -g lockshut=" && slock"
 
 # somehow it does not work atm when spawned from xmonad
