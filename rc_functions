@@ -40,7 +40,7 @@ prepend_path() {
 }
 zle -N prepend_path
 
-export_root() {
+prepend_root() {
     # $1: root path to export
     local rootpath="$1"
     prepend_path PATH "$rootpath/bin"
@@ -48,7 +48,7 @@ export_root() {
     prepend_path MANPATH "$rootpath/share/man"
     prepend_path PYTHONPATH "$rootpath/lib/python2.7/site-packages"
 }
-zle -N export_root
+zle -N prepend_root
 
 
 # vim: ft=zsh

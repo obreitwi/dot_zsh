@@ -1,11 +1,11 @@
 
 if command -v lsb_release 2>&1 >/dev/null; then
     DISTNAME=$(lsb_release -c -s)
-    export_root $HOME/.local-$DISTNAME
+    prepend_root $HOME/.local-$DISTNAME
 fi
 
-# export_root $HOME/usr
-export_root $HOME/.local
+# prepend_root $HOME/usr
+prepend_root $HOME/.local
 
 export EDITOR="vim"
 

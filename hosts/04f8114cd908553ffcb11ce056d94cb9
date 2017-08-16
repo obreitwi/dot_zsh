@@ -1,6 +1,6 @@
 
 source $HOME/.spack/share/spack/setup-env.sh
 
-export_root $HOME/.spack-view
+prepend_root $HOME/.spack-view
 
 # vim: ft=zsh
