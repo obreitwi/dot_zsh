@@ -28,6 +28,7 @@ autoload -U zmv
 setopt hist_ignore_all_dups
 setopt EXTENDED_HISTORY
 setopt GLOB_COMPLETE
+# setopt no_bang_hist
 
 # reclaim ctrl-s
 stty stop undef
