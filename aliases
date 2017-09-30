@@ -152,5 +152,8 @@ alias monoff="xset dpms force off"
 alias lp_1="lp -o fit-to-page -o sides=one-sided -o media=A4 -d"
 alias lp_2="lp -o fit-to-page -o sides=two-sided-long-edge -o media=A4 -d"
 
+# safe sshfs (no weird file sizes etc) 
+alias ssshfs="sshfs -o writeback_cache=no,dir_cache=no"
+
 # vim: ft=zsh
 
