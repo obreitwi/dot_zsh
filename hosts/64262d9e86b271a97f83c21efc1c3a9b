@@ -3,15 +3,20 @@
 refresh_monitors() {
 if xrandr | grep -q "HDMI2 connected"; then
 echo "setup @ home"
-xrandr --output eDP1 --auto --output HDMI2 --primary --auto --right-of eDP1
+xrandr --output eDP1 --auto
+xrandr --output HDMI2 --primary --auto --right-of eDP1
 elif xrandr | grep -q "DP2-2 connected"; then
 echo "setup @ office"
-xrandr --output eDP1 --auto --output DP2-1 --primary --auto --right-of eDP1 \
-       --output DP2-2 --auto --right-of DP2-1
+xrandr --output eDP1 --auto
+xrandr --output DP2-1 --primary --auto --right-of eDP1
+xrandr --output DP2-2 --auto --right-of DP2-1
 else
 echo "setup @ mobile"
 xrandr --output eDP1 --primary --auto
 fi
 }
+
+alias git_proxy="git config --global http.proxy \"$http_proxy\""
+alias git_no_proxy="git config --global --unset http.proxy"
 
 # vim: ft=sh
