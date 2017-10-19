@@ -177,7 +177,7 @@ slurm-get-job-ids() {
     else
         state="PD"
     fi
-    squeue -h | grep obreitwi | grep "\bPD\b" | cut -d " " -f 3
+    squeue -h | grep obreitwi | grep "\b$state\b" | cut -d " " -f 3
 }
 
 # nicer git log
