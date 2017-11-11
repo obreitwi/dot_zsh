@@ -1,6 +1,6 @@
 
 
-refresh_monitors() {
+monitors_default() {
 if xrandr | grep -q "HDMI2 connected"; then
 echo "setup @ home"
 xrandr --output eDP1 --auto
@@ -16,7 +16,32 @@ xrandr --output eDP1 --primary --auto
 fi
 }
 
+
+monitors_gaming_small() {
+
+# options
+setup="small-gaming"
+mode="1280x720"
+
+if xrandr | grep -q "HDMI2 connected"; then
+echo "${setup}-setup @ home"
+xrandr --output eDP1 --off
+xrandr --output HDMI2 --primary --mode ${mode}
+elif xrandr | grep -q "DP2-2 connected"; then
+echo "${setup}-setup @ office"
+xrandr --output eDP1 --off
+xrandr --output DP2-1 --primary --auto --mode ${mode}
+xrandr --output DP2-2 --Off
+else
+echo "${setup}-setup @ mobile"
+xrandr --output eDP1 --primary --mode ${mode}
+fi
+}
+
+
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
+alias rpushp="rpush -H root-p"
+alias refresh_monitors="monitors_default"
 
 # vim: ft=sh

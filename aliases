@@ -154,7 +154,7 @@ alias lp_2="lp -o fit-to-page -o sides=two-sided-long-edge -o media=A4 -d"
 
 # safe sshfs (no weird file sizes etc) 
 alias ssshfs="sshfs -o writeback_cache=no,dir_cache=no"
-alias susshfs="sshfs -o writeback_cache=no,dir_cache=no,idmap=user"
+alias susshfs="sshfs -o allow_root,writeback_cache=no,dir_cache=no,idmap=user"
 
 # vim: ft=zsh
 
