@@ -17,11 +17,15 @@ fi
 }
 
 
-monitors_gaming_small() {
+monitors_set_gaming() {
+if [ "$#" -ne 2 ]; then
+    echo "Usage monitors_set_gaming <setup-name> <mode>"
+    return
+fi
 
 # options
-setup="small-gaming"
-mode="1280x720"
+setup="$1"
+mode="$2"
 
 if xrandr | grep -q "HDMI2 connected"; then
 echo "${setup}-setup @ home"
@@ -42,6 +46,10 @@ fi
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
+
 alias refresh_monitors="monitors_default"
+alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
+alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
+
 
 # vim: ft=sh
