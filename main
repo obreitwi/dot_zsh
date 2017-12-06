@@ -43,10 +43,18 @@ SAVEHIST=1000000
 HISTFILE=~/.zsh_history
 setopt APPEND_HISTORY
 
-function precmd() {
+# disabled for preexec version
+# function precmd() {
+    # if [ "$(id -u)" -ne 0 ]; then
+        # FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
+        # echo "$USER@`hostname`:`pwd` [$(date -u)] `\history -1`" >> ${FULL_CMD_LOG}
+    # fi
+# }
+function preexec() {
+    newLine="$1"
     if [ "$(id -u)" -ne 0 ]; then
-        FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
-        echo "$USER@`hostname`:`pwd` [$(date -u)] `\history -1`" >> ${FULL_CMD_LOG}
+        FULL_CMD_LOG="$HOME/.logs-test/zsh-history-$(date -u "+%Y-%m-%d").log"
+        echo "$USER@$(hostname):$(pwd) [$(date -u)] $newLine" >> ${FULL_CMD_LOG}
     fi
 }
 
