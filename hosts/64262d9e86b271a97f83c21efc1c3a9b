@@ -42,6 +42,8 @@ xrandr --output eDP1 --primary --mode ${mode}
 fi
 }
 
+alias audio_hdmi="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra1"
+alias audio_regular="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:analog-stereo+input:analog-stereo"
 
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
