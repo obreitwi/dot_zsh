@@ -42,16 +42,37 @@ xrandr --output eDP1 --primary --mode ${mode}
 fi
 }
 
+
+monitors_external() {
+# options
+setup="external"
+
+if xrandr | grep -q "HDMI2 connected"; then
+echo "${setup}-setup @ home"
+xrandr --output eDP1 --off
+xrandr --output HDMI2 --primary --auto
+elif xrandr | grep -q "DP2-2 connected"; then
+echo "${setup}-setup @ office"
+xrandr --output eDP1 --off
+xrandr --output DP2-1 --primary --auto
+xrandr --output DP2-2 --Off
+else
+echo "${setup}-setup @ mobile"
+xrandr --output eDP1 --primary --auto
+fi
+}
+
+
+alias refresh_monitors="monitors_default"
+alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
+alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
+
 alias audio_hdmi="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra1"
 alias audio_regular="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:analog-stereo+input:analog-stereo"
 
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
-
-alias refresh_monitors="monitors_default"
-alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
-alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
 
 
 # vim: ft=sh

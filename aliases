@@ -159,11 +159,16 @@ alias susshfs="sshfs -o allow_root,writeback_cache=no,dir_cache=no,idmap=user"
 alias keyboard_setup="setxkbmap us\
   -variant altgr-intl \
   -model pc105 \
+  -option \
   -option compose:menu \
+  -option compose:prsc \
+  -option caps:escape \
   -option lv3:ralt_switch \
   -option eurosign:e \
-  -option nbsp:level3n
-xmodmap ~/.Xmodmap"
+  -option nbsp:level3n"
+# xmodmap ~/.Xmodmap"
+alias keyboard_setup_lctl="localectl set-x11-keymap us pc105 altgr-intl \
+    compose:menu,compose:prsc,caps:escape,lv3:ralt_switch,eurosign:e,nbsp:level3n"
 
 # vim: ft=zsh
 
