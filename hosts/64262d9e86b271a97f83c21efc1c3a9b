@@ -14,6 +14,8 @@ else
 echo "setup @ mobile"
 xrandr --output eDP1 --primary --auto
 fi
+
+refresh_bg
 }
 
 
@@ -40,6 +42,8 @@ else
 echo "${setup}-setup @ mobile"
 xrandr --output eDP1 --primary --mode ${mode}
 fi
+
+refresh_bg
 }
 
 
@@ -60,10 +64,14 @@ else
 echo "${setup}-setup @ mobile"
 xrandr --output eDP1 --primary --auto
 fi
+
+refresh_bg
 }
 
 
 alias refresh_monitors="monitors_default"
+alias refresh_bg="feh --bg-fill \"${HOME}/wallpaper/brisbinxmonadwall.png\""
+
 alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
 alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
 
