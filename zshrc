@@ -19,6 +19,9 @@ else
         source $HOME/.zsh/private
     fi
 
+    # load fasd if it exists
+    type fasd &> /dev/null && source =(fasd --init auto)
+
     [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
     # if there is a local version, source it as well
     [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh

@@ -1,4 +1,9 @@
 
+prepend_path PATH $HOME/.stack/bin
+
+source $HOME/.local/Modules/init/zsh
+
+alias refresh_bg="feh --bg-fill \"${HOME}/wallpaper/brisbinxmonadwall.png\""
 
 monitors_default() {
 if xrandr | grep -q "HDMI2 connected"; then
@@ -68,9 +73,7 @@ fi
 refresh_bg
 }
 
-
 alias refresh_monitors="monitors_default"
-alias refresh_bg="feh --bg-fill \"${HOME}/wallpaper/brisbinxmonadwall.png\""
 
 alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
 alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
@@ -81,6 +84,5 @@ alias audio_regular="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:an
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
-
 
 # vim: ft=sh
