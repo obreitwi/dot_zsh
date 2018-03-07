@@ -9,7 +9,6 @@ mdh() {
     fi
     echo $(set -- $(echo "$input" | md5sum -); echo $1)
 }
-zle -N mdh
 
 # add path to environment variable if it is not contained already
 export_path() {
@@ -26,7 +25,6 @@ export_path() {
         eval "export ${envvar}=${path_to_add}:\$${envvar}"
     fi
 }
-zle -N export_path
 
 # prepend path to environment variable
 prepend_path() {
@@ -38,7 +36,6 @@ prepend_path() {
     # echo "export ${envvar}=${path_to_add}:${cleanenv}"
     eval "export ${envvar}=${path_to_add}:${cleanenv}"
 }
-zle -N prepend_path
 
 prepend_root() {
     # $1: root path to export
@@ -48,7 +45,6 @@ prepend_root() {
     prepend_path MANPATH "$rootpath/share/man"
     prepend_path PYTHONPATH "$rootpath/lib/python2.7/site-packages"
 }
-zle -N prepend_root
 
 
 # vim: ft=zsh

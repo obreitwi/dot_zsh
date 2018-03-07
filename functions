@@ -266,4 +266,10 @@ spack_load() {
     source =(spack_modules "$@")
 }
 
+cat_pkl() {
+    for f in "$@"; do
+        python -c "import cPickle as pkl, pprint; pprint.pprint(pkl.load(open('${f}', 'r')))"
+    done
+}
+
 # vim: ft=zsh

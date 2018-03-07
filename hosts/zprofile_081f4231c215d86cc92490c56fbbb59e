@@ -1,6 +1,6 @@
 
-unset VISION_ENVIRONMENT
-source /etc/profile
+# unset VISION_ENVIRONMENT
+# source /etc/profile
 export TMPDIR=/wang/users/obreitwi/tmp_cluster/$(hostname)
 
 # module

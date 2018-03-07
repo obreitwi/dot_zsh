@@ -1,11 +1,13 @@
 setkipproxy
 
-if command -v lsb_release 2>&1 >/dev/null; then
-    DISTNAME=$(lsb_release -c -s)
-    prepend_root $HOME/.local-$DISTNAME
-fi
+source /wang/environment/software/Modules/current/init/zsh
 
-prepend_root $HOME/.local
+# if command -v lsb_release 2>&1 >/dev/null; then
+    # DISTNAME=$(lsb_release -c -s)
+    # prepend_root $HOME/.local-$DISTNAME
+# fi
+
+# prepend_root $HOME/.local
 
 # prepend_root $HOME/.spack-jessie
 

@@ -6,7 +6,7 @@ ENCHOST=$(mdh)
 [ -f ~/.zsh/hosts/pre_$ENCHOST ] && source ~/.zsh/hosts/pre_$ENCHOST
 
 if [ -d ~/.oh-my-zsh ]; then
-    source /home/obreitwi/.zsh/oh-my-zshrc
+    source $HOME/.zsh/oh-my-zshrc
 else
     source $HOME/.zsh/main
     source $HOME/.zsh/variables
@@ -21,10 +21,10 @@ else
 
     # load fasd if it exists
     type fasd &> /dev/null && source =(fasd --init auto)
-
-    [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
-    # if there is a local version, source it as well
-    [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
+    # # source  autojump
+    # [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
+    # # if there is a local version, source it as well
+    # [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
     # support for 256 colors
     # export TERM='rxvt-256color'

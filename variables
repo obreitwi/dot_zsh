@@ -1,13 +1,13 @@
 
-if command -v lsb_release 2>&1 >/dev/null; then
-    DISTNAME=$(lsb_release -c -s)
-    if [[ "$DISTNAME" != "n/a" ]]; then
-        prepend_root $HOME/.local-$DISTNAME
-    fi
-fi
+# if command -v lsb_release 2>&1 >/dev/null; then
+    # DISTNAME=$(lsb_release -c -s)
+    # if [[ "$DISTNAME" != "n/a" ]]; then
+        # prepend_root $HOME/.local-$DISTNAME
+    # fi
+# fi
 
 # prepend_root $HOME/usr
-prepend_root $HOME/.local
+# prepend_root $HOME/.local
 
 export EDITOR="vim"
 
@@ -17,7 +17,9 @@ export VIRTUAL_ENV_DISABLE_PROMPT="true"
 export GPG_TTY=$(tty)
 
 # Refresh gpg-agent tty in case user switches into an X session
-gpg-connect-agent updatestartuptty /bye >/dev/null
+if command -v gpg-connect-agent 2>&1 >/dev/null; then
+    gpg-connect-agent updatestartuptty /bye >/dev/null
+fi
 
 # This is used for auto_cmd
 # CDPATH=.:..:~
