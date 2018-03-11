@@ -131,6 +131,8 @@ alias kb_us='setxkbmap us -model pc105; xmodmap ~/.xmodmap'
 
 alias tmu="source <(tmux showenv | grep -v '^-' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
 alias tmlac="tmux-launch-and-configure"
+alias tmux_reattach_running="/proc/$(pgrep -u $USER tmux | head -n 1)/exe detach; /proc/$(pgrep -u $USER tmux | head -n 1)/exe attach"
+alias tmar="tmux_reattach_running"
 
 alias nvlcc="nvlc --no-color"
 
@@ -143,6 +145,8 @@ alias mosh_hel='mosh --port=61087 --ssh="ssh -p 11022" gitviz.kip.uni-heidelberg
 alias mosh_beli='mosh --port=62087 --ssh="ssh -p 12022" gitviz.kip.uni-heidelberg.de'
 
 alias monoff="xset dpms force off"
+
+# alias diff_lines="diff --unchanged-line-format= --old-line-format= --new-line-format='%L'\" sums =(sha512sum fig/*.svg) | sed -e 's:^[0-9a-f]*\s*::'
 
 # # hub alias
 # if (( $+commands[hub] )); then
