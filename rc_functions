@@ -34,7 +34,7 @@ prepend_path() {
     local path_to_add=$(echo "$2" | sed -e 's/[]\/$*.^|[]/\\&/g')
     local cleanenv=$(eval "echo \$$envvar" | sed -e "s/$path_to_add:\\?//g")
     # echo "export ${envvar}=${path_to_add}:${cleanenv}"
-    eval "export ${envvar}=${path_to_add}:${cleanenv}"
+    eval "export ${envvar}=${path_to_add}${cleanenv:+:$cleanenv}"
 }
 
 prepend_root() {
@@ -45,6 +45,5 @@ prepend_root() {
     prepend_path MANPATH "$rootpath/share/man"
     prepend_path PYTHONPATH "$rootpath/lib/python2.7/site-packages"
 }
-
 
 # vim: ft=zsh
