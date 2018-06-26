@@ -14,7 +14,7 @@ xrandr --output eDP1 --auto
 xrandr --output HDMI2 --primary --auto --right-of eDP1
 elif xrandr | grep -q "DP2-2 connected"; then
 echo "setup @ office"
-xrandr --output eDP1 --auto
+xrandr --output eDP1 --off
 xrandr --output DP2-1 --primary --auto --right-of eDP1
 xrandr --output DP2-2 --auto --right-of DP2-1
 else
@@ -69,6 +69,24 @@ xrandr --output DP2-1 --primary --auto
 xrandr --output DP2-2 --auto
 else
 echo "${setup}-setup @ mobile"
+xrandr --output eDP1 --primary --auto
+fi
+
+refresh_bg
+}
+
+monitors_all() {
+if xrandr | grep -q "HDMI2 connected"; then
+echo "setup @ home"
+xrandr --output eDP1 --auto
+xrandr --output HDMI2 --primary --auto --right-of eDP1
+elif xrandr | grep -q "DP2-2 connected"; then
+echo "setup @ office"
+xrandr --output eDP1 --auto
+xrandr --output DP2-1 --primary --auto --right-of eDP1
+xrandr --output DP2-2 --auto --right-of DP2-1
+else
+echo "setup @ mobile"
 xrandr --output eDP1 --primary --auto
 fi
 
