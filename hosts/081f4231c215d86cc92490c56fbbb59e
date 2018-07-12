@@ -1,10 +1,14 @@
 setkipproxy
 
-source /wang/environment/software/Modules/current/init/zsh
+if (( ${+SINGULARITY_NAME} )); then
+    source /opt/spack/share/spack/setup-env.sh
+else
+    # perform the following only outside of singularity containers
+    source /wang/environment/software/Modules/current/init/zsh
+    prepend_path MODULEPATH /wang/environment/software/jessie/spack/20180129_live/modules
+    export MANPATH=${MANPATH:+$MANPATH:}/usr/share/man
+fi
 
-prepend_path MODULEPATH /wang/environment/software/jessie/spack/20180129_live/modules
-
-export MANPATH=${MANPATH:+$MANPATH:}/usr/share/man
 
 # if command -v lsb_release 2>&1 >/dev/null; then
     # DISTNAME=$(lsb_release -c -s)

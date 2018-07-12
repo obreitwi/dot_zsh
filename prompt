@@ -11,6 +11,15 @@ fi
 }
 add-zsh-hook precmd venv_precmd
 
+# singularity_precmd() {
+# if ! [ -z "${SINGULARITY_NAME}" ]; then
+    # SINGULARY="~>${SINGULARITY_NAME}"
+# else
+    # SNAME=""
+# fi
+# }
+# add-zsh-hook precmd singularity_precmd
+
 show_prompt () {
 # get colors with the colors module
 autoload colors zsh/terminfo
@@ -25,9 +34,10 @@ done
 
 PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
+
 # we have to use double quotes for this one to evaluate the colors
 PROMPT="\
-┌─[$PR_CYAN%D{%m-%d/%H:%M:%S}$PR_NO_COLOR|$PR_LIGHT_GREEN%n$PR_NO_COLOR@$PR_LIGHT_YELLOW%m$PR_NO_COLOR:$PR_BLUE%~$PR_NO_COLOR]
+┌─[${PR_CYAN}%D{%m-%d/%H:%M:%S}${PR_NO_COLOR}|${PR_LIGHT_GREEN}%n${PR_NO_COLOR}@${PR_LIGHT_YELLOW}%m${SINGULARITY_NAME:+${PR_LIGHT_WHITE}~>${PR_NO_COLOR}${PR_ORANGE}${SINGULARITY_NAME}}${PR_NO_COLOR}:${PR_BLUE}%~${PR_NO_COLOR}]
 └─☉ "
 # └─⬧ "
 # └─⧫ "
@@ -48,3 +58,5 @@ RPROMPT="$PR_MAGENTA\$VENV$PR_YELLOW(%?)${PR_GREEN}[%!]$PR_NO_COLOR "
 }
 
 show_prompt
+
+# vim: ft=zsh
