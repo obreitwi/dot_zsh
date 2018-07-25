@@ -22,6 +22,13 @@ sudo-command-line() {
 }
 zle -N sudo-command-line
 
+# run command line proxified via tsocks
+tsocks-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    [[ $BUFFER != tsocks\ * ]] && BUFFER="tsocks $BUFFER" && zle end-of-line
+}
+zle -N tsocks-command-line
+
 # run vman on current command
 vman-command-line() {
     [[ -z $BUFFER ]] && zle up-history
@@ -53,6 +60,7 @@ zle -N append-detach-no-output-command-line
 bindkey "^Os" sudo-command-line
 bindkey "^Ov" vman-command-line
 bindkey "^Oi" init-command-line
+bindkey "^Ot" tsocks-command-line
 bindkey "^Od" append-detach-command-line
 bindkey "^Oe" append-detach-no-output-command-line
 
