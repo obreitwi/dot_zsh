@@ -1,0 +1,7 @@
+
+if [[ -d /fasthome/$USER ]]; then
+    HOME=/fasthome/$USER exec ${SHELL} -l
+fi
+
+# vim: ft=zsh
+
