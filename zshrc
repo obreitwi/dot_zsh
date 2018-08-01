@@ -29,7 +29,14 @@ else
     # support for 256 colors
     # export TERM='rxvt-256color'
     # (only load when we are in no tmux session)
-    if [[ -z $TMUX ]]; then
+    if [[ ! -z ${SINGULARITY_NAME} ]]; then
+        infocmp rxvt-unicode-256color &>/dev/null
+        if [[ $? -eq 0 ]]; then
+            export TERM='rxvt-unicode-256color'
+        else
+            export TERM='screen-256color'
+        fi
+    elif [[ -z ${TMUX} ]]; then
         # if [[ -e /usr/share/terminfo/x/xterm-256color  ||  -e /lib/terminfo/x/xterm-256color ]]; then
             # export TERM='xterm-256color'
         # else
@@ -39,7 +46,7 @@ else
             # export TERM='rxvt-unicode-256color'
             # export LANG='en_US.UTF8'
 
-        if [[ -z $TERM ]]; then
+        if [[ -z ${TERM} ]]; then
             infocmp rxvt-unicode-256color &>/dev/null
             if [[ $? -eq 0 ]]; then
                 export TERM='rxvt-unicode-256color'
