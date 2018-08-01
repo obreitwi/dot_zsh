@@ -1,5 +1,4 @@
 
-echo "Executing profile pre"
 if [ -d "/fasthome/$USER" ] && [[ "$HOME" != "/fasthome/$USER" ]]; then
     ARGS=""
     if [[ -o login ]]; then
