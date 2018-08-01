@@ -8,16 +8,16 @@ ENCHOST=$(mdh)
 if [ -d ~/.oh-my-zsh ]; then
     source $HOME/.zsh/oh-my-zshrc
 else
-    source $HOME/.zsh/main
-    source $HOME/.zsh/variables
-    source $HOME/.zsh/prompt
-    source $HOME/.zsh/lscolors
-    source $HOME/.zsh/functions
-    source $HOME/.zsh/aliases
-    source $HOME/.zsh/bindkeys
-    if [ -e $HOME/.zsh/private ]; then
-        source $HOME/.zsh/private
-    fi
+    # source $HOME/.zsh/main
+    # source $HOME/.zsh/variables
+    # source $HOME/.zsh/prompt
+    # source $HOME/.zsh/lscolors
+    # source $HOME/.zsh/functions
+    # source $HOME/.zsh/aliases
+    # source $HOME/.zsh/bindkeys
+    # if [ -e $HOME/.zsh/private ]; then
+        # source $HOME/.zsh/private
+    # fi
 
     # load fasd if it exists
     type fasd &> /dev/null && source =(fasd --init auto)

@@ -1,4 +1,22 @@
 
-# source /etc/profile
+echo "Executing profile pre"
+if [ -d "/fasthome/$USER" ] && [[ "$HOME" != "/fasthome/$USER" ]]; then
+    ARGS=""
+    if [[ -o login ]]; then
+        ARGS="-l"
+    fi
+
+    for envvar in $(env | grep wang | cut -d = -f 1); do
+        unset $envvar
+    done
+
+    export PATH=/usr/local/bin:/usr/bin:/bin
+    export HOME="/fasthome/$USER" 
+
+    exec ${SHELL} ${ARGS}
+    # strace -o /wang/users/obreitwi/cluster_home/zsh.strace ${SHELL} $ARGS
+    # ${SHELL} -fd ${ARGS}
+    exit 0
+fi
 
 # vim: ft=zsh
