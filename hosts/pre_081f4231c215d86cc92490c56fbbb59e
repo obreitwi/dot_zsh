@@ -10,6 +10,7 @@ if [ -d "/fasthome/$USER" ] && [[ "$HOME" != "/fasthome/$USER" ]]; then
     done
 
     export PATH=/usr/local/bin:/usr/bin:/bin
+    export OLDHOME=${HOME}
     export HOME="/fasthome/$USER" 
 
     cd ${HOME}
