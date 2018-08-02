@@ -12,6 +12,7 @@ if [ -d "/fasthome/$USER" ] && [[ "$HOME" != "/fasthome/$USER" ]]; then
     export PATH=/usr/local/bin:/usr/bin:/bin
     export HOME="/fasthome/$USER" 
 
+    cd ${HOME}
     exec ${SHELL} ${ARGS}
     # strace -o /wang/users/obreitwi/cluster_home/zsh.strace ${SHELL} $ARGS
     # ${SHELL} -fd ${ARGS}
