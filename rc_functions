@@ -26,6 +26,20 @@ export_path() {
     fi
 }
 
+# clean an env variable of all entries matching a certain pattern
+clean_path() {
+    local envvar="$1"
+    local pattern="$2"
+
+    local newval=$(eval "echo \$${envvar}" | tr ':' '\n' | grep -v "${pattern}" | tr '\n' ':' | sed "s/:$//")
+
+    if [ -z "${newval}" ]; then
+        unset ${envvar}
+    else
+        export ${envvar}=${newval}
+    fi
+}
+
 # prepend path to environment variable
 prepend_path() {
     # $1: name of environment variable

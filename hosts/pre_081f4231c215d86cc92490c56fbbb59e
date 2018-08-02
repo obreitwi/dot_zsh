@@ -5,18 +5,18 @@ if [ -d "/fasthome/$USER" ] && [[ "$HOME" != "/fasthome/$USER" ]]; then
         ARGS="-l"
     fi
 
-    for envvar in $(env | grep wang | cut -d = -f 1); do
-        unset $envvar
+    PATH_ZSH="$(which zsh)"
+
+    export OLDHOME="${HOME}"
+
+    for envvar in $(env | grep "/wang/" | cut -d = -f 1); do
+        clean_path ${envvar} "^/wang/"
     done
 
-    export PATH=/usr/local/bin:/usr/bin:/bin
-    export OLDHOME=${HOME}
-    export HOME="/fasthome/$USER" 
+    export HOME="/fasthome/$USER"
 
     cd ${HOME}
-    exec /usr/bin/env zsh ${ARGS}
-    # strace -o /wang/users/obreitwi/cluster_home/zsh.strace ${SHELL} $ARGS
-    # ${SHELL} -fd ${ARGS}
+    exec $PATH_ZSH ${ARGS}
     exit 0
 fi
 
