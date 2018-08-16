@@ -14,7 +14,7 @@ export EDITOR="vim"
 export VIRTUAL_ENV_DISABLE_PROMPT="true"
 
 # force zsh to be looked up (useful for singularity containes)
-export SHELL=zsh
+export SHELL=$(which zsh)
 
 # Set GPG TTY
 export GPG_TTY=$(tty)
