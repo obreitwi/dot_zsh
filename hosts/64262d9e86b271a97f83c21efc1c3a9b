@@ -100,9 +100,12 @@ alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
 
 alias audio_hdmi="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:hdmi-stereo-extra1"
 alias audio_regular="pacmd set-card-profile alsa_card.pci-0000_00_1f.3 output:analog-stereo+input:analog-stereo"
+alias audio_setup_reverse="pacmd load-module module-remap-sink sink_name=nubert-reverse-stereo master=alsa_output.usb-BurrBrown_from_Texas_Instruments_USB_AUDIO_DAC-00.analog-stereo channels=2 master_channel_map=front-right,front-left channel_map=front-left,front-right"
 
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
+
+
 
 # vim: ft=sh
