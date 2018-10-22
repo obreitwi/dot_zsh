@@ -187,29 +187,33 @@ gitlg() {
 
 
 svg_to_pdf() {
-    origin=$1
-    extension=${origin:e}
-    if [[ "$extension" != "svg" ]]; then
-        echo "Wrong extension!" >&2
-    else
-        target="${origin:r}.pdf"
-        inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
-    fi
+    for origin in "$@"; do
+        extension=${origin:e}
+        if [[ "$extension" != "svg" ]]; then
+            echo "Wrong extension!" >&2
+        else
+            target="${origin:r}.pdf"
+            inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
+        fi
+    done
 }
 
 svg_to_png() {
-    origin=$1
-    extension=${origin:e}
-    if [[ "$extension" != "svg" ]]; then
-        echo "Wrong extension!" >&2
-    else
-        target="${origin:r}.png"
-        inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
-    fi
+    for origin in "$@"; do
+        extension=${origin:e}
+        if [[ "$extension" != "svg" ]]; then
+            echo "Wrong extension!" >&2
+        else
+            target="${origin:r}.png"
+            inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
+        fi
+    done
 }
 
 to_mp3() {
-    ffmpeg -i "$1" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${1:t:r}.mp3"
+    for origin in "$@"; do
+        ffmpeg -i "${origin}" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${origin:t:r}.mp3"
+    done
 }
 
 get_eta() {
