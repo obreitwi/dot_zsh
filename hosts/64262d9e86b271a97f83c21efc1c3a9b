@@ -30,6 +30,17 @@ fi
 refresh_bg
 }
 
+monitors_movie() {
+if xrandr | grep -q "HDMI-2 connected"; then
+echo "setup @ home"
+xrandr --output eDP-1 --auto
+xrandr --output HDMI-2 --primary --auto --same-as eDP-1
+else
+echo "No HDMI-2 connection found."
+fi
+
+refresh_bg
+}
 
 monitors_set_gaming() {
 if [ "$#" -ne 2 ]; then
@@ -45,11 +56,16 @@ if xrandr | grep -q "HDMI-2 connected"; then
 echo "${setup}-setup @ home"
 xrandr --output eDP-1 --off
 xrandr --output HDMI-2 --primary --mode ${mode}
-elif xrandr | grep -q "DP-2-2 connected"; then
+elif xrandr | grep -q "DP-2-1 connected"; then
 echo "${setup}-setup @ office"
 xrandr --output eDP-1 --off
 xrandr --output DP-2-1 --primary --auto --mode ${mode}
 xrandr --output DP-2-2 --Off
+elif xrandr | grep -q "DP-2-2 connected"; then
+echo "setup @ home docking station"
+xrandr --output eDP-1 --off
+xrandr --output DP-2-1 --off
+xrandr --output DP-2-2 --primary --auto --right-of eDP-1
 else
 echo "${setup}-setup @ mobile"
 xrandr --output eDP-1 --primary --mode ${mode}
