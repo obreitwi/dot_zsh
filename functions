@@ -318,7 +318,7 @@ gen_ssha512() {
     ) | openssl enc -a -A | awk '{ print "{SSHA512}"$0 }'
 }
 
-startx_wifi()) {
+startx_wifi() {
     # start the xserver with a given wifi profile
     sudo netctl start "${1}" &; startx 
 }
