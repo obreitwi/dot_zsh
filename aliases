@@ -46,9 +46,6 @@ alias tmux="tmux -2"
 # default parameters for feh
 alias fehm="feh -dx. -A 'echo %f'"
 
-# update
-alias apt_update="sudo aptitude update; sudo aptitude full-upgrade"
-
 # git update submodules
 # alias gsu="git submodule init && git submodule update"
 alias gsu="git submodule update --recursive --init"
