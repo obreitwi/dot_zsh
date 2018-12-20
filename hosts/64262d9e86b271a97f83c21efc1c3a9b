@@ -7,7 +7,15 @@ alias refresh_bg="feh --bg-fill \"${HOME}/wallpaper/brisbinxmonadwall.png\""
 
 alias fix_xrandr='refresh_monitors && urxvt -e bash -c "killall urxvtd; urxvtd -q -o -f; exit"'
 
+shutoff_all_screens() {
+# shut down all currently connecte screens
+for screen in $(xrandr | awk '$2 ~ /^connected$/ { print $1 }'); do
+    xrandr --output "${screen}" --off
+done
+}
+
 monitors_default() {
+shutoff_all_screens
 if xrandr | grep -q "HDMI-2 connected"; then
 echo "setup @ home (movies)"
 xrandr --output eDP-1 --auto
@@ -31,6 +39,7 @@ refresh_bg
 }
 
 monitors_movie() {
+shutoff_all_screens
 if xrandr | grep -q "HDMI-2 connected"; then
 echo "setup @ home"
 xrandr --output eDP-1 --auto
@@ -43,6 +52,7 @@ refresh_bg
 }
 
 monitors_set_gaming() {
+shutoff_all_screens
 if [ "$#" -ne 2 ]; then
     echo "Usage monitors_set_gaming <setup-name> <mode>"
     return
@@ -76,6 +86,7 @@ refresh_bg
 
 
 monitors_external() {
+shutoff_all_screens
 # options
 setup="external"
 
@@ -97,6 +108,7 @@ refresh_bg
 }
 
 monitors_all() {
+shutoff_all_screens
 if xrandr | grep -q "HDMI-2 connected"; then
 echo "setup @ home"
 xrandr --output eDP-1 --auto
@@ -112,6 +124,17 @@ xrandr --output eDP-1 --primary --auto
 fi
 
 refresh_bg
+}
+
+monitors_laptop() {
+shutoff_all_screens
+local screen_laptop
+screen_laptop="eDP-1"
+xrandr --output "${screen_laptop}" --mode 1920x1080 --primary
+for other_screen in $(xrandr | awk '$2 ~ /^connected$/ { print $1 }' \
+    | grep -v "${laptop_screen}"); do
+    xrandr --output "${other_screen}" --off
+done
 }
 
 alias refresh_monitors="monitors_default"
