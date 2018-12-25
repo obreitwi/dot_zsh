@@ -1,5 +1,6 @@
 
-prepend_path PATH $HOME/.stack/bin
+prepend_path PATH $HOME/.local-stack/bin
+prepend_path PATH $HOME/.xmonad/bin
 
 # source $HOME/.local/Modules/init/zsh
 
