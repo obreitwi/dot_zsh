@@ -9,77 +9,94 @@ alias refresh_bg="feh --bg-fill \"${HOME}/wallpaper/brisbinxmonadwall.png\""
 alias fix_xrandr='refresh_monitors && urxvt -e bash -c "killall urxvtd; urxvtd -q -o -f; exit"'
 
 shutoff_all_screens() {
-# shut down all currently connecte screens
-for screen in $(xrandr | awk '$2 ~ /^connected$/ { print $1 }'); do
-    xrandr --output "${screen}" --off
-done
+    # shut down all currently connecte screens
+    for screen in $(xrandr | awk '$2 ~ /^connected$/ { print $1 }'); do
+        xrandr --output "${screen}" --off
+    done
+    sleep 1
 }
 
 monitors_default() {
-shutoff_all_screens
-if xrandr | grep -q "HDMI-2 connected"; then
-echo "setup @ home (movies)"
-xrandr --output eDP-1 --auto
-xrandr --output HDMI-2 --primary --auto --same-as eDP-1
-elif xrandr | grep -q "DP-2-1 connected"; then
-echo "setup @ office"
-xrandr --output eDP-1 --off
-xrandr --output DP-2-1 --primary --auto --right-of eDP-1
-xrandr --output DP-2-2 --auto --right-of DP-2-1
-elif xrandr | grep -q "DP-2-2 connected"; then
-echo "setup @ home docking station"
-xrandr --output eDP-1 --off
-xrandr --output DP-2-1 --off
-xrandr --output DP-2-2 --primary --auto --right-of eDP-1
-else
-echo "setup @ mobile"
-xrandr --output eDP-1 --primary --auto
-fi
+    local shutoff=1
+    if [ $# -gt 0 ] && [ "$1" = "no_shutoff" ]; then
+        shutoff=0
+    fi
+    if (( ${shutoff} )); then
+        shutoff_all_screens
+    fi
 
-refresh_bg
+    if xrandr | grep -q "HDMI-2 connected"; then
+        echo "setup @ home (movies)"
+        xrandr --output eDP-1 --auto
+        xrandr --output HDMI-2 --primary --auto --same-as eDP-1
+
+    elif xrandr | grep -q "DP-2-1 connected"; then
+        echo "setup @ office"
+        xrandr --output eDP-1 --off
+        xrandr --output DP-2-1 --primary --auto --right-of eDP-1
+        xrandr --output DP-2-2 --auto --right-of DP-2-1
+
+    elif xrandr | grep -q "DP-2-2 connected"; then
+        echo "setup @ home docking station"
+        xrandr --output eDP-1 --off
+        if (( ${shutoff} )); then
+            sleep 1
+        fi
+        xrandr --output DP-2-1 --off
+        if (( ${shutoff} )); then
+            sleep 1
+        fi
+        xrandr --output DP-2-2 --primary --auto --right-of eDP-1
+
+    else
+        echo "setup @ mobile"
+        xrandr --output eDP-1 --primary --auto
+    fi
+
+    refresh_bg
 }
 
 monitors_movie() {
-shutoff_all_screens
-if xrandr | grep -q "HDMI-2 connected"; then
-echo "setup @ home"
-xrandr --output eDP-1 --auto
-xrandr --output HDMI-2 --primary --mode 1920x1080 --same-as eDP-1
-else
-echo "No HDMI-2 connection found."
-fi
+    shutoff_all_screens
+    if xrandr | grep -q "HDMI-2 connected"; then
+        echo "setup @ home"
+        xrandr --output eDP-1 --auto
+        xrandr --output HDMI-2 --primary --mode 1920x1080 --same-as eDP-1
+    else
+        echo "No HDMI-2 connection found."
+    fi
 
-refresh_bg
+    refresh_bg
 }
 
 monitors_set_gaming() {
-shutoff_all_screens
-if [ "$#" -ne 2 ]; then
-    echo "Usage monitors_set_gaming <setup-name> <mode>"
-    return
-fi
+    shutoff_all_screens
+    if [ "$#" -ne 2 ]; then
+        echo "Usage monitors_set_gaming <setup-name> <mode>"
+        return
+    fi
 
 # options
 setup="$1"
 mode="$2"
 
 if xrandr | grep -q "HDMI-2 connected"; then
-echo "${setup}-setup @ home"
-xrandr --output eDP-1 --off
-xrandr --output HDMI-2 --primary --mode ${mode}
+    echo "${setup}-setup @ home"
+    xrandr --output eDP-1 --off
+    xrandr --output HDMI-2 --primary --mode ${mode}
 elif xrandr | grep -q "DP-2-1 connected"; then
-echo "${setup}-setup @ office"
-xrandr --output eDP-1 --off
-xrandr --output DP-2-1 --primary --auto --mode ${mode}
-xrandr --output DP-2-2 --Off
+    echo "${setup}-setup @ office"
+    xrandr --output eDP-1 --off
+    xrandr --output DP-2-1 --primary --auto --mode ${mode}
+    xrandr --output DP-2-2 --Off
 elif xrandr | grep -q "DP-2-2 connected"; then
-echo "setup @ home docking station"
-xrandr --output eDP-1 --off
-xrandr --output DP-2-1 --off
-xrandr --output DP-2-2 --primary --auto --right-of eDP-1
+    echo "setup @ home docking station"
+    xrandr --output eDP-1 --off
+    xrandr --output DP-2-1 --off
+    xrandr --output DP-2-2 --primary --auto --right-of eDP-1
 else
-echo "${setup}-setup @ mobile"
-xrandr --output eDP-1 --primary --mode ${mode}
+    echo "${setup}-setup @ mobile"
+    xrandr --output eDP-1 --primary --mode ${mode}
 fi
 
 refresh_bg
@@ -87,58 +104,59 @@ refresh_bg
 
 
 monitors_external() {
-shutoff_all_screens
-# options
-setup="external"
+    shutoff_all_screens
+    # options
+    setup="external"
 
-if xrandr | grep -q "HDMI-2 connected"; then
-echo "${setup}-setup @ home"
-xrandr --output eDP-1 --off
-xrandr --output HDMI-2 --primary --auto
-elif xrandr | grep -q "DP-2-2 connected"; then
-echo "${setup}-setup @ office"
-xrandr --output eDP-1 --off
-xrandr --output DP-2-1 --primary --auto
-xrandr --output DP-2-2 --auto
-else
-echo "${setup}-setup @ mobile"
-xrandr --output eDP-1 --primary --auto
-fi
+    if xrandr | grep -q "HDMI-2 connected"; then
+        echo "${setup}-setup @ home"
+        xrandr --output eDP-1 --off
+        xrandr --output HDMI-2 --primary --auto
+    elif xrandr | grep -q "DP-2-2 connected"; then
+        echo "${setup}-setup @ office"
+        xrandr --output eDP-1 --off
+        xrandr --output DP-2-1 --primary --auto
+        xrandr --output DP-2-2 --auto
+    else
+        echo "${setup}-setup @ mobile"
+        xrandr --output eDP-1 --primary --auto
+    fi
 
-refresh_bg
+    refresh_bg
 }
 
 monitors_all() {
-shutoff_all_screens
-if xrandr | grep -q "HDMI-2 connected"; then
-echo "setup @ home"
-xrandr --output eDP-1 --auto
-xrandr --output HDMI-2 --primary --auto --right-of eDP-1
-elif xrandr | grep -q "DP-2-2 connected"; then
-echo "setup @ office"
-xrandr --output eDP-1 --auto
-xrandr --output DP-2-1 --primary --auto --right-of eDP-1
-xrandr --output DP-2-2 --auto --right-of DP-2-1
-else
-echo "setup @ mobile"
-xrandr --output eDP-1 --primary --auto
-fi
+    shutoff_all_screens
+    if xrandr | grep -q "HDMI-2 connected"; then
+        echo "setup @ home"
+        xrandr --output eDP-1 --auto
+        xrandr --output HDMI-2 --primary --auto --right-of eDP-1
+    elif xrandr | grep -q "DP-2-2 connected"; then
+        echo "setup @ office"
+        xrandr --output eDP-1 --auto
+        xrandr --output DP-2-1 --primary --auto --right-of eDP-1
+        xrandr --output DP-2-2 --auto --right-of DP-2-1
+    else
+        echo "setup @ mobile"
+        xrandr --output eDP-1 --primary --auto
+    fi
 
-refresh_bg
+    refresh_bg
 }
 
 monitors_laptop() {
-shutoff_all_screens
-local screen_laptop
-screen_laptop="eDP-1"
-xrandr --output "${screen_laptop}" --mode 1920x1080 --primary
-for other_screen in $(xrandr | awk '$2 ~ /^connected$/ { print $1 }' \
-    | grep -v "${laptop_screen}"); do
-    xrandr --output "${other_screen}" --off
-done
-}
+    shutoff_all_screens
+    local screen_laptop
+    screen_laptop="eDP-1"
+    xrandr --output "${screen_laptop}" --mode 1920x1080 --primary
+    sleep 1
+    for other_screen in $(xrandr | awk '$2 ~ /^connected$/ { print $1 }' \
+        | grep -vF "${screen_laptop}"); do
+            xrandr --output "${other_screen}" --off
+        done
+    }
 
-alias refresh_monitors="monitors_default"
+alias refresh_monitors="monitors_default no_shutoff"
 
 alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
 alias monitors_gaming_small="monitors_set_gaming gaming-small 1280x720"
