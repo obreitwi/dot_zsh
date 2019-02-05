@@ -1,21 +1,27 @@
 # Start the GnuPG agent and enable OpenSSH agent emulation
-gnupginf="${HOME}/.gpg-agent-info"
+# gnupginf="${HOME}/.gpg-agent-info"
 
-if pgrep -u "${USER}" gpg-agent >/dev/null 2>&1; then
-    eval "$(cat ${gnupginf})"
-    eval "$(cut -d= -f1 $gnupginf | xargs echo export)"
-else
-    eval "$(gpg-agent --disable-scdaemon --enable-ssh-support --daemon --write-env-file=${gnupginf})"
-fi
+# if pgrep -u "${USER}" gpg-agent >/dev/null 2>&1; then
+    # eval "$(cat ${gnupginf})"
+    # eval "$(cut -d= -f1 $gnupginf | xargs echo export)"
+# else
+    # eval "$(gpg-agent --disable-scdaemon --enable-ssh-support --daemon --write-env-file=${gnupginf})"
+# fi
 
-unset gnupginf
+# export SSH_AUTH_SOCK=$HOME/.gnupg/S.gpg-agent.ssh
+# eval $(gpg-agent -s --enable-ssh-support --daemon --options=${HOME}/.config/gnupg/gpg-agent.conf)
+
+~/.config/gnupg/gpg-agent.sh
+
+# unset gnupginf
 
 alias mlq="msmtp-listqueue"
 alias mrq="msmtp-runqueue | tee -a ~/.cache/msmtp/log"
 
-export PYTHONPATH=\
-$HOME/usr/lib/python2.7/site-packages:\
-$PYTHONPATH
+alias mutt=neomutt
+
+prepend_root $HOME/usr
+prepend_root $HOME/.local
 
 # vim: ft=zsh
 

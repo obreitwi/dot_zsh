@@ -9,7 +9,11 @@
 # prepend_root $HOME/usr
 # prepend_root $HOME/.local
 
-export EDITOR="vim"
+if [ -f "$(command -v nvim)" ]; then
+    export EDITOR="nvim"
+else
+    export EDITOR="vim"
+fi
 
 export VIRTUAL_ENV_DISABLE_PROMPT="true"
 
