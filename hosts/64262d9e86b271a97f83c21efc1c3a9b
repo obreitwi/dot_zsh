@@ -125,6 +125,16 @@ monitors_laptop() {
         done
     }
 
+
+toggle_confirm() {
+    local path_sshcontrol="${HOME}/.gnupg/sshcontrol"
+
+    mv "${path_sshcontrol}" "${path_sshcontrol}.old"
+    toggle_ssh_key_confirm.awk "${path_sshcontrol}.old" > "${path_sshcontrol}"
+    rm "${path_sshcontrol}.old"
+}
+
+
 alias refresh_monitors="monitors_default no_shutoff"
 
 alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
@@ -137,7 +147,6 @@ alias audio_setup_reverse="pacmd load-module module-remap-sink sink_name=nubert-
 alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
-
 
 
 # vim: ft=sh
