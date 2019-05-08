@@ -14,7 +14,9 @@ ENCHOST=$(mdh)
 
 if command -v lsb_release 2>&1 >/dev/null; then
     DISTNAME=$(lsb_release -c -s)
-    prepend_root $HOME/.local-$DISTNAME
+    if [ "${DISTNAME}" != "n/a" ]; then
+        prepend_root $HOME/.local-${DISTNAME}
+    fi
 fi
 
 # prepend_root $HOME/usr
