@@ -152,6 +152,7 @@ zle -N popen
 
 foreground-vim() {
     fg %vim
+    fg %nvim
 }
 zle -N foreground-vim
 bindkey '^Z' foreground-vim
