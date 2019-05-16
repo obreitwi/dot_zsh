@@ -17,8 +17,12 @@ fi
 
 export VIRTUAL_ENV_DISABLE_PROMPT="true"
 
-# force zsh to be looked up (useful for singularity containes)
-export SHELL=$(which zsh)
+# force zsh to be looked up (useful for singularity containers)
+if which zsh >/dev/null; then
+    export SHELL=$(which zsh)
+else
+    export SHELL="/opt/shell/zsh"
+fi
 
 # Set GPG TTY
 export GPG_TTY=$(tty)

@@ -2,11 +2,13 @@ setkipproxy
 
 if (( ${+SINGULARITY_NAME} )); then
     source /opt/spack/share/spack/setup-env.sh
+    prepend_path MODULEPATH /wang/environment/modules
 else
     # perform the following only outside of singularity containers
     source /wang/environment/software/Modules/current/init/zsh
     prepend_path MODULEPATH /wang/environment/software/jessie/spack/20180129_live/modules
     export MANPATH=${MANPATH:+$MANPATH:}/usr/share/man
+    export SINGULARITYENV_HOME=${HOME}
 fi
 
 
@@ -15,7 +17,8 @@ fi
     # prepend_root $HOME/.local-$DISTNAME
 # fi
 
-# prepend_root $HOME/.local
+prepend_root $HOME/.local
+prepend_root $HOME/.spack-jessie-upstream
 
 # prepend_root $HOME/.spack-jessie
 
