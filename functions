@@ -324,5 +324,31 @@ startx-wifi() {
     sudo netctl start "${1}" &; startx 
 }
 
+# gerrit rest api access
+# first argument an be used to specify the method, if it is not GET POST or PUT
+# it will be interpreted as URL
+grest() {
+    local method
+    local url
+    local username
+    local password
+    method=$1
+    if [[ "${(U)method}" =~ "^(GET|PUT|POST)$" ]]; then
+        shift
+    else
+        # first argument only contains URL
+        method=""
+    fi
+    url=$1
+    username="$(jq .username ~/.config/gerrit/gerrit.json | tr -d '"')"
+    password="$(jq .password ~/.config/gerrit/gerrit.json | tr -d '"')"
+    shift
+    http --auth-type basic                                                   \
+         --auth "${username}:${password}"                                    \
+         ${method}                                                           \
+         https://gerrit.bioai.eu${url}                                       \
+         "${@}"
+}
+
 
 # vim: ft=zsh
