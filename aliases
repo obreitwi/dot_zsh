@@ -171,7 +171,5 @@ alias keyboard_setup="setxkbmap us\
 alias keyboard_setup_lctl="localectl set-x11-keymap us pc105 altgr-intl \
     compose:menu,compose:prsc,caps:escape,lv3:ralt_switch,eurosign:e,nbsp:level3n"
 
-alias gerrit='ssh -p 29418 -l breitwieser brainscales-r.kip.uni-heidelberg.de gerrit'
-
 # vim: ft=zsh
 
