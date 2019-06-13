@@ -129,7 +129,7 @@ monitors_laptop() {
     }
 
 
-toggle_confirm() {
+sshcontrol_toggle_confirm() {
     local path_sshcontrol="${HOME}/.gnupg/sshcontrol"
 
     mv "${path_sshcontrol}" "${path_sshcontrol}.old"
