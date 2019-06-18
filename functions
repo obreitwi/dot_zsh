@@ -324,6 +324,25 @@ startx-wifi() {
     sudo netctl start "${1}" &; startx 
 }
 
+# container utility functions
+
+launch_container() {
+    local image
+    local app
+    app="${1:-visionary-dev-tools}"
+    image="${2:-$(readlink -f /containers/stable/latest)}"
+
+    singularity shell -s /bin/zsh --app "${app}" "${image}"
+}
+
+condev() {
+    launch_container visionary-dev-tools "${@}"
+}
+
+conwaf() {
+    launch_container visionary-wafer "${@}"
+}
+
 
 gerrit() {
   ssh -p $(jq -r .port ~/.config/gerrit/gerrit.json) \
