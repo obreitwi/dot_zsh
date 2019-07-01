@@ -335,6 +335,8 @@ launch_container() {
     singularity shell -s /bin/zsh --app "${app}" "${image}"
 }
 
+alias runcon="launch_container"
+
 condev() {
     launch_container visionary-dev-tools "${@}"
 }

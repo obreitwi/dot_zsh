@@ -171,5 +171,8 @@ alias keyboard_setup="setxkbmap us\
 alias keyboard_setup_lctl="localectl set-x11-keymap us pc105 altgr-intl \
     compose:menu,compose:prsc,caps:escape,lv3:ralt_switch,eurosign:e,nbsp:level3n"
 
+# sexecute currently used container (useful for slurm calls)
+alias -g sexec="singularity exec \${SINGULARITY_APPNAME:+--app \${SINGULARITY_APPNAME}} \${SINGULARITY_CONTAINER:-/containers/stable/latest}"
+
 # vim: ft=zsh
 
