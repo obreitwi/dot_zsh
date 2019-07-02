@@ -363,7 +363,7 @@ grest() {
     local username
     local password
     method=$1
-    if [[ "${(U)method}" =~ "^(GET|PUT|POST)$" ]]; then
+    if [[ "${(U)method}" =~ "^(GET|PUT|POST|DELETE)$" ]]; then
         shift
     else
         # first argument only contains URL
@@ -380,6 +380,7 @@ grest() {
          ${host}${url}                                                       \
          "${@}"
 }
+
 
 
 # vim: ft=zsh
