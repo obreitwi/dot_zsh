@@ -381,6 +381,29 @@ grest() {
          "${@}"
 }
 
+jrest() {
+    local method
+    local url
+    local username
+    local password
+    method=$1
+    if [[ "${(U)method}" =~ "^(GET|PUT|POST|DELETE)$" ]]; then
+        shift
+    else
+        # first argument only contains URL
+        method=""
+    fi
+    url=$1
+    host="$(jq -r .url ~/.config/jenkins/jenkins.json)"
+    username="$(jq -r .username ~/.config/jenkins/jenkins.json)"
+    token="$(jq -r .token ~/.config/jenkins/jenkins.json)"
+    shift
+    http --auth-type basic                                                   \
+         --auth "${username}:${token}"                                       \
+         ${method}                                                           \
+         ${host}${url}                                                       \
+         "${@}"
+}
 
 
 # vim: ft=zsh
