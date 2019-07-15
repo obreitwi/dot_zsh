@@ -332,7 +332,7 @@ launch_container() {
     app="${1}"
     image="${2:-$(readlink -f /containers/stable/latest)}"
 
-    singularity shell -s /bin/zsh ${app:+--app \"${app}\"} "${image}"
+    singularity shell -s /bin/zsh ${app:+--app} "${app:-}" "${image}"
 }
 
 alias runcon="launch_container"
