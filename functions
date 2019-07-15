@@ -329,10 +329,10 @@ startx-wifi() {
 launch_container() {
     local image
     local app
-    app="${1:-visionary-dev-tools}"
+    app="${1}"
     image="${2:-$(readlink -f /containers/stable/latest)}"
 
-    singularity shell -s /bin/zsh --app "${app}" "${image}"
+    singularity shell -s /bin/zsh ${app:+--app \"${app}\"} "${image}"
 }
 
 alias runcon="launch_container"
