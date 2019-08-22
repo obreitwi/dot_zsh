@@ -29,6 +29,10 @@ monitors_default() {
         echo "setup @ home docking station"
         xrandr --output eDP-1 --off --output DP-2-1 --off --output DP-2-2 --primary --auto --right-of eDP-1
 
+    elif xrandr | grep -q "DVI-D-0 connected"; then
+        echo "setup @ office (eGPU)"
+        xrandr --output HDMI-0 --auto --primary --output DVI-D-0 --auto --right-of HDMI-0
+
     else
         echo "setup @ mobile"
         xrandr --output eDP-1 --primary --auto
