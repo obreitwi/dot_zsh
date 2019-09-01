@@ -174,5 +174,7 @@ alias keyboard_setup_lctl="localectl set-x11-keymap us pc105 altgr-intl \
 # sexecute currently used container (useful for slurm calls)
 alias -g sexec="singularity exec \${SINGULARITY_APPNAME:+--app \${SINGULARITY_APPNAME}} \${SINGULARITY_CONTAINER:-/containers/stable/latest}"
 
+alias mpv_no_spoiler="mpv --no-taskbar-progress --no-osc --osd-on-seek=no"
+
 # vim: ft=zsh
 
