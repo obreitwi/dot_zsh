@@ -1,6 +1,10 @@
 
 prepend_path PATH $HOME/.local-stack/bin
 prepend_path PATH $HOME/.xmonad/bin
+prepend_path PATH $HOME/.cabal/bin
+
+which bat >/dev/null && export PAGER="$(which bat)" && export BAT_PAGER="less -RF" && export MANPAGER="sh -c 'col -b | bat -l man -p'"
+
 
 # source $HOME/.local/Modules/init/zsh
 
