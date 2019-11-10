@@ -57,7 +57,9 @@ prepend_root() {
     prepend_path PATH "$rootpath/bin"
     prepend_path LD_LIBRARY_PATH "$rootpath/lib"
     prepend_path MANPATH "$rootpath/share/man"
-    prepend_path PYTHONPATH "$rootpath/lib/python2.7/site-packages"
+    prepend_path PYTHONPATH "$rootpath/lib/python$(
+        python --version | awk '{ print $2 }' | awk -F . '{ print $1 "." $2 }'
+        )/site-packages"
 }
 
 # vim: ft=zsh
