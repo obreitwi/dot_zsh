@@ -186,12 +186,23 @@ gitlg() {
     PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
 }
 
+heic_to_jpg() {
+    for origin in "$@"; do
+        extension=${origin:e}
+        if [[ "${extension:l}" != "heic" ]]; then
+            echo "Wrong extension: ${origin}" >&2
+        else
+            target="${origin:r}.jpg"
+            tifig -v -p -q 95 -i ${origin} -o ${target}
+        fi
+    done
+}
 
 svg_to_pdf() {
     for origin in "$@"; do
         extension=${origin:e}
         if [[ "$extension" != "svg" ]]; then
-            echo "Wrong extension!" >&2
+            echo "Wrong extension: ${origin}" >&2
         else
             target="${origin:r}.pdf"
             inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
@@ -203,7 +214,7 @@ svg_to_png() {
     for origin in "$@"; do
         extension=${origin:e}
         if [[ "$extension" != "svg" ]]; then
-            echo "Wrong extension!" >&2
+            echo "Wrong extension: ${origin}" >&2
         else
             target="${origin:r}.png"
             inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
