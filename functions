@@ -416,5 +416,9 @@ jrest() {
          "${@}"
 }
 
+get_changes() {
+    grest "/a/changes/?q=$*"  | tail -n +2 | jq -r "map(.id) | .[]"
+}
+
 
 # vim: ft=zsh
