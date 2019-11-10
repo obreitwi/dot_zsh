@@ -5,6 +5,7 @@ prepend_path PATH $HOME/.cabal/bin
 
 which bat >/dev/null && export PAGER="$(which bat)" && export BAT_PAGER="less -RF" && export MANPAGER="sh -c 'col -b | bat -l man -p'"
 
+export PYTHONPATH="$HOME/.local/lib/python3.7/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
 
 # source $HOME/.local/Modules/init/zsh
 
@@ -141,8 +142,8 @@ sshcontrol_toggle_confirm() {
     local path_sshcontrol="${HOME}/.gnupg/sshcontrol"
 
     mv "${path_sshcontrol}" "${path_sshcontrol}.old"
-    toggle_ssh_key_confirm.awk "${path_sshcontrol}.old" > "${path_sshcontrol}"
-    rm "${path_sshcontrol}.old"
+    toggle_ssh_key_confirm.awk "${path_sshcontrol}.old" > "${path_sshcontrol}" \
+        && rm "${path_sshcontrol}.old"
 }
 
 
