@@ -176,5 +176,10 @@ alias -g sexec="singularity exec \${SINGULARITY_APPNAME:+--app \${SINGULARITY_AP
 
 alias mpv_no_spoiler="mpv --no-taskbar-progress --no-osc --osd-on-seek=no"
 
+alias tt="task -lt -private"
+
+# vim-fugitive as tig alternative
+alias vig="nvim +Git +on"
+
 # vim: ft=zsh
 
