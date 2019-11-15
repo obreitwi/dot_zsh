@@ -147,21 +147,8 @@ sshcontrol_toggle_confirm() {
 }
 
 get_yashchiki_manual_buildlog() {
-    local build_num
-    local logname
-    if (( $# > 0 )); then
-        build_num="$1"
-    else
-        build_num=$(jrest GET /job/bld_gerrit-yashchiki-manual/api/json | jq ".builds | .[1] | .number")
-    fi
-    logname="/tmp/yashchiki_manual_${build_num}.log"
-
-    if [ ! -f "${logname}" ]; then
-        jrest GET "/job/bld_gerrit-yashchiki-manual/${build_num}/consoleText" > "${logname}"
-    fi
-    echo "${logname}"
+    get_jenkins_log bld_gerrit-yashchiki-manual "${@}"
 }
-
 
 alias refresh_monitors="monitors_default no_shutoff"
 

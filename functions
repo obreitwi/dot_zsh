@@ -416,6 +416,42 @@ jrest() {
          "${@}"
 }
 
+# Usage:
+#   get_jenkins_log <project> [<build number>]
+#
+#   Fetches and echoes the name of the file in which the log is present. Log
+#   will only be fetched if logfile does not exist.
+#
+# Args:
+#   <project>       Project to fetch
+#
+#   <build number>  Log from which build to get [default: latest].
+#
+get_jenkins_log() {
+    local project
+    local build_num
+    local logname
+    if (( $# > 0 )); then
+        project="$1"
+    else
+        echo "Need to specify project!" &>2
+        return -1
+    fi
+    shift
+
+    if (( $# > 0 )); then
+        build_num="$1"
+    else
+        build_num=$(jrest GET /job/${project}/api/json | jq ".builds | .[1] | .number")
+    fi
+    logname="${TMPDIR:-/tmp}/${project}_${build_num}.log"
+
+    if [ ! -f "${logname}" ]; then
+        jrest GET "/job/${project}/${build_num}/consoleText" > "${logname}"
+    fi
+    echo "${logname}"
+}
+
 get_changes() {
     grest "/a/changes/?q=$*"  | tail -n +2 | jq -r "map(.id) | .[]"
 }
