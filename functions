@@ -443,7 +443,7 @@ get_jenkins_log() {
                 artifact="${OPTARG}"
                 ;;
             *)
-                echo "Invalid argument: ${OPTARG}" >&2
+                echo "Invalid argument: ${opts}" >&2
                 return 1
                 ;;
         esac
@@ -461,7 +461,7 @@ get_jenkins_log() {
     if (( $# > 0 )); then
         build_num="$1"
     else
-        build_num=$(jrest GET /job/${project}/api/json | jq ".builds | .[1] | .number")
+        build_num=$(jrest GET /job/${project}/api/json | jq ".builds | .[0] | .number")
     fi
     if (( ${#artifact} > 0 )); then
         logname="${TMPDIR:-/tmp}/${project}_${build_num}_${artifact}"
