@@ -149,6 +149,9 @@ sshcontrol_toggle_confirm() {
 get_yashchiki_manual_buildlog() {
     get_jenkins_log bld_gerrit-yashchiki-manual "${@}"
 }
+get_yashchiki_manual_errors_concretization() {
+    get_jenkins_log -a errors_concretization.log bld_gerrit-yashchiki-manual "${@}"
+}
 
 alias refresh_monitors="monitors_default no_shutoff"
 
