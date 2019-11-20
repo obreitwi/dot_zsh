@@ -426,6 +426,8 @@ jrest() {
 #   -a <artifact>   Get specific aritifact
 #                   (example: errors_concretization.log).
 #
+#   -f              Force redownload of log even if it exists.
+#
 #   <project>       Project to fetch
 #
 #   <build number>  Log from which build to get [default: latest].
@@ -435,12 +437,16 @@ get_jenkins_log() {
     local build_num
     local logname
     local artifact
+    local force
     artifact=""
+    force=0
 
-    while getopts ":a:" opts; do
+    while getopts ":a:f" opts; do
         case "${opts}" in
             a)
                 artifact="${OPTARG}"
+                ;;
+            f)  force=1
                 ;;
             *)
                 echo "Invalid argument: ${opts}" >&2
@@ -469,7 +475,7 @@ get_jenkins_log() {
         logname="${TMPDIR:-/tmp}/${project}_${build_num}.log"
     fi
 
-    if [ ! -f "${logname}" ]; then
+    if [ ! -f "${logname}" ] || (( force != 0 )); then
         if (( ${#artifact} > 0 )); then
             jrest GET "/job/${project}/${build_num}/artifact/${artifact}" > "${logname}" || rm ${logname}
         else
