@@ -433,7 +433,8 @@ jrest() {
 #
 #   <project>       Project to fetch
 #
-#   <build number>  Log from which build to get [default: latest].
+#   <build number>  Log from which build to get [default: latest]. Can be set
+#                   to -n to get the n-th latest build log.
 #
 get_jenkins_log() {
     local project
@@ -441,6 +442,7 @@ get_jenkins_log() {
     local logname
     local artifact
     local force
+    local latest_build
     artifact=""
     force=0
 
@@ -469,6 +471,11 @@ get_jenkins_log() {
 
     if (( $# > 0 )); then
         build_num="$1"
+
+        if (( build_num <= 0 )); then
+            latest_build=$(jrest GET /job/${project}/api/json | jq ".builds | .[0] | .number")
+            build_num=$(( latest_build + build_num ))
+        fi
     else
         build_num=$(jrest GET /job/${project}/api/json | jq ".builds | .[0] | .number")
     fi
