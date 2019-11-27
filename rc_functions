@@ -54,11 +54,12 @@ prepend_path() {
 prepend_root() {
     # $1: root path to export
     local rootpath="$1"
+    local python_version="$(python -V 2>&1 | cut -d ' ' -f 2 | cut -d . -f 1-2)"
     prepend_path PATH "$rootpath/bin"
     prepend_path LD_LIBRARY_PATH "$rootpath/lib"
     prepend_path MANPATH "$rootpath/share/man"
     prepend_path PYTHONPATH "$rootpath/lib/python$(
-        python --version | awk '{ print $2 }' | awk -F . '{ print $1 "." $2 }'
+        python --version 2>&1 | awk '{ print $2 }' | awk -F . '{ print $1 "." $2 }'
         )/site-packages"
 }
 

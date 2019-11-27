@@ -356,6 +356,9 @@ conwaf() {
     launch_container visionary-wafer "${@}"
 }
 
+condls() {
+    launch_container visionary-dls "${@}"
+}
 
 gerrit() {
   ssh -p $(jq -r .port ~/.config/gerrit/gerrit.json) \
