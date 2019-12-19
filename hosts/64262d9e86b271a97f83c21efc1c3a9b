@@ -155,9 +155,8 @@ get_yashchiki_manual_errors_concretization() {
 
 # taken from: https://unix.stackexchange.com/posts/522340/revisions
 pkgsize() {
-    expac -SsH M "%m: %n$\t%d" $@ | sort -h | tr '$' '\n'
+    expac -QsH M "%m: %n$\t%d" $@ | sort -h | tr '$' '\n'
 }
-
 
 alias refresh_monitors="monitors_default no_shutoff"
 
