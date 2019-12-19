@@ -3,11 +3,11 @@ prepend_path PATH $HOME/.local-stack/bin
 prepend_path PATH $HOME/.xmonad/bin
 prepend_path PATH $HOME/.cabal/bin
 
-which bat >/dev/null && export PAGER="$(which bat)" && export BAT_PAGER="less -RF" && export MANPAGER="sh -c 'col -b | bat -l man -p'"
+prepend_root "${HOME}/.local-singularity"
+
+which bat >/dev/null && export BAT_PAGER="less -RF" && export MANPAGER="sh -c 'col -b | bat -l man -p'"
 
 export PYTHONPATH="$HOME/.local/lib/python3.7/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
-
-# source $HOME/.local/Modules/init/zsh
 
 alias refresh_bg="feh --bg-fill \"${HOME}/wallpaper/brisbinxmonadwall.png\""
 
@@ -153,6 +153,12 @@ get_yashchiki_manual_errors_concretization() {
     get_jenkins_log -a errors_concretization.log bld_gerrit-yashchiki-manual "${@}"
 }
 
+# taken from: https://unix.stackexchange.com/posts/522340/revisions
+pkgsize() {
+    expac -SsH M "%m: %n$\t%d" $@ | sort -h | tr '$' '\n'
+}
+
+
 alias refresh_monitors="monitors_default no_shutoff"
 
 alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
@@ -166,5 +172,6 @@ alias git_proxy="git config --global http.proxy \"$http_proxy\""
 alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
 
+prepend_path PATH "${HOME}/.vim/plugged/vim-tidal/bin"
 
 # vim: ft=sh
