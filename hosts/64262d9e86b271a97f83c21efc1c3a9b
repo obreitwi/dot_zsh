@@ -176,5 +176,6 @@ alias git_no_proxy="git config --global --unset http.proxy"
 alias rpushp="rpush -H root-p"
 
 prepend_path PATH "${HOME}/.vim/plugged/vim-tidal/bin"
+prepend_path PATH "${HOME}/.cargo/bin"
 
 # vim: ft=sh
