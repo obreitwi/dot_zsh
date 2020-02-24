@@ -158,6 +158,10 @@ pkgsize() {
     expac -QsH M "%m: %n$\t%d" $@ | sort -h | tr '$' '\n'
 }
 
+db_speed() {
+    echo "$(curl https://iceportal.de/api1/rs/status 2>/dev/null | jq .speed) km/h"
+}
+
 alias refresh_monitors="monitors_default no_shutoff"
 
 alias monitors_gaming_large="monitors_set_gaming gaming-large 1920x1080"
