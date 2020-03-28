@@ -1,5 +1,18 @@
 setkipproxy
 
+if [ -d "${HOME}/.local/nvim" ]; then
+    prepend_root "${HOME}/.local/nvim"
+fi
+
+if [ -d "${HOME}/.local/node" ]; then
+    prepend_root "${HOME}/.local/node"
+fi
+
+if [ -d "${HOME}/.local/ruby" ]; then
+    prepend_root "${HOME}/.local/ruby"
+    prepend_path PATH "${HOME}/.gem/ruby/$(ruby --version | cut -d ' ' -f 2 | cut -d p -f 1)/bin"
+fi
+
 if (( ${+SINGULARITY_NAME} )); then
     source /opt/spack/share/spack/setup-env.sh
     prepend_path MODULEPATH /wang/environment/modules
