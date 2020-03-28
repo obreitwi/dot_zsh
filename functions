@@ -516,5 +516,9 @@ get_changes() {
     grest "/a/changes/?q=$*"  | tail -n +2 | jq -r "map(.id) | .[]"
 }
 
+clang_format_head() {
+    clang-format -i $(git diff-tree HEAD --no-commit-id --name-only -r)
+    git status
+}
 
 # vim: ft=zsh

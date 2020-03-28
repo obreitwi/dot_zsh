@@ -206,4 +206,8 @@ zle -C complete-files complete-word _generic
 zstyle ':completion:complete-files:*' completer _files
 bindkey "^x^f" complete-files
 
+if [ -f "${HOME}/.config/broot/launcher/bash/br" ]; then
+    source "${HOME}/.config/broot/launcher/bash/br"
+fi
+
 # vim: ft=zsh

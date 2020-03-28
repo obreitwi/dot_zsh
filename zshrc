@@ -71,4 +71,3 @@ else
 
     source ~/.zsh/plugins/init.zsh
 fi
-
