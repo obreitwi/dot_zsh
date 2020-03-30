@@ -13,6 +13,12 @@ if [ -d "${HOME}/.local/ruby" ]; then
     prepend_path PATH "${HOME}/.gem/ruby/$(ruby --version | cut -d ' ' -f 2 | cut -d p -f 1)/bin"
 fi
 
+if [ -d "${HOME}/.local/rust" ]; then
+    export CARGO_HOME="${HOME}/.local/rust/cargo"
+    export RUSTUP_HOME="${HOME}/.local/rust/rustup"
+    prepend_path PATH "${CARGO_HOME}/bin"
+fi
+
 if (( ${+SINGULARITY_NAME} )); then
     source /opt/spack/share/spack/setup-env.sh
     prepend_path MODULEPATH /wang/environment/modules
