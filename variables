@@ -1,17 +1,10 @@
 
-# if command -v lsb_release 2>&1 >/dev/null; then
-    # DISTNAME=$(lsb_release -c -s)
-    # if [[ "$DISTNAME" != "n/a" ]]; then
-        # prepend_root $HOME/.local-$DISTNAME
-    # fi
-# fi
-
 if [ -n "${MANPATH:-}" ]; then
     export MANPATH="$(manpath -g)"
 fi
 
-# prepend_root $HOME/usr
-# prepend_root $HOME/.local
+# switch modes in 0.1 seconds
+export KEYTIMEOUT=1
 
 if [ -f "$(command -v nvim)" ]; then
     export EDITOR="nvim"
