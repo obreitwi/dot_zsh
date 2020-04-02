@@ -37,7 +37,7 @@ PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
 # we have to use double quotes for this one to evaluate the colors
 # TODO Shorten this line!
-if ! which starship >/dev/null; then
+if (( ${+NO_STARSHIP} )) || ! which starship >/dev/null; then
 PROMPT="\
 ┌─[${PR_CYAN}%D{%m-%d/%H:%M:%S}${PR_NO_COLOR}|${PR_LIGHT_GREEN}%n${PR_NO_COLOR}@${PR_LIGHT_YELLOW}%m${SINGULARITY_NAME:+${PR_LIGHT_WHITE}~>${PR_NO_COLOR}${PR_ORANGE}${SINGULARITY_NAME}}${PR_NO_COLOR}${SINGULARITY_APPNAME:+${PR_LIGHT_WHITE}»${PR_LIGHT_RED}${SINGULARITY_APPNAME}${PR_NO_COLOR}}:${PR_BLUE}%~${PR_NO_COLOR}]
 └─☉ "
