@@ -1,0 +1,6 @@
+if [ -z "${MANPATH:-}" ]; then
+    export MANPATH="$(manpath -g)"
+fi
+
+prepend_root "$HOME/.local"
+prepend_path PATH "$HOME/.xmonad/bin"
