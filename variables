@@ -6,6 +6,10 @@
     # fi
 # fi
 
+if [ -n "${MANPATH:-}" ]; then
+    export MANPATH="$(manpath -g)"
+fi
+
 # prepend_root $HOME/usr
 # prepend_root $HOME/.local
 
