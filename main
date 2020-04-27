@@ -18,7 +18,8 @@
 #  fi
 
 fpath=($HOME/.zsh/completion $fpath)
-autoload -U compinit && compinit
+autoload -U +X compinit && compinit
+autoload -U +X bashcompinit && bashcompinit
 
 # Usefull keep command
 autoload -U keeper && keeper
