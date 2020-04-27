@@ -517,7 +517,7 @@ get_changes() {
 }
 
 clang_format_head() {
-    clang-format -i $(git diff-tree HEAD --no-commit-id --name-only -r)
+    clang-format -i $(git diff-tree HEAD --no-commit-id --name-only -r | grep "\.\(c\|cpp\|tcc\|h\|hpp\)$")
     git status
 }
 
