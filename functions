@@ -517,7 +517,12 @@ get_changes() {
 }
 
 clang_format_head() {
-    clang-format -i $(git diff-tree HEAD --no-commit-id --name-only -r | grep "\.\(c\|cpp\|tcc\|h\|hpp\)$")
+    file_list=("${(@f)$(git diff-tree HEAD --no-commit-id --name-only -r \
+        | grep "\.\(c\|cpp\|tcc\|h\|hpp\)$" \
+        | xargs ls -d 2>/dev/null \
+        )}")
+    clang-format -i "${file_list[@]}"
+    sed -i "s:^\(} // namespace .*\)GENPYBIND_TAG_.*$:\1:" "${file_list[@]}"
     git status
 }
 
