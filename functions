@@ -526,4 +526,8 @@ clang_format_head() {
     git status
 }
 
+build_this() {
+    grest POST /a/changes/$(change_id)/revisions/current/review message=BUILD_THIS
+}
+
 # vim: ft=zsh
