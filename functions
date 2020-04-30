@@ -358,7 +358,7 @@ launch_container() {
         args+=("--app" "${app}")
         shift
     fi
-    image="${1:-$(readlink -f /containers/stable/latest)}"
+    image="${1:-$(readlink -f ${MY_DEFAULT_CONTAINER:-/containers/stable/latest})}"
 
     singularity "${args[@]}" "${image}"
 }
