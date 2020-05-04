@@ -35,12 +35,21 @@ clean_path() {
     local envvar="$1"
     local pattern="$2"
 
-    local newval=$(eval "echo \$${envvar}" | tr ':' '\n' | grep -v "${pattern}" | tr '\n' ':' | sed "s/:$//")
+    if [ -z "${${envvar}:-}" ]; then
+        return
+    fi
+
+    eval "echo \"pre-clean: \$${envvar}\"" >&2
+    local newval=$(eval "echo \$${envvar}" \
+        | tr ':' '\n' \
+        | grep -Fxv "${pattern}" \
+        | tr '\n' ':' \
+        | sed -e "s/:$//" -e "s/^://" -e "s/::*/:/g")
 
     if [ -z "${newval}" ]; then
         unset ${envvar}
     else
-        export ${envvar}=${newval}
+        export ${envvar}="${newval}"
     fi
 }
 
@@ -49,10 +58,10 @@ prepend_path() {
     # $1: name of environment variable
     # $2: path
     local envvar="$1"
-    local path_to_add=$(echo "$2" | sed -e 's/[]\/$*.^|[]/\\&/g')
-    local cleanenv=$(eval "echo \$$envvar" | sed -e "s/$path_to_add:\\?//g")
-    # echo "export ${envvar}=${path_to_add}:${cleanenv}"
-    eval "export ${envvar}=${path_to_add}${cleanenv:+:$cleanenv}"
+    local path_to_add="$2"
+    clean_path "${envvar}" "${path_to_add}"
+    eval "local oldcontents=\"\${${envvar}:+:\${${envvar}}}\"" >&2
+    export ${envvar}="${path_to_add}${oldcontents:+:$oldcontents}"
 }
 
 prepend_root() {
@@ -75,15 +84,15 @@ clean_root() {
     local rootpath="$1"
     local python_version="$(python -V 2>&1 | cut -d ' ' -f 2 | cut -d . -f 1-2)"
 
-    clean_path PATH "^$rootpath/bin$"
-    clean_path LD_LIBRARY_PATH "^$rootpath/lib$"
-    clean_path MANPATH "^$rootpath/share/man$"
-    clean_path PYTHONPATH "^$rootpath/lib/python$(get_python_version)/site-packages$"
+    clean_path PATH "$rootpath/bin"
+    clean_path LD_LIBRARY_PATH "$rootpath/lib"
+    clean_path MANPATH "$rootpath/share/man"
+    clean_path PYTHONPATH "$rootpath/lib/python$(get_python_version)/site-packages"
 
-    clean_path SINGULARITYENV_PREPEND_PATH "^$rootpath/bin$"
-    clean_path SINGULARITYENV_LD_LIBRARY_PATH "^$rootpath/lib$"
-    clean_path SINGULARITYENV_MANPATH "^$rootpath/share/man$"
-    clean_path SINGULARITYENV_PYTHONPATH "^$rootpath/lib/python$(get_python_version)/site-packages$"
+    clean_path SINGULARITYENV_PREPEND_PATH "^$rootpath/bin"
+    clean_path SINGULARITYENV_LD_LIBRARY_PATH "^$rootpath/lib"
+    clean_path SINGULARITYENV_MANPATH "^$rootpath/share/man"
+    clean_path SINGULARITYENV_PYTHONPATH "^$rootpath/lib/python$(get_python_version)/site-packages"
 }
 
 # vim: ft=zsh
