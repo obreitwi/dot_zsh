@@ -39,7 +39,6 @@ clean_path() {
         return
     fi
 
-    eval "echo \"pre-clean: \$${envvar}\"" >&2
     local newval=$(eval "echo \$${envvar}" \
         | tr ':' '\n' \
         | grep -Fxv "${pattern}" \
