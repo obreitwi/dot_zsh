@@ -43,7 +43,7 @@ clean_path() {
         | tr ':' '\n' \
         | grep -Fxv "${pattern}" \
         | tr '\n' ':' \
-        | sed -e "s/:$//" -e "s/^://" -e "s/::*/:/g")
+        | sed -e "s/:$//" -e "s/^://" -e "s/::\+/:/g")
 
     if [ -z "${newval}" ]; then
         unset ${envvar}
