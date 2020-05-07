@@ -517,7 +517,7 @@ get_changes() {
 }
 
 clang_format_head() {
-    file_list=("${(@f)$(git diff-tree HEAD --no-commit-id --name-only -r \
+    file_list=("${(@f)$(git diff-tree ${1:-HEAD} --no-commit-id --name-only -r \
         | grep "\.\(c\|cpp\|tcc\|h\|hpp\)$" \
         | xargs ls -d 2>/dev/null \
         )}")
