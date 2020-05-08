@@ -288,12 +288,16 @@ cat_pkl() {
     done
 }
 
-gerrit_fetch_changesets() { 
-    remote="review"
+# Fetch all open changesets and assign them their own branch:
+# gerrit_tree_view/{change number}/{patchset level}
+gerrit_fetch_changesets() {
+    git_dir="$(git rev-parse --show-toplevel)"
+    # remote branch
+    gerrit_remote="$(grep "^defaultremote=" "${git_dir}/.gitreview" | cut -d = -f 2)"
     localbranchname=gerrit_tree_view
 
-    gerrit_remote=$(git config --local remote.review.url)
-    elements=("${(@s:/:)gerrit_remote}")
+    gerrit_remote_raw=$(git config --local remote.${gerrit_remote}.url)
+    elements=("${(@s:/:)gerrit_remote_raw}")
     gerrit_project=${elements[-1]}
     elements[-1]=()
     gerrit_url=${(j./.)elements}
@@ -305,7 +309,7 @@ gerrit_fetch_changesets() {
     git branch -D $(git branch | grep "$localbranchname") &> /dev/null
     ssh -p ${gerrit_port} ${gerrit_url} gerrit query "project:${gerrit_project} status:open" --current-patch-set | sed -n 's/\s*ref: //p' | while read REF
 do
-    git fetch "${remote}" "${REF}"
+    git fetch "${gerrit_remote}" "${REF}"
     git branch $(echo "${REF}" | sed "s#refs/changes/../#${localbranchname}/#") FETCH_HEAD
 done
 }
