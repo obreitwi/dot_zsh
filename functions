@@ -314,6 +314,39 @@ do
 done
 }
 
+# Check if the last patch level of any open changeset was last uploaded by someone else.
+#
+# This should make it harder to accidentally overwrite other peoples edits.
+gerrit_check_pre_review() {
+    git_dir="$(git rev-parse --show-toplevel)"
+    # remote branch
+    gerrit_branch="$(grep "^defaultbranch=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+    gerrit_remote="$(grep "^defaultremote=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+
+    gerrit_remote_raw=$(git config --local remote.${gerrit_remote}.url)
+    elements=("${(@s:/:)gerrit_remote_raw}")
+    gerrit_project=${elements[-1]}
+    elements[-1]=()
+    gerrit_url=${(j./.)elements}
+
+    elements=("${(@s.:.)gerrit_url}")
+    gerrit_port=${elements[-1]}
+    gerrit_url=${${elements[-2]}:gs./.}
+    change_ids=( "${(@f)$(git log ${gerrit_remote}/${gerrit_branch}..HEAD \
+        | awk '$1 ~ /^Change-Id:/ { print $2 }')}" )
+
+    gerrit_username="${${gerrit_url##ssh://}%%@*}"
+
+    for change_id in "${change_ids[@]}"; do
+        uploader="$(ssh -p ${gerrit_port} ${gerrit_url} \
+            "gerrit query project:${gerrit_project} change:${change_id} status:open --current-patch-set --format JSON" \
+            | head -n 1 | jq -r ".currentPatchSet.uploader.username")"
+        if [[ "${gerrit_username}" != "${uploader}" ]]; then
+            echo "WARNING: Latest patchset for ${change_id} was uploaded by ${uploader}!" >&2
+        fi
+    done
+}
+
 gen_ssha512() {
     local pw="$1"
     while [ -z "${pw}" ]; do
