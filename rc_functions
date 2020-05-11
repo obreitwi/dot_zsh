@@ -18,7 +18,7 @@ export_path() {
     local path_to_add="$2"
     # if eval "echo \$${envvar}" | grep -qvF "${path_to_add}"
     # eval "echo \$${envvar}"
-    if eval "echo \$${envvar}" | grep -qvF "${path_to_add}"
+    if eval "echo \$${envvar}" | tr ':' '\n' | grep -qxvF "${path_to_add}"
     then
         # eval "echo $envvar: \$$envvar"
         # echo "export ${envvar}=${path_to_add}:\$${envvar}"
