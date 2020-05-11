@@ -31,6 +31,13 @@ else
 fi
 
 
+if [ -n "${SINGULARITY_CONTAINER:-}" ]; then
+    # convenience auto loads in container
+    source /opt/init/modules.sh
+    module load slurm-singularity
+fi
+
+
 # if command -v lsb_release 2>&1 >/dev/null; then
     # DISTNAME=$(lsb_release -c -s)
     # prepend_root $HOME/.local-$DISTNAME
