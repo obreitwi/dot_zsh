@@ -222,9 +222,10 @@ svg_to_png() {
     done
 }
 
+# see https://trac.ffmpeg.org/wiki/Encode/MP3
 to_mp3() {
     for origin in "$@"; do
-        ffmpeg -i "${origin}" -vn -acodec libmp3lame -ac 2 -aq 0 -ar 48000 "${origin:t:r}.mp3"
+        ffmpeg -i "${origin}" -vn -acodec libmp3lame -ac 2 -aq ${AQ:-2} -ar 48000 "${origin:t:r}.mp3"
     done
 }
 
@@ -586,6 +587,10 @@ clang_format_head() {
 
 build_this() {
     grest POST /a/changes/$(change_id)/revisions/current/review message=BUILD_THIS
+}
+
+get_bpm() {
+    sox "$1" -t raw -r 44100 -e float -c 1 - | bpm -x 190
 }
 
 # vim: ft=zsh
