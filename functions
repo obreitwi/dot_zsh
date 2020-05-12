@@ -334,11 +334,9 @@ gerrit_check_pre_review() {
     gerrit_url=${${elements[-2]}:gs./.}
     change_ids=( "${(@f)$(git log ${gerrit_remote}/${gerrit_branch}..HEAD \
         | awk '$1 ~ /^Change-Id:/ { print $2 }')}" )
-    authors=( "${(@f)$(git log ${gerrit_remote}/${gerrit_branch}..HEAD \
-        | awk '$1 ~ /^Author:/ { $1=""; print }' \
-        | sed -e "s:^\\s*::" -e "s:\\s*$::" )}" )
+    committers=( "${(@f)$(git log --format="%cn <%ce>" "${gerrit_remote}/${gerrit_branch}..HEAD")}" )
 
-    if (( ${#change_ids} != ${#authors} )); then
+    if (( ${#change_ids} != ${#committers} )); then
         echo "Not all commits in question have Change-Ids!" >&2
         return 1
     fi
@@ -349,22 +347,22 @@ gerrit_check_pre_review() {
 
     for ((i = 1; i <= ${#change_ids}; i++)); do
         change_id="${change_ids[$i]}"
-        author="${authors[$i]}"
+        committer="${committers[$i]}"
 
         ssh -p ${gerrit_port} ${gerrit_url} \
             "gerrit query project:${gerrit_project} change:${change_id} status:open --current-patch-set --format JSON" \
             | head -n 1 > "${tmpfile_change_info}"
-        gploader_name="$(jq -r ".currentPatchSet.uploader.name" < "${tmpfile_change_info}")"
+        uploader_name="$(jq -r ".currentPatchSet.uploader.name" < "${tmpfile_change_info}")"
         uploader_mail="$(jq -r ".currentPatchSet.uploader.email" < "${tmpfile_change_info}")"
 
-        uploader_author="${uploader_name} <${uploader_mail}>"
+        uploader="${uploader_name} <${uploader_mail}>"
 
-        if [[ "${uploader_author}" == "null <null>" ]]; then
+        if [[ "${uploader}" == "null <null>" ]]; then
             echo "WARNING: Info on changeset ${change_id} not current anymore!" >&2
         fi
 
-        if [[ "${author}" != "${uploader_author}" ]]; then
-            echo "WARNING: [${change_id}] Authors differ! Local: ${author} / Gerrit: ${uploader_author}" >&2
+        if [[ "${committer}" != "${uploader}" ]]; then
+            echo "WARNING: [${change_id}] Committers differ! Local: ${committer} / Gerrit: ${uploader}" >&2
         fi
     done
     rm "${tmpfile_change_info}"
