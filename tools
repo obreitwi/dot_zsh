@@ -1,0 +1,5 @@
+if which broot >/dev/null; then
+    source "${HOME}/.zsh/broot"
+fi
+
+# vim: ft=zsh

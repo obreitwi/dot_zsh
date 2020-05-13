@@ -15,6 +15,7 @@ else
     source $HOME/.zsh/functions
     source $HOME/.zsh/aliases
     source $HOME/.zsh/bindkeys
+    source $HOME/.zsh/tools
     if [ -e $HOME/.zsh/private ]; then
         source $HOME/.zsh/private
     fi
