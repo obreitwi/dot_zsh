@@ -178,4 +178,6 @@ alias rpushp="rpush -H root-p"
 prepend_path PATH "${HOME}/.vim/plugged/vim-tidal/bin"
 prepend_path PATH "${HOME}/.cargo/bin"
 
+export MY_DEFAULT_CONTAINER="$HOME/container/current"
+
 # vim: ft=sh
