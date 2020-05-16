@@ -555,7 +555,7 @@ get_jenkins_log() {
         shift
     fi
 
-    if [ -n "${buld_num:-}" ]; then
+    if [ -n "${build_num:-}" ]; then
         if (( build_num <= 0 )); then
             latest_build=$(jrest GET /job/${project}/api/json | jq ".builds | .[0] | .number")
             build_num=$(( latest_build + build_num ))
