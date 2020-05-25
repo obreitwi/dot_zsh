@@ -415,6 +415,7 @@ gerrit_check_pre_review() {
             | head -n 1 > "${tmpfile_change_info}"
         uploader_name="$(jq -r ".currentPatchSet.uploader.name" < "${tmpfile_change_info}")"
         uploader_mail="$(jq -r ".currentPatchSet.uploader.email" < "${tmpfile_change_info}")"
+        change_url="$(jq -r ".url" < "${tmpfile_change_info}")"
 
         uploader="${uploader_name} <${uploader_mail}>"
 
@@ -423,7 +424,7 @@ gerrit_check_pre_review() {
         fi
 
         if [[ "${committer}" != "${uploader}" ]]; then
-            echo "WARNING: [${change_id}] Committers differ! Local: ${committer} / Gerrit: ${uploader}" >&2
+            echo "WARNING: [${change_url}] Committers differ! Local: ${committer} / Gerrit: ${uploader}" >&2
         fi
     done
     rm "${tmpfile_change_info}"
