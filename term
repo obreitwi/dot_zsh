@@ -1,0 +1,18 @@
+
+# If there is no TERM set, we need to figure out if our beloved terminal of
+# choice is availble
+
+if [[ -z "${TERM}" ]]; then
+    if [[ -n "${TMUX}" ]]; then
+        # Within tmux set TMUX term
+        export TERM="tmux-256color"
+    elif infocmp rxvt-unicode-256color &>/dev/null; then
+        # Set correct term for preferred terminal
+        export TERM='rxvt-unicode-256color'
+    else
+        # Fallback
+        export TERM='screen-256color'
+    fi
+fi
+
+# vim: ft=zsh

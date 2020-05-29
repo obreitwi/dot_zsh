@@ -16,6 +16,8 @@ else
     source $HOME/.zsh/aliases
     source $HOME/.zsh/bindkeys
     source $HOME/.zsh/tools
+    source $HOME/.zsh/term
+
     if [ -e $HOME/.zsh/private ]; then
         source $HOME/.zsh/private
     fi
@@ -26,41 +28,6 @@ else
     # [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
     # # if there is a local version, source it as well
     # [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
-
-    # support for 256 colors
-    # export TERM='rxvt-256color'
-    # (only load when we are in no tmux session)
-    if [[ ! -z ${SINGULARITY_NAME} ]]; then
-        infocmp rxvt-unicode-256color &>/dev/null
-        if [[ $? -eq 0 ]]; then
-            export TERM='rxvt-unicode-256color'
-        else
-            export TERM='screen-256color'
-        fi
-    elif [[ -z ${TMUX} ]]; then
-        # if [[ -e /usr/share/terminfo/x/xterm-256color  ||  -e /lib/terminfo/x/xterm-256color ]]; then
-            # export TERM='xterm-256color'
-        # else
-            # export TERM='xterm-color'
-        # fi
-        # if [[ -n $DISPLAY ]]; then
-            # export TERM='rxvt-unicode-256color'
-            # export LANG='en_US.UTF8'
-
-        if [[ -z ${TERM} ]]; then
-            infocmp rxvt-unicode-256color &>/dev/null
-            if [[ $? -eq 0 ]]; then
-                export TERM='rxvt-unicode-256color'
-            else
-                # export TERM='linux'
-                # export LANG='en_US.iso88591'
-                # export LANG='en_US.UTF8'
-            fi
-        fi
-    else
-        # will be set by tmux
-        # export TERM='screen-256color'
-    fi
 
     # check for host specific configs
     [ -f ~/.zsh/hosts/$ENCHOST ] && source ~/.zsh/hosts/$ENCHOST
