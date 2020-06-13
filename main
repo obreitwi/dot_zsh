@@ -25,6 +25,7 @@ autoload -U +X bashcompinit && bashcompinit
 autoload -U keeper && keeper
 
 autoload -U zmv
+alias zcp='zmv -C' zln='zmv -L'
 
 setopt hist_ignore_all_dups
 setopt EXTENDED_HISTORY

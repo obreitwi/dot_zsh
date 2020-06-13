@@ -315,6 +315,20 @@ do
 done
 }
 
+gerrit_query() {
+    local git_dir gerrit_branch gerrit_remote gerrit_host gerrit_port gerrit_project
+
+    git_dir="$(git rev-parse --show-toplevel)"
+
+    gerrit_branch="$(grep "^defaultbranch=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+    gerrit_remote="$(grep "^defaultremote=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+    gerrit_host="$(grep "^host=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+    gerrit_port="$(grep "^port=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+    gerrit_project="$(grep "^project=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+
+    ssh -p ${gerrit_port} ${gerrit_host} gerrit query "${@}"
+}
+
 # Get current change ids
 gerrit_current_change_ids() {
     git_dir="$(git rev-parse --show-toplevel)"
@@ -651,7 +665,7 @@ gerrit_post_message() {
     shift $(( OPTIND - 1 ))
 
     if [ "${change_id}" = "head" ]; then
-        change_id="$(change_id_head)"
+        change_id="$(gerrit_change_id_head)"
     fi
 
     grest POST /a/changes/${change_id}/revisions/current/review "message=${message}" "labels:='${labels}'"
