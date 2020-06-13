@@ -668,7 +668,17 @@ gerrit_post_message() {
         change_id="$(gerrit_change_id_head)"
     fi
 
-    grest POST /a/changes/${change_id}/revisions/current/review "message=${message}" "labels:='${labels}'"
+    args=( POST "/a/changes/${change_id}/revisions/current/review" )
+
+    if [ -n "${message}" ]; then
+        args+=( "${message}" )
+    fi
+
+    if [ -n "${labels}" ]; then
+        args+=( "labels:='${labels}'" )
+    fi
+
+    grest "${args[@]}"
 }
 
 gerrit_build_this() {
