@@ -630,7 +630,7 @@ clang_format_head() {
 
 gerrit_change_id_head()
 {
-    git log -n 1 | awk '\$1 ~ /Change-Id:/ { print \$2 }' | tr -d '\n'
+    git log -n 1 | awk '$1 ~ /Change-Id:/ { print $2 }' | tr -d '\n'
 }
 
 # Post a message (-m) to the given change_id (-c)
