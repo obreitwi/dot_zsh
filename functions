@@ -671,7 +671,7 @@ gerrit_post_message() {
     args=( POST "/a/changes/${change_id}/revisions/current/review" )
 
     if [ -n "${message}" ]; then
-        args+=( "${message}" )
+        args+=( "message=${message}" )
     fi
 
     if [ -n "${labels}" ]; then
