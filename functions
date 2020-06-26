@@ -675,7 +675,7 @@ gerrit_post_message() {
     fi
 
     if [ -n "${labels}" ]; then
-        args+=( "labels:='${labels}'" )
+        args+=( "labels:=${labels}" )
     fi
 
     grest "${args[@]}"
