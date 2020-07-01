@@ -499,14 +499,11 @@ grest() {
     username="$(jq -r .username ~/.config/gerrit/gerrit.json)"
     password="$(jq -r .password ~/.config/gerrit/gerrit.json)"
     shift
-    (
-    set -x
-    http --auth-type basic                                                   \
-        --auth "${username}:${password}"                                    \
-        ${method}                                                           \
-        ${host}${url}                                                       \
-        "${@}"
-    )
+    http --auth-type basic                                                    \
+         --auth "${username}:${password}"                                     \
+         ${method}                                                            \
+         ${host}${url}                                                        \
+         "${@}"
 }
 
 jrest() {
