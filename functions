@@ -656,6 +656,8 @@ gerrit_post_message() {
                 ;;
             l)  labels="${OPTARG}"
                 ;;
+            t)  topic="${OPTARG}"
+                ;;
             *)
                 echo "Invalid argument: ${opts}" >&2
                 return 1
@@ -676,6 +678,49 @@ gerrit_post_message() {
 
     if [ -n "${labels}" ]; then
         args+=( "labels:=${labels}" )
+    fi
+
+    grest "${args[@]}"
+}
+
+# Set a topic (-t) on the given change_id (-c)
+#
+# If change id is not specified, take the current head.
+#
+# Args:
+#   -c change_id
+#   -t topic
+gerrit_set_topic() {
+    local change_id
+    local topic
+    change_id="head"
+    message=""
+    while getopts ":c:t:" opts; do
+        case "${opts}" in
+            c)
+                change_id="${OPTARG}"
+                ;;
+            t)  topic="${OPTARG}"
+                ;;
+            *)
+                echo "Invalid argument: ${opts}" >&2
+                return 1
+                ;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
+
+    if [ "${change_id}" = "head" ]; then
+        change_id="$(gerrit_change_id_head)"
+    fi
+
+    args=( PUT "/a/changes/${change_id}/topic" )
+
+    if [ -n "${topic}" ]; then
+        args+=( "topic=${topic}" )
+    else
+        echo "ERROR: -t not provided!" >&2
+        exit 1
     fi
 
     grest "${args[@]}"
