@@ -499,11 +499,14 @@ grest() {
     username="$(jq -r .username ~/.config/gerrit/gerrit.json)"
     password="$(jq -r .password ~/.config/gerrit/gerrit.json)"
     shift
+    (
+    set -x
     http --auth-type basic                                                   \
-         --auth "${username}:${password}"                                    \
-         ${method}                                                           \
-         ${host}${url}                                                       \
-         "${@}"
+        --auth "${username}:${password}"                                    \
+        ${method}                                                           \
+        ${host}${url}                                                       \
+        "${@}"
+    )
 }
 
 jrest() {
@@ -554,6 +557,7 @@ jenkins_get_log() {
     local artifact
     local force
     local latest_build
+    local opts OPTIND OPTARG
     artifact=""
     force=0
 
@@ -645,6 +649,8 @@ gerrit_post_message() {
     local change_id
     local message
     local labels
+    local -a args
+    local opts OPTIND OPTARG
     change_id="head"
     message=""
     while getopts ":c:l:m:" opts; do
@@ -693,6 +699,8 @@ gerrit_post_message() {
 gerrit_set_topic() {
     local change_id
     local topic
+    local -a args
+    local opts OPTIND OPTARG
     change_id="head"
     message=""
     while getopts ":c:t:" opts; do
@@ -721,6 +729,62 @@ gerrit_set_topic() {
     else
         echo "ERROR: -t not provided!" >&2
         exit 1
+    fi
+
+    grest "${args[@]}"
+}
+
+# Modify hashtags on the given change_id (-c)
+#
+# If change id is not specified, take the current head.
+#
+# Args:
+#   -c change_id
+#   [-a <hashtag to add>...]
+#   [-r <hashtag to remove>...]
+gerrit_hashtags() {
+    local change_id
+    local -a add
+    local -a remove
+    local -a args
+    local opts OPTIND OPTARG
+    change_id="head"
+    while getopts ":c:a:r:" opts; do
+        case "${opts}" in
+            c)
+                change_id="${OPTARG}"
+                ;;
+            a)  add+=("${OPTARG}")
+                ;;
+            r)  remove=+("${OPTARG}")
+                ;;
+            *)
+                echo "Invalid argument: ${opts}" >&2
+                return 1
+                ;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
+
+    if [ "${change_id}" = "head" ]; then
+        change_id="$(gerrit_change_id_head)"
+    fi
+
+    args=( POST "/a/changes/${change_id}/hashtags" )
+
+    if [ -n "${add[*]}" ] && [ -n "${remove[*]}" ]; then
+        echo "ERROR: No hashtags given." >&2
+        exit 1
+    fi
+
+    if [ -n "${add[*]}" ]; then
+        local add_inner="$(printf '"%s", ' "${add[@]}")"
+        args+=( "add:=[${add_inner%%, }]" )
+    fi
+
+    if [ -n "${remove[*]}" ]; then
+        local remove_inner="$(printf '"%s", ' "${remove[@]}")"
+        args+=( "remove:=[${remove_inner%%, }]" )
     fi
 
     grest "${args[@]}"
