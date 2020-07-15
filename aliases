@@ -185,5 +185,6 @@ alias archive_webpage="wget -E -H -k -K -p"
 
 alias clear_color='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
-# vim: ft=zsh
+alias killbg='kill -KILL ${${(v)jobstates##*:*:}%=*}'
 
+# vim: ft=zsh
