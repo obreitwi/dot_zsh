@@ -330,22 +330,47 @@ gerrit_query() {
 }
 
 # Get current change ids
+#
+# Usage:
+#   gerrit_current_change_ids [-b <base-commit>]
+#
+#   -b defaults to remote head
 gerrit_current_change_ids() {
     git_dir="$(git rev-parse --show-toplevel)"
-    # remote branch
-    gerrit_branch="$(grep "^defaultbranch=" "${git_dir}/.gitreview" | cut -d = -f 2)"
-    gerrit_remote="$(grep "^defaultremote=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+    local base_commit=""
 
-    gerrit_remote_raw=$(git config --local remote.${gerrit_remote}.url)
-    elements=("${(@s:/:)gerrit_remote_raw}")
-    gerrit_project=${elements[-1]}
-    elements[-1]=()
-    gerrit_url=${(j./.)elements}
+    local opts OPTIND OPTARG
+    while getopts ":b:" opts; do
+        case "${opts}" in
+            b)
+                base_commit="${OPTARG}"
+                ;;
+            *)
+                echo "Invalid argument: ${opts}" >&2
+                return 1
+                ;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
 
-    elements=("${(@s.:.)gerrit_url}")
-    gerrit_port=${elements[-1]}
-    gerrit_url=${${elements[-2]}:gs./.}
-    change_ids=( "${(@f)$(git log ${gerrit_remote}/${gerrit_branch}..HEAD \
+    if [ -z "${base_commit}" ]; then
+        # remote branch
+        gerrit_branch="$(grep "^defaultbranch=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+        gerrit_remote="$(grep "^defaultremote=" "${git_dir}/.gitreview" | cut -d = -f 2)"
+
+        gerrit_remote_raw=$(git config --local remote.${gerrit_remote}.url)
+        elements=("${(@s:/:)gerrit_remote_raw}")
+        gerrit_project=${elements[-1]}
+        elements[-1]=()
+        gerrit_url=${(j./.)elements}
+
+        elements=("${(@s.:.)gerrit_url}")
+        gerrit_port=${elements[-1]}
+        gerrit_url=${${elements[-2]}:gs./.}
+
+        base_commit='${gerrit_remote}/${gerrit_branch}'
+    fi
+    change_ids=( "${(@f)$(git log ${base_commit}..HEAD \
         | awk '$1 ~ /^Change-Id:/ { print $2 }')}" )
 
     printf "%s\n" "${change_ids[@]}"
