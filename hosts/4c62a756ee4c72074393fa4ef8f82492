@@ -13,4 +13,4 @@ sshcontrol_toggle_confirm() {
         && rm "${path_sshcontrol}.old"
 }
 
-export MY_DEFAULT_CONTAINER="$HOME/containers/container"
+export MY_DEFAULT_CONTAINER="$HOME/container/current"
