@@ -818,7 +818,7 @@ gerrit_build_this() {
 }
 
 get_bpm() {
-    sox "$1" -t raw -r 44100 -e float -c 1 - | bpm -x 190
+    sox "$1" -t raw -r 44100 -e float -c 1 - | bpm -x ${max_bpm:-190}
 }
 
 nv() {
