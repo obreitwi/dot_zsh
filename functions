@@ -139,7 +139,7 @@ rstr() {
 zle -N rstr
 
 
-popen() { 
+popen() {
     if [[ $# == 0 ]]; then
         ilab -ic "import cPickle as pickle";
     elif [[ $# == 1 ]]; then
@@ -368,7 +368,7 @@ gerrit_current_change_ids() {
         gerrit_port=${elements[-1]}
         gerrit_url=${${elements[-2]}:gs./.}
 
-        base_commit='${gerrit_remote}/${gerrit_branch}'
+        base_commit="${gerrit_remote}/${gerrit_branch}"
     fi
     change_ids=( "${(@f)$(git log ${base_commit}..HEAD \
         | awk '$1 ~ /^Change-Id:/ { print $2 }')}" )

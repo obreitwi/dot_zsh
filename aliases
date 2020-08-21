@@ -40,9 +40,6 @@ alias tma="tmux -2 -u attach-session -t"
 # open tmux in 256 color mode
 alias tmux="tmux -2"
 
-# vim with encryption
-# alias vime="vim -u ~/git/usualStuff/vim/vimencrypt -x"
-
 # default parameters for feh
 alias fehm="feh -dx. -A 'echo %f' --auto-rotate"
 
@@ -51,9 +48,6 @@ alias fehm="feh -dx. -A 'echo %f' --auto-rotate"
 alias gsu="git submodule update --recursive --init"
 
 alias gsur="git submodule update --recursive --init --remote --rebase"
-
-#svn connections
-#  alias sumpf="svn checkout https://mathphys.fsk.uni-heidelberg.de/svn/sumpf /Users/Sebastian/Documents/Projekte/MathPhys"
 
 # Make grep more colorful
 alias grepc="grep --color"
@@ -68,10 +62,7 @@ alias grepc="grep --color"
 # Global: P V H T G X ZF NE NO DN
 
 # Suffix aliases
-#  alias -s txt=open /Applications/TextMate.app
-#  alias -s pdf=open /Applications/Preview.app/Contents/MacOS/Preview
 alias -s txt=vim
-# alias -s py=vim
 alias -s pdf=evince
 
 # Global aliases
@@ -122,11 +113,6 @@ alias cdl='cdr -l'
 alias kb_intl='setxkbmap us intl -model pc105; xmodmap ~/.xmodmap'
 alias kb_us='setxkbmap us -model pc105; xmodmap ~/.xmodmap'
 
-# export PAGER=~/git/usualStuff/vim/tools/vimpager/vimpager
-# alias less=$PAGER
-# alias zless=$PAGER
-
-alias tmu="source <(tmux showenv | grep -v '^-' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
 alias tmlac="tmux-launch-and-configure"
 alias tmux_reattach_running="/proc/\$(pgrep -u \$USER tmux | head -n 1)/exe detach; /proc/\$(pgrep -u \$USER tmux | head -n 1)/exe attach"
 alias tmar="tmux_reattach_running"
@@ -144,11 +130,6 @@ alias mosh_beli='mosh --port=62087 --ssh="ssh -p 12022" gitviz.kip.uni-heidelber
 alias monoff="xset dpms force off"
 
 # alias diff_lines="diff --unchanged-line-format= --old-line-format= --new-line-format='%L'\" sums =(sha512sum fig/*.svg) | sed -e 's:^[0-9a-f]*\s*::'
-
-# # hub alias
-# if (( $+commands[hub] )); then
-	# $(hub alias -s)
-# fi
 
 alias lp_1="lp -o fit-to-page -o sides=one-sided -o media=A4 -d"
 alias lp_2="lp -o fit-to-page -o sides=two-sided-long-edge -o media=A4 -d"
