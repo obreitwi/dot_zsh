@@ -21,6 +21,10 @@ alias d='dirs -v'
 alias dg='dirs -v | grep'
 alias wgetcd='wget --content-disposition'
 
+# clip board management
+alias setclip="xclip -selection c"
+alias getclip="xclip -selection c -o"
+
 alias ilab="ipython -ic 'import numpy as np; import pylab as p; import matplotlib as mpl'"
 alias ilab2="ipython2 -ic 'import numpy as np; import pylab as p; import matplotlib as mpl'"
 
