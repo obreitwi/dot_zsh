@@ -44,6 +44,9 @@ alias tma="tmux -2 -u attach-session -t"
 # open tmux in 256 color mode
 alias tmux="tmux -2"
 
+# restore environment
+alias tmu="source <(tmux showenv | grep -v '^-' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
+
 # default parameters for feh
 alias fehm="feh -dx. -A 'echo %f' --auto-rotate"
 
