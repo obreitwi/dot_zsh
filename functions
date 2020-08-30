@@ -473,6 +473,8 @@ launch_container() {
         args+=("-H" "${HOME}")
     fi
 
+    args+=("-B" "/run")
+
     if (( $# > 0 )); then
         app="${1}"
         args+=("--app" "${app}")
