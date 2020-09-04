@@ -83,3 +83,5 @@ zle -N edit-command-line
 # bindkey "^K" edit-command-line 
 bindkey -M vicmd v edit-command-line
 
+# Shift-Tab for backwards movement 
+bindkey '^[[Z' reverse-menu-complete
