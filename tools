@@ -2,4 +2,10 @@ if which broot >/dev/null; then
     source "${HOME}/.zsh/broot"
 fi
 
+if which fzf >/dev/null; then
+    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/completion.zsh
+fi
+
+
 # vim: ft=zsh
