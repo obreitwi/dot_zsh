@@ -5,11 +5,11 @@ fi
 if which fzf >/dev/null; then
     # system-wide install
     [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-    [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/completion.zsh
+    [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
     # local install
     [ -f ~/.local/share/fzf/key-bindings.zsh ] && source ~/.local/share/fzf/key-bindings.zsh
-    [ -f ~/.local/share/fzf/key-bindings.zsh ] && source ~/.local/share/fzf/completion.zsh
+    [ -f ~/.local/share/fzf/completion.zsh ] && source ~/.local/share/fzf/completion.zsh
 fi
 
 # vim: ft=zsh
