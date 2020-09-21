@@ -42,6 +42,10 @@ monitors_default() {
         echo "setup @ office (RZ)"
         autorandr --load rz-office
 
+    elif xrandr | grep -q "DP1-2-1 connected"; then
+        echo "setup @ office (RZ)"
+        autorandr --load rz-office-intel
+
     else
         echo "setup @ mobile"
         xrandr --output eDP-1 --primary --auto
@@ -124,6 +128,9 @@ monitors_all() {
     elif xrandr | grep -q "DP-1-2-1 connected"; then
         echo "setup @ office (RZ)"
         autorandr --load rz-office
+    elif xrandr | grep -q "DP1-2-1 connected"; then
+        echo "setup @ office (RZ)"
+        autorandr --load rz-office-intel
     else
         echo "setup @ mobile"
         xrandr --output eDP-1 --primary --auto
