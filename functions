@@ -158,7 +158,8 @@ zle -N foreground-vim
 bindkey '^Z' foreground-vim
 
 find_in_hist() {
-    grep -ri $1 ~/.logs
+    zgrep -i "$1" ~/.logs/*.gz
+    grep -ri "$1" ~/.logs
 }
 alias fih=find_in_list
 
