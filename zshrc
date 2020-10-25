@@ -8,6 +8,7 @@ ENCHOST=$(mdh)
 if [ -d ~/.oh-my-zsh ]; then
     source $HOME/.zsh/oh-my-zshrc
 else
+    source $HOME/.zsh/plugins/init.zsh
     source $HOME/.zsh/main
     source $HOME/.zsh/variables
     source $HOME/.zsh/prompt
@@ -37,5 +38,4 @@ else
     # finally load gmrl zshrc - now only used for neat little functions
     #  source $HOME/.zsh/zshrc_grml
 
-    source ~/.zsh/plugins/init.zsh
 fi
