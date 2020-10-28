@@ -567,6 +567,8 @@ jrest() {
 #
 #   Can then be used like this: nvim $(jenkins_get_log my-fancy-jobname).
 #
+#   See also: jenkins_view_log
+#
 # Args:
 #   -a <artifact>   Get specific artifact (example: errors_concretization.log).
 #
@@ -643,6 +645,26 @@ jenkins_get_log() {
         fi
     fi
     echo "${logname}"
+}
+
+# Usage:
+#   jenkins_view_log [-a <artifact>] <project>[/][<build number>]
+#
+#   Fetches and opens the specified jenkins log in $EDITOR. Log will only be
+#   fetched if logfile does not exist.
+#
+# Args:
+#   -a <artifact>   Get specific artifact (example: errors_concretization.log).
+#
+#   -f              Force redownload of log even if it exists.
+#
+#   <project>       Project to fetch
+#
+#   <build number>  Log from which build to get [default: latest]. Can be set
+#                   to -n to get the n-th latest build log.
+#
+jenkins_view_log() {
+    ${EDITOR} $(jenkins_get_log "${@}")
 }
 
 gerrit_get_changes() {
