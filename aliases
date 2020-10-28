@@ -70,7 +70,10 @@ alias grepc="grep --color"
 
 # Suffix aliases
 alias -s txt=vim
-alias -s pdf=evince
+if which zathura >/dev/null; then
+    alias -s pdf=zathura
+    alias -s djvu=zathura
+fi
 
 # Global aliases
 alias -g C=' | wc -l'
