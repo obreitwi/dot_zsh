@@ -3,6 +3,11 @@ if [ -n "${MANPATH:-}" ]; then
     export MANPATH="$(manpath -g)"
 fi
 
+if which bat>/dev/null; then
+    # Have manpages colored
+    export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
+
 # switch modes in 0.1 seconds
 export KEYTIMEOUT=1
 
