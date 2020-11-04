@@ -34,6 +34,12 @@ if command -v gpg-connect-agent 2>&1 >/dev/null; then
     gpg-connect-agent updatestartuptty /bye >/dev/null
 fi
 
+if [[ "${COLORTERM:-}" == "rxvt" ]]\
+        && command -v pacman 2>&1 >/dev/null\
+        && pacman -Qsq rxvt-unicode-truecolor >/dev/null; then
+    export COLORTERM=truecolor
+fi
+
 # This is used for auto_cmd
 # CDPATH=.:..:~
 
