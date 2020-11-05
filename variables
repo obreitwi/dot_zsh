@@ -40,6 +40,10 @@ if [[ "${COLORTERM:-}" == "rxvt" ]]\
     export COLORTERM=truecolor
 fi
 
+if [ -z "${TZ:-}" ]; then
+    export TZ=/usr/share/zoneinfo/Europe/Berlin
+fi
+
 # This is used for auto_cmd
 # CDPATH=.:..:~
 
