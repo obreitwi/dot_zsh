@@ -179,4 +179,8 @@ alias clear_color='sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"'
 
 alias killbg='kill -KILL ${${(v)jobstates##*:*:}%=*}'
 
+if which rg >/dev/null; then
+    alias rgi='rg --no-ignore'
+fi
+
 # vim: ft=zsh
