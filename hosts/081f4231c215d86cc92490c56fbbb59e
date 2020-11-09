@@ -1,50 +1,10 @@
 setkipproxy
 
-if [ -d "${HOME}/.local/nvim" ]; then
-    prepend_root "${HOME}/.local/nvim"
-fi
-
-if [ -d "${HOME}/.local/node" ]; then
-    prepend_root "${HOME}/.local/node"
-fi
-
-if [ -d "${HOME}/.local/ruby" ]; then
-    prepend_root "${HOME}/.local/ruby"
-    prepend_path PATH "${HOME}/.gem/ruby/$(ruby --version | cut -d ' ' -f 2 | cut -d p -f 1)/bin"
-fi
-
-if [ -d "${HOME}/.local/rust" ]; then
-    export CARGO_HOME="${HOME}/.local/rust/cargo"
-    export RUSTUP_HOME="${HOME}/.local/rust/rustup"
-    prepend_path PATH "${CARGO_HOME}/bin"
-fi
-
-if (( ${+SINGULARITY_NAME} )); then
-    source /opt/spack/share/spack/setup-env.sh
-    prepend_path MODULEPATH /wang/environment/modules
-else
-    # perform the following only outside of singularity containers
-    source /wang/environment/software/Modules/current/init/zsh
-    prepend_path MODULEPATH /wang/environment/software/jessie/spack/20180129_live/modules
-    export MANPATH=${MANPATH:+$MANPATH:}/usr/share/man
-    export SINGULARITYENV_HOME=${HOME}
-fi
-
-
 if [ -n "${SINGULARITY_CONTAINER:-}" ]; then
     # convenience auto loads in container
     source /opt/init/modules.sh
     module load slurm-singularity
 fi
-
-
-# if command -v lsb_release 2>&1 >/dev/null; then
-    # DISTNAME=$(lsb_release -c -s)
-    # prepend_root $HOME/.local-$DISTNAME
-# fi
-
-prepend_root $HOME/.local
-prepend_root $HOME/.spack-jessie-upstream
 
 # prepend_root $HOME/.spack-jessie
 
