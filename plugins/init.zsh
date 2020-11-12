@@ -28,3 +28,6 @@ source "${dir_plugins}/zsh-history-substring-search/zsh-history-substring-search
 # bindings for history-substring search
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
+
+source "${dir_plugins}/zsh-autopair/autopair.zsh"
+autopair-init

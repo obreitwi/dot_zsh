@@ -31,6 +31,7 @@ sed -i "\\:$CONFIGLOCATION:d" $TRUSTFILE
 echo "$CONFIGLOCATION" >> $TRUSTFILE
 
 register_repo fzf-tab
+register_repo zsh-autopair
 register_repo zsh-autosuggestions
 register_repo zsh-history-substring-search
 register_repo zsh-syntax-highlighting

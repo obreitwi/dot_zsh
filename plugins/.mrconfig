@@ -1,0 +1,20 @@
+
+[fzf-tab]
+checkout = git clone 'https://github.com/Aloxaf/fzf-tab' 'fzf-tab'
+update = if [ $(git status --porcelain | grep -v '^\?\?' | wc -l) -gt 0 ]; then git stash && git pull --rebase && git stash pop; else git pull; fi
+
+[zsh-autosuggestions]
+checkout = git clone 'https://github.com/tarruda/zsh-autosuggestions' 'zsh-autosuggestions'
+update = if [ $(git status --porcelain | grep -v '^\?\?' | wc -l) -gt 0 ]; then git stash && git pull --rebase && git stash pop; else git pull; fi
+
+[zsh-history-substring-search]
+checkout = git clone 'https://github.com/zsh-users/zsh-history-substring-search' 'zsh-history-substring-search'
+update = if [ $(git status --porcelain | grep -v '^\?\?' | wc -l) -gt 0 ]; then git stash && git pull --rebase && git stash pop; else git pull; fi
+
+[zsh-syntax-highlighting]
+checkout = git clone 'https://github.com/zsh-users/zsh-syntax-highlighting' 'zsh-syntax-highlighting'
+update = if [ $(git status --porcelain | grep -v '^\?\?' | wc -l) -gt 0 ]; then git stash && git pull --rebase && git stash pop; else git pull; fi
+
+[zsh-autopair]
+checkout = git clone 'https://github.com/hlissner/zsh-autopair' 'zsh-autopair'
+update = if [ $(git status --porcelain | grep -v '^\?\?' | wc -l) -gt 0 ]; then git stash && git pull --rebase && git stash pop; else git pull; fi
