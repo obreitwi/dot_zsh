@@ -40,7 +40,7 @@ if [[ "${COLORTERM:-}" == "rxvt" ]]\
     export COLORTERM=truecolor
 fi
 
-if [ -z "${TZ:-}" ]; then
+if which readlink>/dev/null && [[ "$(readlink -m /etc/locatime)" == "/usr/share/zoneinfo/Etc/UTC" ]] && [ -z "${TZ:-}" ]; then
     export TZ=/usr/share/zoneinfo/Europe/Berlin
 fi
 
