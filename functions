@@ -883,4 +883,38 @@ host_to_ip() {
     getent hosts "$1" | cut -d ' ' -f 1
 }
 
+# Usage:
+#   wait_pid [-i <interval>] <pid>
+#
+# Wait for the given PID in intervals of length <interval>s.
+wait_pid() {
+    local pid
+    local interval
+    interval=1
+    while getopts ":i:" opts; do
+        case "${opts}" in
+            i)
+                interval="${OPTARG}"
+                ;;
+            *)
+                echo "Invalid argument: ${opts}" >&2
+                return 1
+                ;;
+        esac
+    done
+    shift $(( OPTIND - 1 ))
+    if (( $# > 0 )); then
+        pid="$1"
+    else
+        echo "No PID given.." >&2
+        return 1
+    fi
+    echo -n "Waiting for PID: ${pid}" >&2
+
+    while kill -0 ${pid} 2>/dev/null 1>/dev/null; do
+        echo -n "."
+        sleep "${interval}"
+    done
+}
+
 # vim: ft=zsh
