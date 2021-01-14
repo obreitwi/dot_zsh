@@ -30,6 +30,7 @@ CONFIGLOCATION="$(pwd)/.mrconfig"
 sed -i "\\:$CONFIGLOCATION:d" $TRUSTFILE
 echo "$CONFIGLOCATION" >> $TRUSTFILE
 
+register_repo fzf-fasd
 register_repo fzf-tab
 register_repo zsh-autopair
 register_repo zsh-autosuggestions

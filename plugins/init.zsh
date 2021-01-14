@@ -13,6 +13,8 @@ if which fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
     fi
 
+    source "${dir_plugins}/fzf-fasd/fzf-fasd.plugin.zsh"
+
     # once tmux 3.2 is installed we could do:
     # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 fi
@@ -20,6 +22,7 @@ fi
 source "${dir_plugins}/zsh-autosuggestions/zsh-autosuggestions.zsh"
 export ZSH_AUTOSUGGEST_USE_ASYNC=""
 
+export FZF_FASD_OPTS='--prompt "fasd_cd> "'
 source "${dir_plugins}/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # history-substring-search needs to come AFTER syntax-highlithing

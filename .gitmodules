@@ -13,3 +13,6 @@
 [submodule "plugins/zsh-autopair"]
 	path = plugins/zsh-autopair
 	url = https://github.com/hlissner/zsh-autopair
+[submodule "plugins/fzf-fasd"]
+	path = plugins/fzf-fasd
+	url = https://github.com/wookayin/fzf-fasd
