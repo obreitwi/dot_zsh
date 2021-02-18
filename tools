@@ -12,4 +12,8 @@ if which fzf >/dev/null; then
     [ -f ~/.local/share/fzf/completion.zsh ] && source ~/.local/share/fzf/completion.zsh
 fi
 
+if [ -f /opt/textidote/textidote.zsh ]; then
+    source /opt/textidote/textidote.zsh
+fi
+
 # vim: ft=zsh
