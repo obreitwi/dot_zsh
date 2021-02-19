@@ -21,6 +21,7 @@ alias d='dirs -v'
 alias dg='dirs -v | grep'
 alias wgetcd='wget --content-disposition'
 alias mv='mv -iv'
+alias cp='cp -iv'
 
 # clip board management
 alias setclip="xclip -selection c"
