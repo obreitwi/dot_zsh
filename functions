@@ -209,7 +209,7 @@ svg_to_pdf() {
             echo "Wrong extension: ${origin}" >&2
         else
             target="${origin:r}.pdf"
-            inkscape --export-pdf="$target" --export-dpi=600 --export-area-page  $origin
+            inkscape --export-filename="$target" --export-dpi=600 --export-area-page  $origin
         fi
     done
 }
@@ -221,7 +221,7 @@ svg_to_png() {
             echo "Wrong extension: ${origin}" >&2
         else
             target="${origin:r}.png"
-            inkscape --export-png="$target" --export-dpi=600 --export-area-page  $origin
+            inkscape --export-filename="$target" --export-dpi=600 --export-area-page  $origin
         fi
     done
 }
