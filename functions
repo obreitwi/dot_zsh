@@ -209,7 +209,7 @@ svg_to_pdf() {
             echo "Wrong extension: ${origin}" >&2
         else
             target="${origin:r}.pdf"
-            inkscape --export-filename="$target" --export-dpi=600 --export-area-page  $origin
+            inkscape --export-filename="${target}" --export-dpi=600 --export-area-page  "${origin}"
         fi
     done
 }
@@ -221,7 +221,31 @@ svg_to_png() {
             echo "Wrong extension: ${origin}" >&2
         else
             target="${origin:r}.png"
-            inkscape --export-filename="$target" --export-dpi=600 --export-area-page  $origin
+            inkscape --export-filename="${target}" --export-dpi=600 --export-area-page "${origin}"
+        fi
+    done
+}
+
+svg_to_pdf_rsvg() {
+    for origin in "$@"; do
+        extension=${origin:e}
+        if [[ "$extension" != "svg" ]]; then
+            echo "Wrong extension: ${origin}" >&2
+        else
+            target="${origin:r}.pdf"
+            rsvg-convert -f pdf --output "${target}" --dpi-x 600 --dpi-y 600 "${origin}"
+        fi
+    done
+}
+
+svg_to_png_rsvg() {
+    for origin in "$@"; do
+        extension=${origin:e}
+        if [[ "$extension" != "svg" ]]; then
+            echo "Wrong extension: ${origin}" >&2
+        else
+            target="${origin:r}.png"
+            rsvg-convert -f png --output "${target}" --dpi-x 600 --dpi-y 600 "${origin}"
         fi
     done
 }
