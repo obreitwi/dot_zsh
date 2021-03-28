@@ -44,6 +44,11 @@ if which readlink>/dev/null && [[ "$(readlink -m /etc/locatime)" == "/usr/share/
     export TZ=/usr/share/zoneinfo/Europe/Berlin
 fi
 
+if which fasd &>/dev/null && which fzf &>/dev/null; then
+    # show recent folders on ctrl-t
+    export FZF_CTRL_T_COMMAND="fasd -l"
+fi
+
 # This is used for auto_cmd
 # CDPATH=.:..:~
 
