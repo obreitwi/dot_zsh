@@ -944,6 +944,22 @@ wait_pid() {
     done
 }
 
+gerrit_checkout() {
+    changenum=$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')
+
+    if [ -n "${changenum}" ]; then
+        git review -d "${changenum}"
+    fi
+}
+
+gerrit_cherrypick() {
+    changenum=$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')
+
+    if [ -n "${changenum}" ]; then
+        git review -x "${changenum}"
+    fi
+}
+
 # fzf-fasd integration
 #
 # Interactively insert recent directory
