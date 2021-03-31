@@ -945,7 +945,7 @@ wait_pid() {
 }
 
 gerrit_checkout() {
-    changenum=$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')
+    changenum="$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')"
 
     if [ -n "${changenum}" ]; then
         git review -d "${changenum}"
@@ -953,7 +953,7 @@ gerrit_checkout() {
 }
 
 gerrit_cherrypick() {
-    changenum=$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')
+    changenum="$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')"
 
     if [ -n "${changenum}" ]; then
         git review -x "${changenum}"
