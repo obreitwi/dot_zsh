@@ -953,11 +953,13 @@ gerrit_checkout() {
 }
 
 gerrit_cherrypick() {
-    changenum="$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')"
+    changenums=( "${(@f)$(git review -l | grep "^\s*[0-9]" | fzf --multi | awk '{ print $1 }')}" )
 
-    if [ -n "${changenum}" ]; then
-        git review -x "${changenum}"
-    fi
+    for num in "${changenums[@]}"; do
+        if [ -n "${num}" ]; then
+            git review -x "${num}" || return 1
+        fi
+    done
 }
 
 # fzf-fasd integration
