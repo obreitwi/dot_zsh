@@ -17,65 +17,61 @@ bindkey '^T' push-line
 
 # run command line as user root via sudo:
 sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER" && zle end-of-line
+    [[ -z "$BUFFER" ]] && zle up-history
+    [[ "$BUFFER" != sudo\ * ]] && BUFFER="sudo $BUFFER" && zle end-of-line
 }
 zle -N sudo-command-line
 
 # run command line proxified via tsocks
 tsocks-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    [[ $BUFFER != tsocks\ * ]] && BUFFER="tsocks $BUFFER" && zle end-of-line
+    [[ -z "$BUFFER" ]] && zle up-history
+    [[ "$BUFFER" != tsocks\ * ]] && BUFFER="tsocks $BUFFER" && zle end-of-line
 }
 zle -N tsocks-command-line
 
 # run vman on current command
 vman-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    [[ $BUFFER != vman\ * ]] && BUFFER="vman $BUFFER" && zle end-of-line
+    [[ -z "$BUFFER" ]] && zle up-history
+    [[ "$BUFFER" != vman\ * ]] && BUFFER="vman $BUFFER" && zle end-of-line
 }
 zle -N vman-command-line
 
 # init-script
 init-command-line() {
     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
-    [[ $BUFFER != sudo\ /etc/init.d/* ]] && BUFFER="sudo /etc/init.d/$BUFFER" && zle end-of-line
+    [[ "$BUFFER" != sudo\ /etc/init.d/* ]] && BUFFER="sudo /etc/init.d/$BUFFER" && zle end-of-line
 }
 zle -N init-command-line
 
 # append detach symbols
 append-detach-command-line() {
     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
-    [[ $BUFFER != *\&\| ]] && BUFFER="$BUFFER &|" && zle end-of-line
+    [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER &|" && zle end-of-line
 }
 zle -N append-detach-command-line
 
 append-detach-no-output-command-line() {
     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
-    [[ $BUFFER != *\&\| ]] && BUFFER="$BUFFER NA &|" && zle end-of-line
+    [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER NA &|" && zle end-of-line
 }
 zle -N append-detach-no-output-command-line
 
-#k# Put the current command line into a \kbd{sudo} call
-bindkey "^Os" sudo-command-line
-bindkey "^Ov" vman-command-line
-bindkey "^Oi" init-command-line
-bindkey "^Ot" tsocks-command-line
-bindkey "^Od" append-detach-command-line
-bindkey "^Oe" append-detach-no-output-command-line
-
-# we also want the binding in command mode
-bindkey -M vicmd "^Os" sudo-command-line
-bindkey -M vicmd "^Ov" vman-command-line
-bindkey -M vicmd "^Od" append-detach-command-line
-bindkey -M vicmd "^Oe" append-detach-no-output-command-line
+for keymap in vicmd viins; do
+    # we also want the binding in command mode
+    bindkey -M ${keymap} "^od" append-detach-command-line
+    bindkey -M ${keymap} "^oe" append-detach-no-output-command-line
+    bindkey -M ${keymap} "^oi" init-command-line
+    bindkey -M ${keymap} "^os" sudo-command-line
+    bindkey -M ${keymap} "^ot" tsocks-command-line
+    bindkey -M ${keymap} "^ov" vman-command-line
+done
 
 # multiline mode
-bindkey "^J" vi-open-line-below
+bindkey "^j" vi-open-line-below
 
 # Search history
-bindkey "^R" history-incremental-search-backward
-bindkey "^N" history-incremental-search-forward 
+bindkey "^r" history-incremental-search-backward
+bindkey "^n" history-incremental-search-forward 
 
 autoload -U edit-command-line
 zle -N edit-command-line
@@ -85,3 +81,5 @@ bindkey -M vicmd v edit-command-line
 
 # Shift-Tab for backwards movement 
 bindkey '^[[Z' reverse-menu-complete
+
+# vim: ft=zsh
