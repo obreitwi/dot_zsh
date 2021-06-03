@@ -8,8 +8,10 @@ if which bat>/dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
-# switch modes in 0.1 seconds
-export KEYTIMEOUT=1
+# # switch modes in 0.1 seconds
+# export KEYTIMEOUT=1
+
+export KEYTIMEOUT=20
 
 if [ -f "$(command -v nvim)" ]; then
     export EDITOR="nvim"
