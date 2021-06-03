@@ -56,7 +56,7 @@ fi
 # fi
 
 prepend_root $HOME/.local
-prepend_root $HOME/.spack-jessie-upstream
+# prepend_root $HOME/.spack-jessie-upstream
 
 
 # vim: ft=zsh
