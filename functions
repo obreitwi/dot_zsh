@@ -6,17 +6,6 @@ source "$HOME/.zsh/functions.d/vman.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
 
-# cp a file, inserting the directory name into the real filename
-# (implemented in python now)
-# cpd () {
-    # SRC=$1
-    # TARGET_FOLDER=$2
-    # filename=$(basename $SRC)
-    # last_dir=$(basename $(dirname $SRC))
-    # cp -v ${SRC} ${TARGET_FOLDER}/${last_dir}_${filename}
-# }
-
-
 # generate a random string of length $1
 rstr() {
     if [[ $# > 0 ]]; then
