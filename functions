@@ -1,5 +1,6 @@
 
 source "$HOME/.zsh/functions.d/multicat.zsh"
+source "$HOME/.zsh/functions.d/pklopen.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/vman.zsh"
@@ -14,17 +15,6 @@ rstr() {
         strlen="8"
     fi
     cat /dev/urandom 2>/dev/null | tr -cd "[:alnum:]" 2>/dev/null | head -c ${strlen}
-}
-
-
-popen() {
-    if [[ $# == 0 ]]; then
-        ilab -ic "import cPickle as pickle";
-    elif [[ $# == 1 ]]; then
-        ipython -ic "import cPickle as pickle; ${1:t:r} = pickle.load( open( '${1}', 'r' ))"
-    else
-        ipython -ic "import cPickle as pickle; ${2} = pickle.load( open( '${1}', 'r' ))"
-    fi
 }
 
 foreground-vim() {
