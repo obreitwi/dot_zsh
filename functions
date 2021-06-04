@@ -7,6 +7,7 @@ source "$HOME/.zsh/functions.d/git.zsh"
 source "$HOME/.zsh/functions.d/jenkins.zsh"
 source "$HOME/.zsh/functions.d/man.zsh"
 source "$HOME/.zsh/functions.d/multicat.zsh"
+source "$HOME/.zsh/functions.d/music.zsh"
 source "$HOME/.zsh/functions.d/pickle.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
@@ -16,19 +17,7 @@ source "$HOME/.zsh/functions.d/spack.zsh"
 source "$HOME/.zsh/functions.d/tmux.zsh"
 source "$HOME/.zsh/functions.d/vim.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
-
-get-modeline() {
-    cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
-}
-
-startx-wifi() {
-    # start the xserver with a given wifi profile
-    sudo netctl start "${1}" &; startx 
-}
-
-get_bpm() {
-    sox "$1" -t raw -r 44100 -e float -c 1 - | bpm -x ${max_bpm:-190}
-}
+source "$HOME/.zsh/functions.d/x11.zsh"
 
 # Usage:
 #    targrepl <pattern> <tarfile>
