@@ -6,6 +6,8 @@ bindkey -r '^E'
 #k# Insert a timestamp on the command line (yyyy-mm-dd_HH-MM-SS)
 bindkey '^Em' insert-datestamp_minsec
 
+bindkey '^Z' foreground-vim
+
 # press "ctrl-e d" to insert the actual date in the form yyyy-mm-dd
 insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
 zle -N insert-datestamp

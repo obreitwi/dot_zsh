@@ -17,12 +17,6 @@ rstr() {
     cat /dev/urandom 2>/dev/null | tr -cd "[:alnum:]" 2>/dev/null | head -c ${strlen}
 }
 
-foreground-vim() {
-    fg %vim
-    fg %nvim
-}
-bindkey '^Z' foreground-vim
-
 find_in_hist() {
     zgrep -i "$1" ~/.logs/*.gz
     grep -ri "$1" ~/.logs

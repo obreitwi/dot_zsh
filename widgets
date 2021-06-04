@@ -1,0 +1,7 @@
+foreground-vim() {
+    fg %vim
+    fg %nvim
+}
+zle -N foreground-vim
+
+# vim: ft=zsh

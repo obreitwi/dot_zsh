@@ -15,6 +15,7 @@ else
     source $HOME/.zsh/lscolors
     source $HOME/.zsh/functions
     source $HOME/.zsh/aliases
+    source $HOME/.zsh/widgets
     source $HOME/.zsh/bindkeys
     source $HOME/.zsh/tools
     source $HOME/.zsh/term
