@@ -7,6 +7,7 @@ source "$HOME/.zsh/functions.d/pickle.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
+source "$HOME/.zsh/functions.d/spack.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
 tmux-launch-and-configure() {
@@ -36,24 +37,7 @@ gitlg() {
 _git
 compdef __git_branch_names gitlg
 
-uniq_lines() {
-    cat -n $1 | sort -uk2 | sort -nk1 | cut -f2-
-}
 
-spack_modules() {
-    TMPFILE="$(mktemp)"
-    for mod in "$@"; do
-        (echo "Loading $mod…" 1>&2)
-        spack module loads -r $mod >> $TMPFILE
-    done
-    (echo "Committing…" 1>&2)
-    uniq_lines $TMPFILE
-    rm $TMPFILE
-}
-
-spack_load() {
-    source =(spack_modules "$@")
-}
 
 gen_ssha512() {
     local pw="$1"
