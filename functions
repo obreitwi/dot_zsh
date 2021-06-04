@@ -4,6 +4,7 @@ source "$HOME/.zsh/functions.d/crypt.zsh"
 source "$HOME/.zsh/functions.d/find-in-hist.zsh"
 source "$HOME/.zsh/functions.d/gerrit.zsh"
 source "$HOME/.zsh/functions.d/jenkins.zsh"
+source "$HOME/.zsh/functions.d/git.zsh"
 source "$HOME/.zsh/functions.d/man.zsh"
 source "$HOME/.zsh/functions.d/multicat.zsh"
 source "$HOME/.zsh/functions.d/pickle.zsh"
@@ -31,14 +32,6 @@ slurm-get-job-ids() {
     fi
     squeue -h | grep obreitwi | grep "\b$state\b" | cut -d " " -f 3
 }
-
-# nicer git log
-gitlg() {
-    PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
-}
-
-_git
-compdef __git_branch_names gitlg
 
 startx-wifi() {
     # start the xserver with a given wifi profile
