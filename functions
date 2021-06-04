@@ -1,4 +1,6 @@
+source "$HOME/.zsh/functions.d/container.zsh"
 source "$HOME/.zsh/functions.d/conversion.zsh"
+source "$HOME/.zsh/functions.d/crypt.zsh"
 source "$HOME/.zsh/functions.d/find-in-hist.zsh"
 source "$HOME/.zsh/functions.d/gerrit.zsh"
 source "$HOME/.zsh/functions.d/man.zsh"
@@ -37,75 +39,9 @@ gitlg() {
 _git
 compdef __git_branch_names gitlg
 
-
-
-gen_ssha512() {
-    local pw="$1"
-    while [ -z "${pw}" ]; do
-        echo -n "Password: "
-        read -s pw_1
-        echo ""
-        echo -n "Password (repeat): "
-        read -s pw_2
-        echo ""
-        if [[ "${pw_1}" = "${pw_2}" ]] && [[ "${pw_2}" = "${pw_2}" ]]; then
-            pw="${pw_1}"
-        fi
-    done
-    local salt=$(cat /dev/urandom | head -c 8)
-    (
-        echo -n "${pw}${salt}" | openssl dgst -sha512 -binary
-        echo -n ${salt}
-    ) | openssl enc -a -A | awk '{ print "{SSHA512}"$0 }'
-}
-
 startx-wifi() {
     # start the xserver with a given wifi profile
     sudo netctl start "${1}" &; startx 
-}
-
-# container utility functions
-# Usage:
-#   launch_container [options] [<app>] [<image>]
-launch_container() {
-    local image
-    local app
-
-    local args
-    args=("shell" "-s" "/bin/zsh")
-
-    local getent_home
-    getent_home=$(getent passwd $USER | cut -d: -f6)
-
-    # if current $HOME differs from getent value, set it
-    if [ "${HOME}" != "${getent_home}" ]; then
-        args+=("-H" "${HOME}")
-    fi
-
-    args+=("-B" "/run")
-
-    if (( $# > 0 )); then
-        app="${1}"
-        args+=("--app" "${app}")
-        shift
-    fi
-    image="${1:-$(readlink -f ${MY_DEFAULT_CONTAINER:-/containers/stable/latest})}"
-
-    singularity "${args[@]}" "${image}"
-}
-
-alias runcon="launch_container"
-
-condev() {
-    launch_container visionary-dev-tools "${@}"
-}
-
-conwaf() {
-    launch_container visionary-wafer "${@}"
-}
-
-condls() {
-    launch_container visionary-dls "${@}"
 }
 
 jrest() {
