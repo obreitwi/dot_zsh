@@ -36,12 +36,6 @@ gitlg() {
 _git
 compdef __git_branch_names gitlg
 
-get_eta() {
-    for f in "$@"; do
-        grep "ETA" $f | tail -n 1
-    done
-}
-
 uniq_lines() {
     cat -n $1 | sort -uk2 | sort -nk1 | cut -f2-
 }
