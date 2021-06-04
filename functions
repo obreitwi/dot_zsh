@@ -11,6 +11,7 @@ source "$HOME/.zsh/functions.d/pickle.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
+source "$HOME/.zsh/functions.d/slurm.zsh"
 source "$HOME/.zsh/functions.d/spack.zsh"
 source "$HOME/.zsh/functions.d/tmux.zsh"
 source "$HOME/.zsh/functions.d/vim.zsh"
@@ -18,15 +19,6 @@ source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
 get-modeline() {
     cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
-}
-
-slurm-get-job-ids() {
-    if [[ $# > 1 ]]; then
-        state=$1
-    else
-        state="PD"
-    fi
-    squeue -h | grep obreitwi | grep "\b$state\b" | cut -d " " -f 3
 }
 
 startx-wifi() {
