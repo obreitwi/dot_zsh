@@ -26,7 +26,6 @@ rstr() {
     fi
     cat /dev/urandom 2>/dev/null | tr -cd "[:alnum:]" 2>/dev/null | head -c ${strlen}
 }
-zle -N rstr
 
 
 popen() {
@@ -38,13 +37,11 @@ popen() {
         ipython -ic "import cPickle as pickle; ${2} = pickle.load( open( '${1}', 'r' ))"
     fi
 }
-zle -N popen
 
 foreground-vim() {
     fg %vim
     fg %nvim
 }
-zle -N foreground-vim
 bindkey '^Z' foreground-vim
 
 find_in_hist() {

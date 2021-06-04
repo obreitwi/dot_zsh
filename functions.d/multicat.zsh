@@ -12,4 +12,3 @@ multicat() {
         cat $fname
     done
 }
-zle -N multicat

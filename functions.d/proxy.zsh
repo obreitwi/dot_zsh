@@ -4,7 +4,6 @@ setkipproxy() {
     export ftp_proxy=http://proxy2.kip.uni-heidelberg.de:21
     export https_proxy=http://proxy2.kip.uni-heidelberg.de:8080
 }
-zle -N setkipproxy
 
 setnoproxy() {
     unset no_proxy
@@ -12,4 +11,3 @@ setnoproxy() {
     unset ftp_proxy
     unset https_proxy
 }
-zle -N setnoproxy
