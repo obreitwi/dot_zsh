@@ -38,10 +38,6 @@ startx-wifi() {
     sudo netctl start "${1}" &; startx 
 }
 
-gerrit_get_changes() {
-    grest "/a/changes/?q=$*"  | tail -n +2 | jq -r "map(.id) | .[]"
-}
-
 clang_format_head() {
     file_list=("${(@f)$(git diff-tree ${1:-HEAD} --no-commit-id --name-only -r \
         | grep "\.\(c\|cpp\|tcc\|h\|hpp\)$" \
@@ -50,168 +46,6 @@ clang_format_head() {
     clang-format -i "${file_list[@]}"
     sed -i "s:^\(} // namespace .*\)GENPYBIND_TAG_.*$:\1:" "${file_list[@]}"
     git status
-}
-
-gerrit_change_id_head()
-{
-    git log -n 1 | awk '$1 ~ /Change-Id:/ { print $2 }' | tr -d '\n'
-}
-
-# Post a message (-m) to the given change_id (-c)
-#
-# If change id is not specified, take the current head.
-#
-# Args:
-#   -c change_id
-#   -l labels
-#   -m message
-gerrit_post_message() {
-    local change_id
-    local message
-    local labels
-    local -a args
-    local opts OPTIND OPTARG
-    change_id="head"
-    message=""
-    while getopts ":c:l:m:" opts; do
-        case "${opts}" in
-            c)
-                change_id="${OPTARG}"
-                ;;
-            m)  message="${OPTARG}"
-                ;;
-            l)  labels="${OPTARG}"
-                ;;
-            t)  topic="${OPTARG}"
-                ;;
-            *)
-                echo "Invalid argument: ${opts}" >&2
-                return 1
-                ;;
-        esac
-    done
-    shift $(( OPTIND - 1 ))
-
-    if [ "${change_id}" = "head" ]; then
-        change_id="$(gerrit_change_id_head)"
-    fi
-
-    args=( POST "/a/changes/${change_id}/revisions/current/review" )
-
-    if [ -n "${message}" ]; then
-        args+=( "message=${message}" )
-    fi
-
-    if [ -n "${labels}" ]; then
-        args+=( "labels:=${labels}" )
-    fi
-
-    grest "${args[@]}"
-}
-
-# Set a topic (-t) on the given change_id (-c)
-#
-# If change id is not specified, take the current head.
-#
-# Args:
-#   -c change_id
-#   -t topic
-gerrit_set_topic() {
-    local change_id
-    local topic
-    local -a args
-    local opts OPTIND OPTARG
-    change_id="head"
-    message=""
-    while getopts ":c:t:" opts; do
-        case "${opts}" in
-            c)
-                change_id="${OPTARG}"
-                ;;
-            t)  topic="${OPTARG}"
-                ;;
-            *)
-                echo "Invalid argument: ${opts}" >&2
-                return 1
-                ;;
-        esac
-    done
-    shift $(( OPTIND - 1 ))
-
-    if [ "${change_id}" = "head" ]; then
-        change_id="$(gerrit_change_id_head)"
-    fi
-
-    args=( PUT "/a/changes/${change_id}/topic" )
-
-    if [ -n "${topic}" ]; then
-        args+=( "topic=${topic}" )
-    else
-        echo "ERROR: -t not provided!" >&2
-        exit 1
-    fi
-
-    grest "${args[@]}"
-}
-
-# Modify hashtags on the given change_id (-c)
-#
-# If change id is not specified, take the current head.
-#
-# Args:
-#   -c change_id
-#   [-a <hashtag to add>...]
-#   [-r <hashtag to remove>...]
-gerrit_hashtags() {
-    local change_id
-    local -a add
-    local -a remove
-    local -a args
-    local opts OPTIND OPTARG
-    change_id="head"
-    while getopts ":c:a:r:" opts; do
-        case "${opts}" in
-            c)
-                change_id="${OPTARG}"
-                ;;
-            a)  add+=("${OPTARG}")
-                ;;
-            r)  remove=+("${OPTARG}")
-                ;;
-            *)
-                echo "Invalid argument: ${opts}" >&2
-                return 1
-                ;;
-        esac
-    done
-    shift $(( OPTIND - 1 ))
-
-    if [ "${change_id}" = "head" ]; then
-        change_id="$(gerrit_change_id_head)"
-    fi
-
-    args=( POST "/a/changes/${change_id}/hashtags" )
-
-    if [ -n "${add[*]}" ] && [ -n "${remove[*]}" ]; then
-        echo "ERROR: No hashtags given." >&2
-        exit 1
-    fi
-
-    if [ -n "${add[*]}" ]; then
-        local add_inner="$(printf '"%s", ' "${add[@]}")"
-        args+=( "add:=[${add_inner%%, }]" )
-    fi
-
-    if [ -n "${remove[*]}" ]; then
-        local remove_inner="$(printf '"%s", ' "${remove[@]}")"
-        args+=( "remove:=[${remove_inner%%, }]" )
-    fi
-
-    grest "${args[@]}"
-}
-
-gerrit_build_this() {
-    gerrit_post_message -m "BUILD_THIS"
 }
 
 get_bpm() {
@@ -285,24 +119,6 @@ wait_pid() {
     while kill -0 ${pid} 2>/dev/null 1>/dev/null; do
         echo -n "."
         sleep "${interval}"
-    done
-}
-
-gerrit_checkout() {
-    changenum="$(git review -l | grep "^\s*[0-9]" | fzf | awk '{ print $1 }')"
-
-    if [ -n "${changenum}" ]; then
-        git review -d "${changenum}"
-    fi
-}
-
-gerrit_cherrypick() {
-    changenums=( "${(@f)$(git review -l | grep "^\s*[0-9]" | fzf --multi | awk '{ print $1 }')}" )
-
-    for num in "${changenums[@]}"; do
-        if [ -n "${num}" ]; then
-            git review -x "${num}" || return 1
-        fi
     done
 }
 
