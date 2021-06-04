@@ -12,14 +12,9 @@ source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
 source "$HOME/.zsh/functions.d/spack.zsh"
+source "$HOME/.zsh/functions.d/tmux.zsh"
 source "$HOME/.zsh/functions.d/vim.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
-
-tmux-launch-and-configure() {
-    tmux new-session -d -s $1
-    tmux source "$HOME/.tmux/$1.conf"
-    tmux attach -t $1
-}
 
 get-modeline() {
     cvt $1 $2 $3 | grep Modeline | sed -e "s/Modeline\s//"
@@ -56,7 +51,7 @@ targrepl() {
 
 export_terminfo_alacritty() {
     if (( $# == 0 )); then
-        echo "Need to specify host" >&2
+        espackcho "Need to specify host" >&2
         return
     fi
     local host="$1"
