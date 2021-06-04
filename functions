@@ -3,7 +3,7 @@ source "$HOME/.zsh/functions.d/find-in-hist.zsh"
 source "$HOME/.zsh/functions.d/gerrit.zsh"
 source "$HOME/.zsh/functions.d/man.zsh"
 source "$HOME/.zsh/functions.d/multicat.zsh"
-source "$HOME/.zsh/functions.d/pklopen.zsh"
+source "$HOME/.zsh/functions.d/pickle.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
@@ -60,13 +60,6 @@ spack_modules() {
 spack_load() {
     source =(spack_modules "$@")
 }
-
-cat_pkl() {
-    for f in "$@"; do
-        python -c "import cPickle as pkl, pprint; pprint.pprint(pkl.load(open('${f}', 'r')))"
-    done
-}
-
 
 gen_ssha512() {
     local pw="$1"
