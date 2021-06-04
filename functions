@@ -3,8 +3,8 @@ source "$HOME/.zsh/functions.d/conversion.zsh"
 source "$HOME/.zsh/functions.d/crypt.zsh"
 source "$HOME/.zsh/functions.d/find-in-hist.zsh"
 source "$HOME/.zsh/functions.d/gerrit.zsh"
-source "$HOME/.zsh/functions.d/jenkins.zsh"
 source "$HOME/.zsh/functions.d/git.zsh"
+source "$HOME/.zsh/functions.d/jenkins.zsh"
 source "$HOME/.zsh/functions.d/man.zsh"
 source "$HOME/.zsh/functions.d/multicat.zsh"
 source "$HOME/.zsh/functions.d/pickle.zsh"
@@ -12,6 +12,7 @@ source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
 source "$HOME/.zsh/functions.d/spack.zsh"
+source "$HOME/.zsh/functions.d/vim.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
 tmux-launch-and-configure() {
@@ -38,22 +39,8 @@ startx-wifi() {
     sudo netctl start "${1}" &; startx 
 }
 
-clang_format_head() {
-    file_list=("${(@f)$(git diff-tree ${1:-HEAD} --no-commit-id --name-only -r \
-        | grep "\.\(c\|cpp\|tcc\|h\|hpp\)$" \
-        | xargs ls -d 2>/dev/null \
-        )}")
-    clang-format -i "${file_list[@]}"
-    sed -i "s:^\(} // namespace .*\)GENPYBIND_TAG_.*$:\1:" "${file_list[@]}"
-    git status
-}
-
 get_bpm() {
     sox "$1" -t raw -r 44100 -e float -c 1 - | bpm -x ${max_bpm:-190}
-}
-
-nv() {
-    neovide "${@}" &|
 }
 
 # Usage:
