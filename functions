@@ -1,4 +1,4 @@
-
+source "$HOME/.zsh/functions.d/find-in-hist.zsh"
 source "$HOME/.zsh/functions.d/multicat.zsh"
 source "$HOME/.zsh/functions.d/pklopen.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
@@ -6,13 +6,6 @@ source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
 source "$HOME/.zsh/functions.d/vman.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
-
-
-find_in_hist() {
-    zgrep -i "$1" ~/.logs/*.gz
-    grep -ri "$1" ~/.logs
-}
-alias fih=find_in_list
 
 tmux-launch-and-configure() {
     tmux new-session -d -s $1
