@@ -1,13 +1,8 @@
 
 source "$HOME/.zsh/functions.d/proxy.zsh"
+source "$HOME/.zsh/functions.d/vman.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
-# It's shameless stolen from <http://www.vim.org/tips/tip.php?tip_id=167>
-#f5# Use \kbd{vim} as your manpage reader
-vman() {
-    emulate -L zsh
-    man $* | col -b | view -c 'set ft=man nomod nolist' -
-}
 
 multicat() {
     for fname in $*; do
