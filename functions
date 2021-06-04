@@ -1,11 +1,11 @@
 source "$HOME/.zsh/functions.d/conversion.zsh"
 source "$HOME/.zsh/functions.d/find-in-hist.zsh"
+source "$HOME/.zsh/functions.d/man.zsh"
 source "$HOME/.zsh/functions.d/multicat.zsh"
 source "$HOME/.zsh/functions.d/pklopen.zsh"
 source "$HOME/.zsh/functions.d/print.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/randstr.zsh"
-source "$HOME/.zsh/functions.d/vman.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
 tmux-launch-and-configure() {
@@ -54,35 +54,6 @@ spack_modules() {
     (echo "Committing…" 1>&2)
     uniq_lines $TMPFILE
     rm $TMPFILE
-}
-
-eg () {
-        (( $+1 )) || {
-                cat >&2 <<END
-Usage: $0 [<args>...] [<expr>]
-
-  args: Arguments to pass to man.
-  expr: Command line argument to search for.
-        Defaults to jump to the "EXAMPLE" section.
-
-Examples:
-
-  $0 find
-  $0 less -s
-  $0 1 less -s
-  $0 zshall HIST_IGNORE_SPACE
-  $0 zshall fc
-END
-                return 1
-        }
-        local expr='^EXAMPLE'
-        local -a args
-        args=("$@")
-        (( $+2 )) && {
-                expr="^[[:blank:]]*${@[-1]}"
-                args=("${@[1,-2]}")
-        }
-        PAGER="less -g -s '+/$expr'" man "${=args}"
 }
 
 spack_load() {
