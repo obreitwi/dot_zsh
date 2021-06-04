@@ -1,24 +1,9 @@
 
+source "$HOME/.zsh/functions.d/multicat.zsh"
 source "$HOME/.zsh/functions.d/proxy.zsh"
 source "$HOME/.zsh/functions.d/vman.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 
-
-multicat() {
-    for fname in $*; do
-        for count in {0..$(( ${#fname} + 9 ))};do
-            echo -n "#"
-        done
-        echo ""
-        echo "# FILE: $fname #"
-        for count in {0..$(( ${#fname} + 9 ))};do
-            echo -n "#"
-        done
-        echo ""
-        cat $fname
-    done
-}
-zle -N multicat
 
 # print all arguments on new lines
 printl() {
