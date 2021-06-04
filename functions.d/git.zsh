@@ -15,3 +15,30 @@ gitlg() {
 
 _git
 compdef __git_branch_names gitlg
+
+zstyle ':completion:*:*:git:*' user-commands review:'gerrit code review'
+
+(( $+functions[_git-review] )) ||
+_git-review ()
+{
+    local -a changes
+
+    _arguments "-d[checkout change]:change:->change" "-l[list changes]" "-x[cherrypick change]:change:->change"
+
+    case "${state}" in
+        change)
+            changes=("${(@f)$(git review -l | grep -v "^Found" | awk '{ $1=sprintf("%d:", $1); $2=sprintf("[%s]", $2); print }')}")
+            if [[ "${changes[1]}" == "0: [determine] where .git directory is." ]]; then
+                _message "Could not determine where .git directory is."
+            elif [[ "${changes[1]}" == "0: ['.gitreview'] file found in this repository. We don't know where" ]]; then
+                _message "No .gitreview found."
+            elif [[ "${changes[1]}" == 0* ]]; then
+                _message "No changes found."
+            else
+                _describe "Change Set" changes
+            fi
+            ;;
+    esac
+}
+
+# vim: ft=zsh
