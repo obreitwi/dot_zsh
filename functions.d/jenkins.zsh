@@ -52,6 +52,8 @@ jenkins_get_log() {
     local opts OPTIND OPTARG
     artifact=""
     force=0
+    local gerrit_host
+    gerrit_host="$(jq -r .url ~/.config/jenkins/jenkins.json)/job/"
 
     while getopts ":a:f" opts; do
         case "${opts}" in
@@ -69,8 +71,10 @@ jenkins_get_log() {
     shift $(( OPTIND - 1 ))
 
     if (( $# > 0 )); then
-        local proj_arr
-        proj_arr=( "${(s./.)1}" )
+        local -a proj_arr
+        local project_raw
+        project_raw="${1#${gerrit_host}}"
+        proj_arr=( "${(s./.)project_raw}" )
         project="${proj_arr[1]}"
         if (( ${#proj_arr} > 1 )); then
             build_num="${proj_arr[2]}"
