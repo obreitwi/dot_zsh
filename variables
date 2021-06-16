@@ -18,6 +18,11 @@ if which bat>/dev/null; then
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
 
+# Enable SudoWrite in neovim:
+if [ -z "${SUDO_ASKPASS:-}" ] && [ -e /usr/lib/ssh/ssh-askpass ]; then
+    export SUDO_ASKPASS=/usr/lib/ssh/ssh-askpass
+fi
+
 # # switch modes in 0.1 seconds
 # export KEYTIMEOUT=1
 
