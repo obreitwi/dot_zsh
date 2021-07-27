@@ -9,14 +9,21 @@ alias -g grep="grep --color=auto"
 alias auraP="aura --no-pp"
 
 # default parameters
-alias ls="ls --color"
+if which lsd >/dev/null; then
+    my_ls="lsd"
+else
+    my_ls="ls"
+fi
+alias ls="${my_ls} --color"
 #  alias ll="ls -hl"
 # some more ls aliases
-alias ll='ls -lhF'
-alias lld='ls -lhFd *(/)'
-alias l1='ls -1'
-alias la='ls -A'
-alias l='ls -CF'
+alias ll="${my_ls} -lhF"
+alias lld="${my_ls} -lhFd *(/)"
+alias l1="${my_ls} -1"
+alias la="${my_ls} -A"
+alias l="${my_ls} -CF"
+unset my_ls
+
 alias d='dirs -v'
 alias dg='dirs -v | grep'
 alias wgetcd='wget --content-disposition'
