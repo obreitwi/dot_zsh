@@ -11,6 +11,7 @@ alias auraP="aura --no-pp"
 # default parameters
 if which lsd >/dev/null; then
     my_ls="lsd"
+    alias tree="lsd --tree"
 else
     my_ls="ls"
 fi
