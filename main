@@ -187,6 +187,9 @@ zstyle ':completion:*:*:cdr:*:*' menu selection
 zstyle ':chpwd:*' recent-dirs-max 30
 zstyle ':chpwd:*' recent-dirs-prune parent
 
+# no fallback for unknown git commands
+zstyle ':completion:*:*:git*:*' use-fallback false
+
 
 # 'ctrl-x r' will complete the 12 last modified (mtime) files/directories
 zle -C newest-files complete-word _generic
