@@ -15,7 +15,7 @@ if which lsd >/dev/null; then
 else
     my_ls="ls"
 fi
-alias ls="${my_ls} --color"
+alias ls="${my_ls} --color=auto"
 #  alias ll="ls -hl"
 # some more ls aliases
 alias ll="${my_ls} -lhF"
