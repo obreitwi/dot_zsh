@@ -66,6 +66,11 @@ if which fasd &>/dev/null && which fzf &>/dev/null; then
     export FZF_CTRL_T_COMMAND="fasd -al"
 fi
 
+# setup ccache if exists
+if which ccache >/dev/null; then
+    prepend_path PATH /usr/lib/ccache/bin
+fi
+
 # This is used for auto_cmd
 # CDPATH=.:..:~
 
