@@ -1,0 +1,14 @@
+prepend_path PATH $HOME/.local-stack/bin
+prepend_path PATH $HOME/.xmonad/bin
+prepend_path PATH $HOME/.cabal/bin
+
+if which bat >/dev/null; then
+    export BAT_PAGER="less -RF"
+    export MANPAGER="sh -c 'col -b | bat -l man -p'"
+fi
+
+export PYTHONPATH="$HOME/.local/lib/python3.7/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
+
+prepend_path PATH "${HOME}/.cargo/bin"
+
+# vim: ft=sh
