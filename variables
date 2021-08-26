@@ -23,6 +23,11 @@ if [ -z "${SUDO_ASKPASS:-}" ] && [ -e /usr/lib/ssh/ssh-askpass ]; then
     export SUDO_ASKPASS=/usr/lib/ssh/ssh-askpass
 fi
 
+if which bat >/dev/null; then
+    export BAT_PAGER="less -RF"
+    export MANPAGER="sh -c 'col -b | bat -l man -p'"
+fi
+
 # # switch modes in 0.1 seconds
 # export KEYTIMEOUT=1
 
