@@ -1,4 +1,4 @@
-export_terminfo_alacritty() {
+alacritty_export_terminfo() {
     if (( $# == 0 )); then
         echo "Need to specify host" >&2
         return 1
