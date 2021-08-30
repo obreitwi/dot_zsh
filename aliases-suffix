@@ -1,0 +1,16 @@
+# Suffix aliases for programs
+
+alias -s txt=vim
+
+if which zathura >/dev/null; then
+    alias -s pdf=zathura
+    alias -s djvu=zathura
+fi
+
+if which vlc >/dev/null; then
+    alias -s mp4=vlc
+    alias -s mkv=vlc
+    alias -s avi=vlc
+fi
+
+# vim: ft=zsh

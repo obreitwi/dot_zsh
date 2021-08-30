@@ -79,13 +79,6 @@ alias grepc="grep --color"
 # Suffix: .txt -> vim, .com -> $BROWSER
 # Global: P V H T G X ZF NE NO DN
 
-# Suffix aliases
-alias -s txt=vim
-if which zathura >/dev/null; then
-    alias -s pdf=zathura
-    alias -s djvu=zathura
-fi
-
 # Global aliases
 alias -g C=' | wc -l'
 alias -g G=' | grep --color'
@@ -192,5 +185,7 @@ alias killbg='kill -KILL ${${(v)jobstates##*:*:}%=*}'
 if which rg >/dev/null; then
     alias rgi='rg --no-ignore'
 fi
+
+source ~/.zsh/aliases-suffix
 
 # vim: ft=zsh
