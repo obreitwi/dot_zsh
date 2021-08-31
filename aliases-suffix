@@ -8,6 +8,7 @@ if which zathura >/dev/null; then
 fi
 
 if which vlc >/dev/null; then
+    alias -s mp3=nvlcc
     alias -s mp4=vlc
     alias -s mkv=vlc
     alias -s avi=vlc
