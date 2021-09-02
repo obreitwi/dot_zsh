@@ -2,6 +2,7 @@
 prepend_path PATH "${HOME}/.xmonad/bin"
 prepend_path PATH "${HOME}/.cabal/bin"
 prepend_path PATH "${HOME}/.cargo/bin"
+prepend_path PATH "${HOME}/.pub-cache/bin"
 
 if which bat >/dev/null; then
     export BAT_PAGER="less -RF"
