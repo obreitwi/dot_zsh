@@ -15,5 +15,5 @@ alacritty_export_terminfo() {
 alacritty_set_fontsize() {
     local fontsize
     fontsize="$1"
-    sed -i "s/size: .*$/size: ${fontsize}/g" .config/alacritty/alacritty.yml
+    sed -i "s/size: .*$/size: ${fontsize}/g" ~/.config/alacritty/alacritty.yml
 }
