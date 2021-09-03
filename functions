@@ -22,6 +22,7 @@ source "$HOME/.zsh/functions.d/spack.zsh"
 source "$HOME/.zsh/functions.d/terminal.zsh"
 source "$HOME/.zsh/functions.d/tmux.zsh"
 source "$HOME/.zsh/functions.d/vim.zsh"
+source "$HOME/.zsh/functions.d/vimwiki.zsh"
 source "$HOME/.zsh/functions.d/whatwhen.zsh"
 source "$HOME/.zsh/functions.d/x11.zsh"
 
