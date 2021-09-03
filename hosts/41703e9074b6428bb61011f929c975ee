@@ -7,6 +7,7 @@ prepend_path PATH "${HOME}/.pub-cache/bin"
 if [ -z "${GOPATH:-}" ]; then
     export GOPATH="$HOME/go"
 fi
+prepend_path PATH "${GOPATH}/bin"
 
 if which bat >/dev/null; then
     export BAT_PAGER="less -RF"
