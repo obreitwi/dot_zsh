@@ -41,4 +41,23 @@ _git-review ()
     esac
 }
 
+# inspired by: https://compiledsuccessfully.dev/git-skip-worktree/
+
+# checks for any files flagged w/ --skip-worktree alias
+git_check_skipped() {
+    git ls-files -v | grep '^S' | cut -d' ' -f2-
+}
+
+# add --skip-worktree flag to file
+git_skip() {
+    git update-index --skip-worktree "$@"
+    git status
+}
+
+# remove --skip-worktree flag from file
+git_unskip() {
+    git update-index --no-skip-worktree "$@"
+    git status
+}
+
 # vim: ft=zsh
