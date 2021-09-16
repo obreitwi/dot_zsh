@@ -60,4 +60,15 @@ git_unskip() {
     git status
 }
 
+# perform the following action with temporarily unskipped files
+git_with_skipped() {
+    local -a skipped_files
+    local -a action
+    action=( "${@}" )
+    skipped_files=("${(@f)$(git_check_skipped)}")
+    git_unskip "${skipped_files[@]}"
+    "${action[@]}"
+    git_skip "${skipped_files[@]}"
+}
+
 # vim: ft=zsh
