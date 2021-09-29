@@ -36,3 +36,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 source "${dir_plugins}/zsh-autopair/autopair.zsh"
 autopair-init
+
+if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+fi
