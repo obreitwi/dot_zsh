@@ -2,10 +2,21 @@
 
 dir_plugins=${${0:A}:h}
 
+zvm_available() {
+    [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]
+}
+
+if zvm_available; then
+    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+else
+    zvm_after_init_commands=()
+fi
+
 if which fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
     # NOTE: fzf-tab needs to be loaded after compinit, but before plugins which
     # will wrap widgets like zsh-autosuggestions or fast-syntax-highlighting.
     source "${dir_plugins}/fzf-tab/fzf-tab.plugin.zsh"
+
     zstyle ":completion:*:git-checkout:*" sort false
     zstyle ':completion:*:descriptions' format '[%d]'
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -36,7 +47,3 @@ bindkey -M vicmd 'j' history-substring-search-down
 
 source "${dir_plugins}/zsh-autopair/autopair.zsh"
 autopair-init
-
-if [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]; then
-    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-fi
