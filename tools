@@ -28,4 +28,8 @@ if [ -f /opt/textidote/textidote.zsh ]; then
     source /opt/textidote/textidote.zsh
 fi
 
+if which carapace >/dev/null; then
+    source <(carapace _carapace)
+fi
+
 # vim: ft=zsh
