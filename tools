@@ -29,7 +29,9 @@ if [ -f /opt/textidote/textidote.zsh ]; then
 fi
 
 if which carapace >/dev/null; then
-    source <(carapace _carapace)
+    # Loading all of carapace breaks file completion in too many places:
+    # just load what we need: gh completions
+    source <(carapace gh zsh)
 fi
 
 # vim: ft=zsh
