@@ -77,8 +77,10 @@ done
 # zvm_bindkey viins "^j" vi-open-line-below
 
 # Search history
-# zvm_bindkey "^r" history-incremental-search-backward
-# zvm_bindkey "^n" history-incremental-search-forward 
+if which fzf > /dev/null; then
+    zvm_bindkey vicmd "^r" fzf-history-widget
+fi
+# zvm_bindkey vicmd "^n" history-incremental-search-forward 
 
 # Taken over by vim mode plugin
 # autoload -U edit-command-line
