@@ -16,7 +16,14 @@ else
     source $HOME/.zsh/functions
     source $HOME/.zsh/aliases
     source $HOME/.zsh/widgets
-    source $HOME/.zsh/bindkeys
+
+    if zvm_available; then
+        function zvm_after_lazy_keybindings() {
+            source $HOME/.zsh/bindkeys
+        }
+    else
+        source $HOME/.zsh/bindkeys
+    fi
     source $HOME/.zsh/tools
     source $HOME/.zsh/term
 

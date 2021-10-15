@@ -1,87 +1,93 @@
-# press "ctrl-e d" to insert the actual date in the form yyyy-mm-dd
-insert-datestamp_minsec() { LBUFFER+=${(%):-'%D{%Y-%m-%d_%H-%M-%S}'}; }
-zle -N insert-datestamp_minsec
-
 bindkey -r '^E'
-#k# Insert a timestamp on the command line (yyyy-mm-dd_HH-MM-SS)
-bindkey '^Em' insert-datestamp_minsec
+bindkey -r '^Em'
+bindkey -r '^Ed'
 
-bindkey '^Z' foreground-vim
+if ! zvm_available; then
+    function zvm_define_widget() {
+        zle -N "${@}"
+    }
+    function zvm_bindkey() {
+        bindkey -M "${@}"
+    }
+fi
 
-# press "ctrl-e d" to insert the actual date in the form yyyy-mm-dd
+# insert the actual date in the form yyyy-mm-dd
+insert-datestamp_minsec() { LBUFFER+=${(%):-'%D{%Y-%m-%d_%H-%M-%S}'}; }
+zvm_define_widget insert-datestamp_minsec
+
+# insert the actual date in the form yyyy-mm-dd
 insert-datestamp() { LBUFFER+=${(%):-'%D{%Y-%m-%d}'}; }
-zle -N insert-datestamp
-
-#k# Insert a timestamp on the command line (yyyy-mm-dd)
-bindkey '^Ed' insert-datestamp
-
-bindkey '^T' push-line
+zvm_define_widget insert-datestamp
 
 # run command line as user root via sudo:
 sudo-command-line() {
     [[ -z "$BUFFER" ]] && zle up-history
     [[ "$BUFFER" != sudo\ * ]] && BUFFER="sudo $BUFFER" && zle end-of-line
 }
-zle -N sudo-command-line
+zvm_define_widget sudo-command-line
 
 # run command line proxified via tsocks
 tsocks-command-line() {
     [[ -z "$BUFFER" ]] && zle up-history
     [[ "$BUFFER" != tsocks\ * ]] && BUFFER="tsocks $BUFFER" && zle end-of-line
 }
-zle -N tsocks-command-line
+zvm_define_widget tsocks-command-line
 
 # run vman on current command
 vman-command-line() {
     [[ -z "$BUFFER" ]] && zle up-history
     [[ "$BUFFER" != vman\ * ]] && BUFFER="vman $BUFFER" && zle end-of-line
 }
-zle -N vman-command-line
+zvm_define_widget vman-command-line
 
 # init-script
 init-command-line() {
     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
     [[ "$BUFFER" != sudo\ /etc/init.d/* ]] && BUFFER="sudo /etc/init.d/$BUFFER" && zle end-of-line
 }
-zle -N init-command-line
+zvm_define_widget init-command-line
 
 # append detach symbols
 append-detach-command-line() {
     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
     [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER &|" && zle end-of-line
 }
-zle -N append-detach-command-line
+zvm_define_widget append-detach-command-line
 
 append-detach-no-output-command-line() {
     #  [[ -z $BUFFER ]] && zle up-history # we do want replace in empty lines as well
     [[ "$BUFFER" != *\&\| ]] && BUFFER="$BUFFER NA &|" && zle end-of-line
 }
-zle -N append-detach-no-output-command-line
+zvm_define_widget append-detach-no-output-command-line
 
 for keymap in vicmd viins; do
     # we also want the binding in command mode
-    bindkey -M ${keymap} "^od" append-detach-command-line
-    bindkey -M ${keymap} "^oe" append-detach-no-output-command-line
-    bindkey -M ${keymap} "^oi" init-command-line
-    bindkey -M ${keymap} "^os" sudo-command-line
-    bindkey -M ${keymap} "^ot" tsocks-command-line
-    bindkey -M ${keymap} "^ov" vman-command-line
+    zvm_bindkey ${keymap} "^od" append-detach-command-line
+    zvm_bindkey ${keymap} "^oe" append-detach-no-output-command-line
+    zvm_bindkey ${keymap} "^oi" init-command-line
+    zvm_bindkey ${keymap} "^os" sudo-command-line
+    zvm_bindkey ${keymap} "^ot" tsocks-command-line
+    zvm_bindkey ${keymap} "^ov" vman-command-line
+    zvm_bindkey ${keymap} '^ed' insert-datestamp
+    zvm_bindkey ${keymap} '^em' insert-datestamp_minsec
+    zvm_bindkey ${keymap} '^z' foreground-vim
 done
 
-# multiline mode
-bindkey "^j" vi-open-line-below
+# # multiline mode
+# zvm_bindkey viins "^j" vi-open-line-below
 
 # Search history
-bindkey "^r" history-incremental-search-backward
-bindkey "^n" history-incremental-search-forward 
+# zvm_bindkey "^r" history-incremental-search-backward
+# zvm_bindkey "^n" history-incremental-search-forward 
 
-autoload -U edit-command-line
-zle -N edit-command-line
-# Edit command line in external editor
-# bindkey "^K" edit-command-line 
-bindkey -M vicmd v edit-command-line
+# Taken over by vim mode plugin
+# autoload -U edit-command-line
+# zvm_define_widget edit-command-line
+# # Edit command line in external editor
+# # zvm_bindkey "^K" edit-command-line 
+# zvm_bindkey -M vicmd v edit-command-line
 
 # Shift-Tab for backwards movement 
-bindkey '^[[Z' reverse-menu-complete
+zvm_bindkey vicmd '^[[Z' reverse-menu-complete
 
 # vim: ft=zsh
