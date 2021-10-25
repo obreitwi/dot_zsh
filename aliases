@@ -82,7 +82,7 @@ alias grepc="grep --color"
 # Global aliases
 alias -g C=' | wc -l'
 alias -g G=' | grep --color'
-alias -g H=' | head'
+alias -g H=' | hgrep --term-width "$COLUMNS" | less -R'
 alias -g P=' | less'
 alias -g T=' | tail'
 alias -g V=' | vim -'
