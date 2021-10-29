@@ -70,6 +70,10 @@ alias gsur="git submodule update --recursive --init --remote --rebase"
 # Make grep more colorful
 alias grepc="grep --color"
 
+if which parallel-moreutils &>/dev/null; then
+    alias -g parallel=parallel-moreutils
+fi
+
 # Schneller Zugriff auf tief vergrabene Uni Sachen
 
 # Pyhton interactiven interpreter mit startupfile aufrufen
