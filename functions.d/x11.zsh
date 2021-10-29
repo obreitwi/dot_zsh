@@ -3,8 +3,20 @@ get-modeline() {
 }
 
 startx-with-net() {
-    # start the xserver with a given wifi profile
-    sudo netctl start "${1}" &; startx
+
+if (( # < 1 )); then
+    echo "Usage: startx-with-net <profile>" >&2
+    return 1
+fi
+local network="${1}"
+
+if [ ! -f "/etc/netctl/$network" ]; then
+    echo "Profile '${network}' does not exist." >&2
+    return 1
+fi
+
+# start the xserver with a given wifi profile
+sudo netctl start "${1}" &; startx
 }
 
 alias startx-wifi=startx-with-net
