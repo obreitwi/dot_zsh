@@ -14,7 +14,7 @@ if which bat >/dev/null; then
     export MANPAGER="sh -c 'col -b | bat -l man -p'"
 fi
 
-export PYTHONPATH="$HOME/.local/lib/python3.7/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
+export PYTHONPATH="$HOME/.local/lib/python$(get_python_version)/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
 
 alias restic_mimir="restic -r sftp:$USER@zqnr.de:backup/restic/mimir --password-command=\"op get item 3kvwprrtuezerlo6oofod6re3q --fields password\""
 alias setup_1password="op signin freiheit > ~/.op/session; source ~/.op/session"
@@ -29,6 +29,10 @@ set_home() {
 set_work() {
     browser_set_chrome
     vimwiki_set_work
+}
+
+reset_webcam() {
+    sudo reset_usb 1bcf:2cb4
 }
 
 # vim: ft=sh
