@@ -13,16 +13,15 @@ if which lsd >/dev/null; then
     my_ls="lsd"
     alias tree="lsd --tree"
 else
-    my_ls="ls"
+    my_ls="ls --color=auto"
 fi
-alias ls="${my_ls} --color=auto"
-#  alias ll="ls -hl"
+alias ls="${my_ls}"
 # some more ls aliases
 alias ll="${my_ls} -lhF"
 # alias lld="${my_ls} -lhFd *(/)" # conflicts with lld program
 alias l1="${my_ls} -1"
 alias la="${my_ls} -A"
-alias l="${my_ls} -CF"
+# alias l="${my_ls} -CF"
 unset my_ls
 
 alias d='dirs -v'
