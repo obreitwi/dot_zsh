@@ -68,9 +68,9 @@ for keymap in vicmd viins; do
     zvm_bindkey ${keymap} "^os" sudo-command-line
     zvm_bindkey ${keymap} "^ot" tsocks-command-line
     zvm_bindkey ${keymap} "^ov" vman-command-line
-    zvm_bindkey ${keymap} '^ed' insert-datestamp
-    zvm_bindkey ${keymap} '^em' insert-datestamp_minsec
-    zvm_bindkey ${keymap} '^z' foreground-vim
+    zvm_bindkey ${keymap} "^ed" insert-datestamp
+    zvm_bindkey ${keymap} "^em" insert-datestamp_minsec
+    zvm_bindkey ${keymap} "^z" foreground-vim
 done
 
 # # multiline mode
