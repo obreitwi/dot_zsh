@@ -71,4 +71,14 @@ git_with_skipped() {
     git_skip "${skipped_files[@]}"
 }
 
+# show current branches of all folders in the current directory
+git_show_branches() {
+    for d in *(/); do (
+        cd $d
+        echo -n "$d: "
+        git branch --show-current
+    )
+    done | column -t
+}
+
 # vim: ft=zsh
