@@ -44,35 +44,35 @@ _git-review ()
 # inspired by: https://compiledsuccessfully.dev/git-skip-worktree/
 
 # checks for any files flagged w/ --skip-worktree alias
-git_check_skipped() {
+git-check-skipped() {
     git ls-files -v | grep '^S' | cut -d' ' -f2-
 }
 
 # add --skip-worktree flag to file
-git_skip() {
+git-skip() {
     git update-index --skip-worktree "$@"
     git status
 }
 
 # remove --skip-worktree flag from file
-git_unskip() {
+git-unskip() {
     git update-index --no-skip-worktree "$@"
     git status
 }
 
 # perform the following action with temporarily unskipped files
-git_with_skipped() {
+git-with-skipped() {
     local -a skipped_files
     local -a action
     action=( "${@}" )
-    skipped_files=("${(@f)$(git_check_skipped)}")
+    skipped_files=("${(@f)$(git-check-skipped)}")
     git_unskip "${skipped_files[@]}"
     "${action[@]}"
     git_skip "${skipped_files[@]}"
 }
 
 # show current branches of all folders in the current directory
-git_show_branches() {
+git-show-branches() {
     for d in *(/); do (
         cd $d
         echo -n "$d: "
