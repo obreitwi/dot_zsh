@@ -16,3 +16,6 @@
 [submodule "plugins/fzf-fasd"]
 	path = plugins/fzf-fasd
 	url = https://github.com/wookayin/fzf-fasd
+[submodule "plugins/forgit"]
+	path = plugins/forgit
+	url = https://github.com/wfxr/forgit
