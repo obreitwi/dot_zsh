@@ -89,6 +89,7 @@ zstyle -e ':completion:*:approximate:*' max-errors \
 # insert all expansions for expand completer
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
+if ! which fzf >/dev/null; then
 # formatting and messages
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format '%B%d%b'
@@ -102,6 +103,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
 # offer indexes before parameters in subscripts
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+fi
 
 setopt vi
 
