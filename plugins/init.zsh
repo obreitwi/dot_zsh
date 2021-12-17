@@ -29,6 +29,9 @@ if which fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
         source "${dir_plugins}/fzf-fasd/fzf-fasd.plugin.zsh"
     fi
 
+    FORGIT_FZF_DEFAULT_OPTS="--preview-window 'down:75%'"
+    source "${dir_plugins}/forgit/forgit.plugin.zsh"
+
     # once tmux 3.2 is installed we could do:
     # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
 fi
