@@ -74,11 +74,16 @@ git-with-skipped() {
 # show current branches of all folders in the current directory
 git-show-branches() {
     for d in *(/); do (
-        cd $d
-        echo -n "$d: "
-        git branch --show-current
+        cd "$d"
+        echo -n "$d:\t"
+        branch="$(git branch --show-current 2>&1)"
+        if (( $? == 0 )); then
+            echo "$branch"
+        else
+            echo "(no git)"
+        fi
     )
-    done | column -t
+    done | column -t -s "	"
 }
 
 # display features of forgit
