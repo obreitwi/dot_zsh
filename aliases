@@ -30,6 +30,8 @@ alias wgetcd='wget --content-disposition'
 alias mv='mv -iv'
 alias cp='cp -iv'
 
+alias gsb=git-show-branches
+
 # clip board management
 alias setclip="xclip -selection c"
 alias getclip="xclip -selection c -o"
