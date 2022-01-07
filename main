@@ -27,11 +27,8 @@ autoload -U keeper && keeper
 autoload -U zmv
 alias zcp='zmv -C' zln='zmv -L'
 
-setopt hist_ignore_all_dups
-setopt EXTENDED_HISTORY
 setopt GLOB_COMPLETE
 # setopt nobanghist
-
 # reclaim ctrl-s
 stty stop undef
 stty start undef
@@ -40,10 +37,15 @@ stty start undef
 #fortune | cowsay -f /opt/local/share/cowsay/cows/$(ls -1 /opt/local/share/cowsay/cows | unsort | head -n 1)
 
 # history settings
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=100000000
+SAVEHIST=100000000
 HISTFILE=~/.zsh_history
-setopt APPEND_HISTORY
+
+setopt HIST_IGNORE_ALL_DUPS
+setopt EXTENDED_HISTORY
+# immediately add commands to history
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
 
 # disabled for preexec version
 # function precmd() {
