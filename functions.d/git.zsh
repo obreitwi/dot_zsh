@@ -50,10 +50,11 @@ git-check-skipped() {
 
 # print the first found Jira and Rev tags
 git-ci-ids() {
-    git log \
+    git log "$@" \
         | awk '$1 ~ /Jira:/ && jira_found == 0 { print; jira_found=1 } $1 ~ /Rev:/ && rev_found == 0 { print; rev_found=1 }' \
         | sed "s:^\s*::g"
 }
+compdef __git_branch_names git-ci-ids
 
 # add --skip-worktree flag to file
 git-skip() {
