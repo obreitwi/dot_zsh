@@ -56,6 +56,23 @@ git-ci-ids() {
 }
 compdef __git_branch_names git-ci-ids
 
+git-rev-from-jira() {
+    if (( $# == 0 )); then
+        echo "Usage: git-rev-from-jira-id JIRA-ID [<branch>]" >&2
+        return 1
+    fi
+    local rev_id_to_find
+    rev_id_to_find="$1"
+    shift
+    git log "$@" \
+        | awk -v "to_find=${rev_id_to_find}"  '
+            $0 ~ /^commit:/ { jira_found=0; rev_found=0; }
+            $1 ~ /^Jira:/ { jira_id=$2; jira_found=1 }
+            $1 ~ /Rev:/ { rev_id=$2; rev_found=1 } rev_found && jira_found && jira_id == to_find { printf("Jira: %s\nRev: %s\n", jira_id, rev_id); exit 0 }' \
+        | sed "s:^\s*::g"
+}
+compdef __git_branch_names git-rev-from-jira
+
 # add --skip-worktree flag to file
 git-skip() {
     git update-index --skip-worktree "$@"
