@@ -41,4 +41,9 @@ if [ -f /opt/google-cloud-sdk/path.zsh.inc ]; then
     source /opt/google-cloud-sdk/path.zsh.inc
 fi
 
+if which zoxide >/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+
+
 # vim: ft=zsh
