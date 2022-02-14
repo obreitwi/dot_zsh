@@ -1,4 +1,4 @@
 
-gh_my_pr() {
+gh-my-pr() {
     gh pr list -A "$USER"
 }
