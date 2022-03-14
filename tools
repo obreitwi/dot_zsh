@@ -45,5 +45,24 @@ if which zoxide >/dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
+if which ugrep >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
+    alias grep='ugrep -G'
+    alias egrep='ugrep -E'
+    alias fgrep='ugrep -F'
+    alias pgrep='ugrep -P'
+    alias xgrep='ugrep -U --hexdump'
+    alias zgrep='ugrep -zG'
+    alias zegrep='ugrep -zE'
+    alias zfgrep='ugrep -zF'
+    alias zpgrep='ugrep -zP'
+    alias zxgrep='ugrep -zU --hexdump'
+    alias xdump='ugrep -X ""'
+fi
+if which ug >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
+    alias uq='ug -Q'
+    alias ux='ug -U --hexdump'
+    alias uz='ug -z'
+    alias ugit='ug --ignore-files'
+fi
 
 # vim: ft=zsh
