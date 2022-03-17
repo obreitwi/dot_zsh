@@ -65,10 +65,26 @@ git-rev-from-jira() {
     rev_id_to_find="$1"
     shift
     git log "$@" \
-        | awk -v "to_find=${rev_id_to_find}"  '
-            $0 ~ /^commit:/ { jira_found=0; rev_found=0; }
-            tolower($1) ~ /^jira:/ { jira_id=$2; jira_found=1 }
-            tolower($1) ~ /^rev:/ { rev_id=$2; rev_found=1 } rev_found && jira_found && jira_id == to_find { printf("Jira: %s\nRev: %s\n", jira_id, rev_id); exit 0 }' \
+        | awk -v "to_find=${rev_id_to_find}" '
+            $1 == "commit" {
+                if (rev_found && jira_found && jira_id == to_find) {
+                    printf("Jira: %s\nRev: %s\n", jira_id, rev_id)
+                    exit 0
+                } else {
+                    jira_found=0;
+                    rev_found=0;
+                    jira_id=""
+                    rev_id=""
+                }
+            }
+            tolower($1) ~ /^jira:/ {
+                jira_id=$2
+                jira_found=1
+            }
+            tolower($1) ~ /^rev:/ {
+                rev_id=$2
+                rev_found=1
+            }' \
         | sed "s:^\s*::g"
 }
 compdef __git_branch_names git-rev-from-jira
