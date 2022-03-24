@@ -17,7 +17,7 @@ fi
 export PYTHONPATH="$HOME/.local/lib/python$(get_python_version)/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
 
 alias restic_mimir="restic -r sftp:$USER@zqnr.de:backup/restic/mimir --password-command=\"op get item 3kvwprrtuezerlo6oofod6re3q --fields password\""
-alias setup_1password="op signin freiheit > ~/.op/session; source ~/.op/session"
+alias setup_1password="op signin --account freiheit > ~/.op/session; source ~/.op/session"
 
 export CHROME_EXECUTABLE="$(which google-chrome-stable)"
 
