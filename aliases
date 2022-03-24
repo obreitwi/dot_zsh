@@ -3,7 +3,7 @@ alias mp="mplayer -panscan 1.0"
 
 #open dialog
 # alias open="gnome-open"
-alias -g grep="grep --color=auto"
+alias grep="grep --color=auto"
 
 # aura without powerpill
 alias auraP="aura --no-pp"
