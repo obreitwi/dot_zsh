@@ -9,9 +9,23 @@ gh-make-pr() {
     local upstream
     upstream="origin/main"
     num_commits=$(git rev-list --count ${upstream}..HEAD)
+
+    local title
+    local body
+    title="$(git log --skip $((num_commits-1)) -n 1 --pretty=format:%s)"
+    body="$(git log --skip $((num_commits-1)) -n 1 --pretty=format:%b)"
+    {
+      echo "${fg_bold[white]}Will create PR:${reset_color} $title"
+      echo
+      echo "${fg_bold[white]}Body:${reset_color}"
+      echo "$body"
+      echo
+    } >&2
+
+
     gh pr create \
-        -t "$(git log --skip $((num_commits-1)) -n 1 --pretty=format:%s)" \
-        -b "$(git log --skip $((num_commits-1)) -n 1 --pretty=format:%b)" \
+        -t "$title" \
+        -b "$body" \
         "${@}" >&2
 }
 
