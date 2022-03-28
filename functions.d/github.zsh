@@ -15,9 +15,9 @@ gh-make-pr() {
     title="$(git log --skip $((num_commits-1)) -n 1 --pretty=format:%s)"
     body="$(git log --skip $((num_commits-1)) -n 1 --pretty=format:%b)"
     {
-      echo "${fg_bold[white]}Will create PR:${reset_color} $title"
+      echo "${fg_bold[default]}Will create PR:${reset_color} $title"
       echo
-      echo "${fg_bold[white]}Body:${reset_color}"
+      echo "${fg_bold[default]}Body:${reset_color}"
       echo "$body"
       echo
     } >&2
