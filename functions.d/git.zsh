@@ -147,4 +147,27 @@ cat <<EOF
 EOF
 }
 
+git-get-title() {
+    git-from-first --format "%s" "$@"
+}
+
+git-get-body() {
+    git-from-first --format "%b" "$@"
+}
+
+# Returns info from the first commit after the current --upstream branch in the form of --format
+git-from-first() {
+    zparseopts -D -E -A args -upstream: -format:
+    local format
+    format=${args[--format]}
+    if [ -z "$format" ]; then
+        echo "--format required" >&2
+        return 1
+    fi
+    local upstream
+    upstream="${args[--upstream]:-"origin/main"}"
+    num_commits=$(git rev-list --count "${upstream}..HEAD")
+    git log --skip $((num_commits-1)) -n 1 "--pretty=format:$format"
+}
+
 # vim: ft=zsh
