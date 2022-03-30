@@ -197,6 +197,11 @@ if which rg >/dev/null; then
     alias rgi='rg --no-ignore'
 fi
 
+if which difft &>/dev/null; then
+    alias gdt="GIT_EXTERNAL_DIFF=difft git"
+    alias gdifft="gdt diff"
+fi
+
 source ~/.zsh/aliases-suffix
 
 # vim: ft=zsh
