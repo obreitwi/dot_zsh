@@ -3,6 +3,12 @@ xrandr-add-presentation() {
     local offset_y=17
     local geometry
     geometry="$(xrandr --listmonitors | grep HDMI | awk '{print $3}' | sed "s:+0+0::")"
+
+    if [ -z "${geometry}" ]; then
+        echo "Could not find primary monitor." >&2
+        return 1
+    fi
+
     # pixel width
     pw="$(echo $geometry | cut -d / -f 1)"
     # pixel height
