@@ -11,5 +11,5 @@ tf-json() {
 
 # Plan terraform
 tf-plan() {
-    terraform plan -json | tee "$(tf-json)" | jq -r '."@message"'
+    terraform plan -json | tee "$(tf-json)" | jq -r '."@message",.diagnostic?.detail?'
 }
