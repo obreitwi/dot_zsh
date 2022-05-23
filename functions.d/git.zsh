@@ -8,6 +8,8 @@ clang_format_head() {
     git status
 }
 
+alias -g git-tracker-ids='-m "$(git-rev-from-jira $(git branch --show-current | cut -d / -f 2))"'
+
 # nicer git log
 gitlg() {
     PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
