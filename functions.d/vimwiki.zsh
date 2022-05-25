@@ -17,7 +17,7 @@ get_todos() {
         days="${args[--days]}"
     fi
     if [ -z "$days" ]; then
-        days=7
+        days=14
     fi
     grep "^\s*\\* \[ \]" ~/.vimwiki/diary/*.md(m-$days) | sed -e "s/^\([^:]*\):\s*\\* \[ \]/\1/"
 }
