@@ -19,7 +19,7 @@ get_todos() {
     if [ -z "$days" ]; then
         days=14
     fi
-    grep "^\s*\\* \[ \]" ~/.vimwiki/diary/*.md(m-$days) | sed -e "s/^\([^:]*\):\s*\\* \[ \]/\1/"
+    grep "^\s*\\* \[[ .oO]\]" ~/.vimwiki/diary/*.md(m-$days) | sed -e "s/^\([^:]*\):\(\s*\)\\* \[[ .oO]\]/\1\2/"
 }
 
 # Open todos in vim
