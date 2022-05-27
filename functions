@@ -1,6 +1,7 @@
 source "$HOME/.zsh/functions.d/alacritty.zsh"
 source "$HOME/.zsh/functions.d/archive.zsh"
 source "$HOME/.zsh/functions.d/bahn.zsh"
+source "$HOME/.zsh/functions.d/bitbucket.zsh"
 source "$HOME/.zsh/functions.d/browser.zsh"
 source "$HOME/.zsh/functions.d/container.zsh"
 source "$HOME/.zsh/functions.d/conversion.zsh"
