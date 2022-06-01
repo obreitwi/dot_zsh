@@ -6,7 +6,7 @@ gh-my-pr() {
 gh-pr-create() {
   zparseopts -D -E -A args -upstream:
   local -a git_args
-  if [ -n "${args[--upstream]}"]; then
+  if [ -n "${args[--upstream]}" ]; then
     git_args+=(--upstream "${args[--upstream]}")
   fi
 
