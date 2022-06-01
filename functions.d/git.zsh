@@ -8,7 +8,7 @@ clang_format_head() {
     git status
 }
 
-alias -g git-tracker-ids='-m "$(git-rev-from-jira $(git branch --show-current | cut -d / -f 2))"'
+alias -g git-add-ci-ids='-m "$(git-rev-from-jira $(git branch --show-current | cut -d / -f 2))"'
 
 # nicer git log
 gitlg() {
@@ -51,12 +51,12 @@ git-check-skipped() {
 }
 
 # print the first found Jira and Rev tags
-git-ci-ids() {
+git-get-ci-ids() {
     git log "$@" \
         | awk '$1 ~ /Jira:/ && jira_found == 0 { print; jira_found=1 } $1 ~ /Rev:/ && rev_found == 0 { print; rev_found=1 }' \
         | sed "s:^\s*::g"
 }
-compdef __git_branch_names git-ci-ids
+compdef __git_branch_names git-get-ci-ids
 
 git-rev-from-jira() {
     if (( $# == 0 )); then
