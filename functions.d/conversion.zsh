@@ -60,7 +60,15 @@ svg_to_png_rsvg() {
 
 # see https://trac.ffmpeg.org/wiki/Encode/MP3
 to_mp3() {
+    zparseopts -D -E -A args -bitrate: -audioquality:
+    if [ -z "${args[--audioquality]}" ]; then
+        args[--audioquality]=2
+    fi
+    if [ -z "${args[--bitrate]}" ]; then
+        args[--bitrate]=48000
+    fi
     for origin in "$@"; do
-        ffmpeg -i "${origin}" -vn -acodec libmp3lame -ac 2 -aq ${AQ:-2} -ar 48000 "${origin:t:r}.mp3"
+        ffmpeg -i "${origin}" -vn -acodec libmp3lame -ac 2 \
+            -aq "${args[--audioquality]}" -ar "${args[--bitrate]}" "${origin:t:r}.mp3"
     done
 }
