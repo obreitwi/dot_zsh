@@ -24,6 +24,6 @@ get_todos() {
 
 # Open todos in vim
 todos() {
-    get_todos "${@}" | nvim -R -
+    get_todos "${@}" | nvim -
 }
 
