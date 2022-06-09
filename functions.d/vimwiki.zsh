@@ -24,6 +24,8 @@ get_todos() {
 
 # Open todos in vim
 todos() {
-    get_todos "${@}" | nvim -
+    tmpfile=$(mktemp)
+    get_todos "${@}" >"${tmpfile}"
+    nvim "${tmpfile}"
+    rm -f "${tmpfile}"
 }
-
