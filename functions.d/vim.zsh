@@ -1,3 +1,3 @@
 nv() {
-    neovide "${@}" &|
+    neovide --multigrid "${@}"
 }
