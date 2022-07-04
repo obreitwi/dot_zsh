@@ -114,19 +114,30 @@ git-with-skipped() {
     git_skip "${skipped_files[@]}"
 }
 
-# show current branches of all folders in the current directory
-git-show-branches() {
+git-get-folder-branches() {
+    local -a folders=( "${@}" )
+    if (( ${#folder[@]} == 0 )); then
+        folders=( "${(f@)$(find . -mindepth 1 -maxdepth 1 -type d)}" )
+    fi
     for d in *(/); do (
         cd "$d"
-        echo -n "$d:\t"
         branch="$(git branch --show-current 2>&1)"
         if (( $? == 0 )); then
-            echo "$branch"
-        else
-            echo "(no git)"
+            echo "$d\t$branch"
         fi
     )
-    done | column -t -s "	"
+    done
+}
+
+# show current branches of all folders in the current directory
+git-show-branches() {
+    git-get-folder-branches | awk -F "	" -vOFS="	" '{ print $1 ":", $2 }' | column -t -s "	"
+}
+
+git-cd-branches() {
+    local target
+    target=$(git-get-folder-branches "$@" | fzf -d "	" --with-nth 2.. | cut -d "	" -f 1)
+    cd "${target}"
 }
 
 # display features of forgit
