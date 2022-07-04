@@ -1,3 +1,1 @@
-nv() {
-    neovide --multigrid "${@}"
-}
+alias nv="neovide --multigrid"
