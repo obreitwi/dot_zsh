@@ -8,7 +8,8 @@ clang_format_head() {
     git status
 }
 
-alias -g git-with-ci-ids='-m "$(git-rev-from-jira $(git branch --show-current | cut -d / -f 2))"'
+alias -g git-with-ci-ids-local='-m "$(git-rev-from-jira $(git branch --show-current | cut -d / -f 2))"'
+alias -g git-with-ci-ids='-m "$(rev-git-ids $(rev-backlog -j $(git branch --show-current | cut -d / -f 2)))"'
 
 # nicer git log
 gitlg() {
