@@ -77,6 +77,8 @@ if which parallel-moreutils &>/dev/null; then
     alias -g parallel=parallel-moreutils
 fi
 
+alias copy='xclip -i -selection clipboard'
+
 # Schneller Zugriff auf tief vergrabene Uni Sachen
 
 # Pyhton interactiven interpreter mit startupfile aufrufen
