@@ -37,4 +37,6 @@ reset_webcam() {
     sudo reset_usb 1bcf:2cb4
 }
 
+source "$HOME/doc-fdc/scripts/folders.zsh"
+
 # vim: ft=sh
