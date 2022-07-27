@@ -72,3 +72,9 @@ to_mp3() {
             -aq "${args[--audioquality]}" -ar "${args[--bitrate]}" "${origin:t:r}.mp3"
     done
 }
+
+to_gif() {
+    for input in "${@}"; do
+        ffmpeg -i ${input} -vf "fps=10,scale=-1:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 "${input:t:r}.gif"
+    done
+}
