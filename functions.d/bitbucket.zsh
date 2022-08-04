@@ -11,8 +11,12 @@ bb-current-domain() {
     git remote get-url origin | awk -v FS=/ '{ print $3 }' | sed "s:^git@::"
 }
 
-bb-current-url() {
+bb-url-api_1() {
     echo "https://$(bb-current-domain)/rest/api/1.0/projects/$(bb-current-project)/repos/$(bb-current-repo)"
+}
+
+bb-url-api_latest() {
+    echo "https://$(bb-current-domain)/rest/api/latest/projects/$(bb-current-project)/repos/$(bb-current-repo)"
 }
 
 bb-user() {
@@ -20,15 +24,23 @@ bb-user() {
 }
 
 bb-get() { # <endpoint>
-    curl -s --show-error -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$(bb-current-url)/$1"
+    curl -s --show-error -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$(bb-url-api_1)/$1"
 }
 
 bb-delete() { # <endpoint>
-    curl -s --show-error -X DELETE -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$(bb-current-url)/$1"
+    curl -s --show-error -X DELETE -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$(bb-url-api_1)/$1"
 }
 
 bb-post() { # <endpoint>
-    curl -s --show-error --json @- -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$(bb-current-url)/$1"
+    bb-post-raw "$(bb-url-api_1)/$1"
+}
+
+bb-post-raw() { # <URL>
+    curl -s --show-error --json @- -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$1"
+}
+
+bb-post_latest() { # <endpoint>
+    bb-post-raw "$(bb-url-api_latest)/$1"
 }
 
 bb-pr-current() {
@@ -49,6 +61,49 @@ bb-pr-url() {
 
 bb-pr-url() {
     bb-pr-current | jq -r ".links.self[0].href"
+}
+
+bb-pr-cleanup() { # <pr-id>
+    local pr_id="$1"
+    local url="https://$(bb-current-domain)/rest/pull-request-cleanup/latest/projects/$(bb-current-project)/repos/$(bb-current-repo)/pull-requests/${pr_id}"
+    jo -- deleteSourceRef=true retargetDependents=true \
+        | bb-post-raw "$url" | jq
+}
+
+bb-pr-check() {
+    bb-get pull-requests/$(bb-pr-id)/merge
+}
+
+bb-pr-merge() {
+  local title
+  local body
+  local branch
+  local pr_id
+  local pr_json
+  local pr_version
+  local pr_message
+  local url
+
+  pr_json=$(bb-pr-current)
+  title=$(git-get-title)
+  body=$(git-get-body)
+  pr_id=$(jq .id <<<"$pr_json")
+  pr_version=$(jq .version <<<"$pr_json")
+  {
+    echo "${fg_bold[default]}Will merge PR :${reset_color} $title"
+    echo
+    echo "${fg_bold[default]}Body:${reset_color}"
+    echo "$body"
+  } >&2
+  gum confirm "Merge Pull Request?" || return 0
+
+  pr_message=$(printf "%s\n\n%s" "$title" "$body")
+  url="/pull-requests/$(bb-pr-id)/merge?markup=true&version=${pr_version}"
+
+  jo -- autoSubject=false message="$pr_message" \
+    bb-post_latest | jq
+
+  bb-pr-cleanup "${pr_id}"
 }
 
 bb-pr-create() {
