@@ -4,11 +4,11 @@ bb-current-project() {
 }
 
 bb-current-repo() {
-    git remote get-url origin | awk -v FS=/ '{ print $NF}'
+    git remote get-url origin | awk -v FS=/ '{ print $NF }' | sed "s:\.git$::"
 }
 
 bb-current-domain() {
-    git remote get-url origin | awk -v FS=/ '{ print $3}'
+    git remote get-url origin | awk -v FS=/ '{ print $3 }' | sed "s:^git@::"
 }
 
 bb-current-url() {
@@ -74,6 +74,8 @@ bb-pr-create() {
           return 0
       fi
   fi
+
+  git push origin
 
   jo -- title="$title" -s description="$body" state=OPEN \
       fromRef=$(jo id="$branch" slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
