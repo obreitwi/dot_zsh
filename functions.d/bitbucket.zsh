@@ -71,7 +71,7 @@ bb-pr-cleanup() { # <pr-id>
 }
 
 bb-pr-check() {
-    bb-get pull-requests/$(bb-pr-id)/merge
+    bb-get pull-requests/$(bb-pr-id)/merge | jq
 }
 
 bb-pr-merge() {
@@ -83,14 +83,17 @@ bb-pr-merge() {
   local pr_version
   local pr_message
   local url
+  local response
 
   pr_json=$(bb-pr-current)
-  title=$(git-get-title)
-  body=$(git-get-body)
   pr_id=$(jq .id <<<"$pr_json")
   pr_version=$(jq .version <<<"$pr_json")
+
+  title="$(git-get-title) (#${pr_id})"
+  body=$(git-get-body)
+
   {
-    echo "${fg_bold[default]}Will merge PR :${reset_color} $title"
+    echo "${fg_bold[default]}Will merge PR:${reset_color} $title"
     echo
     echo "${fg_bold[default]}Body:${reset_color}"
     echo "$body"
@@ -98,10 +101,16 @@ bb-pr-merge() {
   gum confirm "Merge Pull Request?" || return 0
 
   pr_message=$(printf "%s\n\n%s" "$title" "$body")
-  url="/pull-requests/$(bb-pr-id)/merge?markup=true&version=${pr_version}"
+  url="pull-requests/$(bb-pr-id)/merge?markup=true&version=${pr_version}"
 
-  jo -- autoSubject=false message="$pr_message" \
-    bb-post_latest | jq
+  response=$(jo -- autoSubject=false message="$pr_message" | bb-post_latest "$url")
+
+  jq<<<"$response"
+
+  if jq -e ".errors" <<<"${response}">/dev/null; then
+      jq <<<"$response"
+      return 1
+  fi
 
   bb-pr-cleanup "${pr_id}"
 }
@@ -132,9 +141,10 @@ bb-pr-create() {
 
   git push origin
 
-  jo -- title="$title" -s description="$body" state=OPEN \
-      fromRef=$(jo id="$branch" slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
-      toRef=$(jo id=refs/heads/main slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
+  jo -- \
+          title="$title" -s description="$body" state=OPEN \
+          fromRef=$(jo id="$branch" slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
+          toRef=$(jo id=refs/heads/main slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
       | bb-post pull-requests | jq
 
   bb-pr-url
