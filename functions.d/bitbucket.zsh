@@ -75,77 +75,77 @@ bb-pr-check() {
 }
 
 bb-pr-merge() {
-  local title
-  local body
-  local branch
-  local pr_id
-  local pr_json
-  local pr_version
-  local pr_message
-  local url
-  local response
+    local title
+    local body
+    local branch
+    local pr_id
+    local pr_json
+    local pr_version
+    local pr_message
+    local url
+    local response
 
-  pr_json=$(bb-pr-current)
-  pr_id=$(jq .id <<<"$pr_json")
-  pr_version=$(jq .version <<<"$pr_json")
+    pr_json=$(bb-pr-current)
+    pr_id=$(jq .id <<<"$pr_json")
+    pr_version=$(jq .version <<<"$pr_json")
 
-  title="$(git-get-title) (#${pr_id})"
-  body=$(git-get-body)
+    title="$(git-get-title) (#${pr_id})"
+    body=$(git-get-body)
 
-  {
-    echo "${fg_bold[default]}Will merge PR:${reset_color} $title"
-    echo
-    echo "${fg_bold[default]}Body:${reset_color}"
-    echo "$body"
-  } >&2
-  gum confirm "Merge Pull Request?" || return 0
+    {
+        echo "${fg_bold[default]}Will merge PR:${reset_color} $title"
+        echo
+        echo "${fg_bold[default]}Body:${reset_color}"
+        echo "$body"
+    } >&2
+    gum confirm "Merge Pull Request?" || return 0
 
-  pr_message=$(printf "%s\n\n%s" "$title" "$body")
-  url="pull-requests/$(bb-pr-id)/merge?markup=true&version=${pr_version}"
+    pr_message=$(printf "%s\n\n%s" "$title" "$body")
+    url="pull-requests/$(bb-pr-id)/merge?markup=true&version=${pr_version}"
 
-  response=$(jo -- autoSubject=false message="$pr_message" | bb-post_latest "$url")
+    response=$(jo -- autoSubject=false message="$pr_message" | bb-post_latest "$url")
 
-  jq<<<"$response"
+    jq<<<"$response"
 
-  if jq -e ".errors" <<<"${response}">/dev/null; then
-      jq <<<"$response"
-      return 1
-  fi
+    if jq -e ".errors" <<<"${response}">/dev/null; then
+        jq <<<"$response"
+        return 1
+    fi
 
-  bb-pr-cleanup "${pr_id}"
+    bb-pr-cleanup "${pr_id}"
 }
 
 bb-pr-create() {
-  local title
-  local body
-  local branch
-  title=$(git-get-title)
-  body=$(git-get-body)
-  branch=$(git rev-parse --symbolic-full-name HEAD)
-  {
-    echo "${fg_bold[default]}Will create PR:${reset_color} $title"
-    echo
-    echo "${fg_bold[default]}Body:${reset_color}"
-    echo "$body"
-  } >&2
+    local title
+    local body
+    local branch
+    title=$(git-get-title)
+    body=$(git-get-body)
+    branch=$(git rev-parse --symbolic-full-name HEAD)
+    {
+        echo "${fg_bold[default]}Will create PR:${reset_color} $title"
+        echo
+        echo "${fg_bold[default]}Body:${reset_color}"
+        echo "$body"
+    } >&2
 
-  if command -v gum >/dev/null; then
-      gum confirm "Create Pull Request?" || return 0
-  else
-      echo "Continue (Y/n)?"
-      read answer
-      if [[ "$answer" != Y ]]; then
-          return 0
-      fi
-  fi
+    if command -v gum >/dev/null; then
+        gum confirm "Create Pull Request?" || return 0
+    else
+        echo "Continue (Y/n)?"
+        read answer
+        if [[ "$answer" != Y ]]; then
+            return 0
+        fi
+    fi
 
-  git push origin
+    git push origin
 
-  jo -- \
-          title="$title" -s description="$body" state=OPEN \
-          fromRef=$(jo id="$branch" slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
-          toRef=$(jo id=refs/heads/main slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
-      | bb-post pull-requests | jq
+    jo -- \
+        title="$title" -s description="$body" state=OPEN \
+        fromRef=$(jo id="$branch" slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
+        toRef=$(jo id=refs/heads/main slug="$(bb-current-repo)" name= project=$(jo key=$(bb-current-project))) \
+        | bb-post pull-requests | jq
 
-  bb-pr-url
+    bb-pr-url
 }
