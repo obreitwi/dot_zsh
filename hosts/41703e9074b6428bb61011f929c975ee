@@ -19,6 +19,7 @@ export PYTHONPATH
 
 alias restic_mimir="restic -r sftp:$USER@zqnr.de:backup/restic/mimir --password-command=\"op item get 3kvwprrtuezerlo6oofod6re3q --fields password\""
 alias setup_1password="op signin --account freiheit > ~/.op/session; source ~/.op/session"
+alias rblm='rev-backlog -m -c'
 
 CHROME_EXECUTABLE="$(which google-chrome-stable)"
 export CHROME_EXECUTABLE
