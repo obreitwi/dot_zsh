@@ -38,6 +38,11 @@ reset_webcam() {
     sudo reset_usb 1bcf:2cb4
 }
 
+# create a new branch
+git-new-branch() {
+    git checkout -b "ojb/$(rev-git-ids -j)/$(gum input --placeholder "branch name")" origin/main
+}
+
 source "$HOME/doc-fdc/scripts/folders.zsh"
 
 # vim: ft=sh
