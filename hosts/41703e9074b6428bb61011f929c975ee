@@ -39,8 +39,13 @@ reset_webcam() {
 }
 
 # create a new branch
-git-new-branch() {
+git-branch-story() {
     git checkout -b "ojb/$(rev-git-ids -j)/$(gum input --placeholder "branch name")" origin/main
+}
+
+# create a new branch from any story
+git-branch-backlog() { # <args for rev-backlog>
+    git checkout -b "ojb/$(rev-git-ids -j "$(rev-backlog "$@")")/$(gum input --placeholder "branch name")" origin/main
 }
 
 source "$HOME/doc-fdc/scripts/folders.zsh"
