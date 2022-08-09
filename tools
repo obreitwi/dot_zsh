@@ -65,4 +65,8 @@ if which ug >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
     alias ugit='ug --ignore-files'
 fi
 
+if command -v batpipe >/dev/null; then
+    eval "$(batpipe)"
+fi
+
 # vim: ft=zsh
