@@ -59,8 +59,8 @@ bb-pr-url() {
     bb-pr-current | jq -r ".links.self[0].href"
 }
 
-bb-pr-url() {
-    bb-pr-current | jq -r ".links.self[0].href"
+bb-pr-open() {
+    xdg-open "$(bb-pr-url)"
 }
 
 bb-pr-cleanup() { # <pr-id>
