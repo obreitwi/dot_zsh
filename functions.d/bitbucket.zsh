@@ -149,3 +149,13 @@ bb-pr-create() {
 
     bb-pr-url
 }
+
+bb-prs-status() {
+    for d  in $(git worktree list | awk '! ( $1 ~ /main$/ ) {print $1}'); do
+        (
+        cd "$d"
+        printf '# %s [%s]: %s\n' "$(basename "$d")" "$(git rev-parse --abbrev-ref HEAD)" "$(git-get-title)"
+        bb-pr-check
+        )
+    done
+}
