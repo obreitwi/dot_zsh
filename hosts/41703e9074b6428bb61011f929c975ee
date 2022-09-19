@@ -48,6 +48,10 @@ git-branch-backlog() { # <args for rev-backlog>
     git checkout -b "ojb/$(rev-git-ids -j "$(rev-backlog "$@")")/$(gum input --placeholder "branch name")" origin/main
 }
 
+image-flutter() {
+    grep -A 1 '"flutter-web"' "$(git rev-parse --show-toplevel)/Jenkinsfile" | tail -n 1 | awk '{print $2}' | tr -d "','"
+}
+
 source "$HOME/doc-fdc/scripts/folders.zsh"
 
 # vim: ft=sh
