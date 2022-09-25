@@ -7,9 +7,9 @@ vimwiki_set_private() {
     ln -Tsfv ~/Nextcloud/vimwiki ~/.vimwiki
 }
 
-_todos_ex_grep="^\s*\\* \[[ .oO]\]"
-_todos_ex_sed="s/^\([^:]*\):\(\s*\)\\* \[[ .oO]\]/\1\2/"
-_todos_diary_path="$HOME/.vimwiki/diary"
+_todos_ex_grep='^\s*\(\*\|-\) \[[ .oO]\]'
+_todos_ex_sed='s/^\([^:]*\):\(\s*\)\(\*\|-\) \[[ .oO]\]/\1\2/'
+_todos_diary_path="$HOME/.vimwiki/neorg/journal"
 
 # Get all recent todos
 # Options:
@@ -30,7 +30,7 @@ get-todos() {
     cutoff_date="$(($(date +%s) - 3600 * 24 * days))"
 
     for entry_file in "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort)}"; do
-        entry_date=$(basename "${entry_file%%.md}")
+        entry_date=${entry_file:t:r}
 
         if (( $(date -d "$entry_date" +%s) < cutoff_date )); then
             files_old+=("${entry_file}")
@@ -48,7 +48,7 @@ get-todos() {
 
 todos-errorfile() {
     grep -rn "${_todos_ex_grep}" "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort -r)}" \
-        | sed -e "s/\\* \[ \] //g"
+        | sed -e 's/\(\*\|-\) \[ \] //g'
 }
 
 # Open todos in vim
