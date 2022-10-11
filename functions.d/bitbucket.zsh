@@ -56,7 +56,7 @@ bb-pr-id() {
 }
 
 bb-pr-url() {
-    bb-pr-current | jq -r ".links.self[0].href"
+    bb-pr-current | jq -r ".links.self[0].href" | tr -d '\n'
 }
 
 bb-pr-open() {
