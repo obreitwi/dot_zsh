@@ -148,6 +148,7 @@ bb-pr-create() {
         | bb-post pull-requests | jq
 
     bb-pr-url
+    echo
 }
 
 bb-prs-status() {
