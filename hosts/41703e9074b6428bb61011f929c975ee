@@ -47,6 +47,11 @@ git-branch-story() {
 git-branch-backlog() { # <args for rev-backlog>
     git checkout -b "ojb/$(rev-git-ids -j "$(rev-backlog "$@")")/$(gum input --placeholder "branch name")" origin/main
 }
+#
+# create a new branch
+git-story-open() {
+    rev-backlog -j "$(git-branch-jira-id)" -w
+}
 
 image-flutter() {
     grep -A 1 '"flutter-web"' "$(git rev-parse --show-toplevel)/Jenkinsfile" | tail -n 1 | awk '{print $2}' | tr -d "','"
