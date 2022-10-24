@@ -188,4 +188,11 @@ git-from-first() {
     git log --skip $((num_commits-1)) -n 1 "--pretty=format:$format"
 }
 
+git-checkout-pubspec() {
+(
+    cd "$(git rev-parse --show-toplevel)"
+    git checkout $(git status --porcelain | grep "pubspec.lock$" | awk '{ print $NF }')
+)
+}
+
 # vim: ft=zsh
