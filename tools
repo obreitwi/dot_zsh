@@ -69,4 +69,8 @@ if command -v batpipe >/dev/null; then
     eval "$(batpipe)"
 fi
 
+if [ -f /etc/profile.d/prll.sh ]; then
+    source /etc/profile.d/prll.sh
+fi
+
 # vim: ft=zsh
