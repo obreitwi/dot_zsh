@@ -164,6 +164,7 @@ cat <<EOF
 * git commit --fixup && git rebase -i --autosquash selector (gfu)
 EOF
 }
+alias git-help-forgit=git-show-forgit
 
 git-get-title() {
     git-from-first --format "%s" "$@"
