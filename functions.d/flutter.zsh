@@ -4,5 +4,5 @@ flutter-pub-get() {
 }
 
 flutter-test() {
-    (cd "$1"; make test; git checkout pubspec.lock) | tee make_test_${1/\//_}.log
+    (cd "$1"; make test; git checkout pubspec.lock) | tee make_test_${1//\//_}.log
 }
