@@ -40,12 +40,30 @@ reset_webcam() {
 
 # create a new branch
 git-branch-story() {
-    git checkout -b "ojb/$(revcli stories --jira)/$(gum input --placeholder "branch name")" origin/main
+    local jira
+    jira=$(revcli stories --jira)
+
+    local branch
+    if [ -f "/tmp/git-branch-name" ]; then
+        read -r branch < <(tr -d '\n' </tmp/git-branch-name)
+    fi
+    branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
+
+    git checkout -b "ojb/$jira/$branch" origin/main
 }
 
 # create a new branch from any story
 git-branch-backlog() { # <args for rev-backlog>
-    git checkout -b "ojb/$(rev-git-ids -j "$(rev-backlog "$@")")/$(gum input --placeholder "branch name")" origin/main
+    local jira
+    jira=$(revcli backlog "$@" --jira)
+
+    local branch
+    if [ -f "/tmp/git-branch-name" ]; then
+        read -r branch < <(tr -d '\n' </tmp/git-branch-name)
+    fi
+    branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
+
+    git checkout -b "ojb/$jira/$branch" origin/main
 }
 #
 # create a new branch
