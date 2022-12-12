@@ -30,6 +30,7 @@ if which fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
     fi
 
     FORGIT_FZF_DEFAULT_OPTS="--preview-window 'down:75%'"
+    export FORGIT_FZF_DEFAULT_OPTS
     source "${dir_plugins}/forgit/forgit.plugin.zsh"
 
     # once tmux 3.2 is installed we could do:
