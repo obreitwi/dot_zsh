@@ -7,8 +7,9 @@ vimwiki_set_private() {
     ln -Tsfv ~/Nextcloud/vimwiki ~/.vimwiki
 }
 
-_todos_ex_grep='^\s*\(\*\|-\) \[[ .oO]\]'
-_todos_ex_sed='s/^\([^:]*\):\(\s*\)\(\*\|-\) \[[ .oO]\]/\1\2/'
+# neorg
+_todos_ex_grep='^\s*\(\*\|-\) \(( )\|\[[ .oO]\]\)'
+_todos_ex_sed='s/^\([^:]*\):\(\s*\)\(\*\|-\) \(([ x])\|\[[ .oO]\]\)/\1\2/'
 _todos_diary_path="$HOME/.vimwiki/neorg/journal"
 
 # Get all recent todos
@@ -48,7 +49,7 @@ get-todos() {
 
 todos-errorfile() {
     grep -rn "${_todos_ex_grep}" "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort -r)}" \
-        | sed -e 's/\(\*\|-\) \[ \] //g'
+        | sed -e 's/\(\*\|-\) \(( )\|\[ \]\) //g'
 }
 
 # Open todos in vim
