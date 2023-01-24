@@ -36,17 +36,6 @@ stty start undef
 # clever comments on shell start
 #fortune | cowsay -f /opt/local/share/cowsay/cows/$(ls -1 /opt/local/share/cowsay/cows | unsort | head -n 1)
 
-# history settings
-HISTSIZE=100000000
-SAVEHIST=100000000
-HISTFILE=~/.zsh_history
-
-setopt HIST_IGNORE_ALL_DUPS
-setopt EXTENDED_HISTORY
-# immediately add commands to history
-setopt INC_APPEND_HISTORY
-setopt SHARE_HISTORY
-
 # disabled for preexec version
 # function precmd() {
     # if [ "$(id -u)" -ne 0 ]; then
@@ -156,16 +145,26 @@ zstyle ':completion:*' menu select=2
 setopt rm_star_wait
 setopt auto_pushd pushd_ignore_dups pushd_minus pushd_silent
 
+# history settings
+HISTSIZE=1000000000
+SAVEHIST=1000000000
+HISTFILE=~/.zsh_history
+
 # All running shells have the same history - always!
-setopt share_history
+setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
 # No duplicates...
-setopt hist_ignore_dups
+setopt HIST_IGNORE_DUPS
 # Don't put commands starting with a space character into the history
-setopt hist_ignore_space
+setopt HIST_IGNORE_SPACE
+# Append to history immediately
+setopt INC_APPEND_HISTORY
+# Do not write duplicates to history file
+setopt HIST_IGNORE_ALL_DUPS
 
 # short for loops containing just one command:
 #   for f (*.html)   mv $f ${f:r}.php
-setopt short_loops
+setopt SHORT_LOOPS
 
 # cd to directory just by giving it's name
 #setopt auto_cd
