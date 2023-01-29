@@ -10,7 +10,7 @@ vimwiki_set_private() {
 # neorg
 _todos_ex_grep='^\s*\(\*\|-\) \(( )\|\[[ .oO]\]\)'
 _todos_ex_sed='s/^\([^:]*\):\(\s*\)\(\*\|-\) \(([ x])\|\[[ .oO]\]\)/\1\2/'
-_todos_diary_path="$HOME/.vimwiki/neorg/journal"
+_todos_diary_path="$HOME/mwiki/neorg/journal"
 
 # Get all recent todos
 # Options:
