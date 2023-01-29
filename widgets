@@ -2,6 +2,8 @@ foreground-vim() {
     fg %vim
     fg %nvim
 }
-zvm_define_widget foreground-vim
+if zvm_available; then
+    zvm_define_widget foreground-vim
+fi
 
 # vim: ft=zsh

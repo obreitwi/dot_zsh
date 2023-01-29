@@ -29,6 +29,7 @@ alias d='dirs -v'
 alias dg='dirs -v | grep'
 alias wgetcd='wget --content-disposition'
 alias mv='mv -iv'
+alias rm='rm -v'
 alias cp='cp -iv'
 
 alias gsb=git-show-branches
