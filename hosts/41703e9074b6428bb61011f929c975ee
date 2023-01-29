@@ -26,12 +26,12 @@ export CHROME_EXECUTABLE
 
 set_home() {
     browser_set_firefox
-    vimwiki_set_private
+    wiki_set_private
 }
 
 set_work() {
     browser_set_chrome
-    vimwiki_set_work
+    wiki_set_work
 }
 
 reset_webcam() {

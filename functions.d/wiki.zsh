@@ -1,10 +1,10 @@
 
-vimwiki_set_work() {
-    ln -Tsfv ~/doc-fdc/vimwiki ~/.vimwiki
+wiki_set_work() {
+    ln -Tsfv ~/doc-fdc/wiki ~/wiki
 }
 
-vimwiki_set_private() {
-    ln -Tsfv ~/Nextcloud/vimwiki ~/.vimwiki
+wiki_set_private() {
+    ln -Tsfv ~/Nextcloud/wiki ~/wiki
 }
 
 # neorg
