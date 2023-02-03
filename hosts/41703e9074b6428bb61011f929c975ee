@@ -1,8 +1,10 @@
 # prepend_path PATH "${HOME}/.local-stack/bin"
-prepend_path PATH "${HOME}/.xmonad/bin"
-prepend_path PATH "${HOME}/.cabal/bin"
-prepend_path PATH "${HOME}/.cargo/bin"
-prepend_path PATH "${HOME}/.pub-cache/bin"
+prepend_path PATH "$HOME/.xmonad/bin"
+prepend_path PATH "$HOME/.cabal/bin"
+prepend_path PATH "$HOME/.cargo/bin"
+prepend_path PATH "$HOME/.pub-cache/bin"
+
+prepend_path PATH "$HOME/fvm/default/bin"
 
 if [ -z "${GOPATH:-}" ]; then
     export GOPATH="$HOME/go"
