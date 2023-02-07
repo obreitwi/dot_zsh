@@ -5,5 +5,5 @@ header-bearer() {
 }
 
 urlencode() {
-    echo -n "$@" | jq -sRr @uri
+    jq -sRr @uri
 }
