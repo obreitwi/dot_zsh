@@ -57,7 +57,7 @@ git-branch-story() {
 # create a new branch from any story
 git-branch-backlog() { # <args for rev-backlog>
     local jira
-    jira=$(revcli backlog "$@" --jira)
+    jira=$(revcli backlog query "$@" --jira)
 
     local branch
     if [ -f "/tmp/git-branch-name" ]; then
