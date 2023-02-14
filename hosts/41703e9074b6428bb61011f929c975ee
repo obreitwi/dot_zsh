@@ -32,7 +32,7 @@ set_home() {
 }
 
 set_work() {
-    browser_set_chrome
+    browser_set_chrome_auto_profile
     wiki_set_work
 }
 
