@@ -40,6 +40,20 @@ reset_webcam() {
     sudo reset_usb 1bcf:2cb4
 }
 
+# create a new branch from any story
+git-branch-backlog() { # <args for rev-backlog>
+    local jira
+    jira=$(revcli backlog query "$@" --jira)
+
+    local branch
+    if [ -f "/tmp/git-branch-name" ]; then
+        read -r branch < <(tr -d '\n' </tmp/git-branch-name)
+    fi
+    branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
+
+    git checkout -b "ojb/$jira/$branch" origin/main
+}
+
 # create a new branch
 git-branch-story() {
     local jira
@@ -54,18 +68,15 @@ git-branch-story() {
     git checkout -b "ojb/$jira/$branch" origin/main
 }
 
-# create a new branch from any story
-git-branch-backlog() { # <args for rev-backlog>
-    local jira
-    jira=$(revcli backlog query "$@" --jira)
-
+# create a new branch
+git-branch-nostory() {
     local branch
     if [ -f "/tmp/git-branch-name" ]; then
         read -r branch < <(tr -d '\n' </tmp/git-branch-name)
     fi
     branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
-    git checkout -b "ojb/$jira/$branch" origin/main
+    git switch -c "ojb/nostory/$branch" origin/main
 }
 #
 # create a new branch
