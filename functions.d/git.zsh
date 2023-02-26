@@ -196,4 +196,10 @@ git-checkout-pubspec() {
 )
 }
 
+git-grebl() {
+    git grep -n "$@" | while IFS=: read i j k; do git blame -f -L $j,$j $i; done
+}
+
+alias grebl=git-grebl
+
 # vim: ft=zsh
