@@ -47,3 +47,5 @@ else
     #  source $HOME/.zsh/zshrc_grml
 
 fi
+
+source /home/obreitwi/.config/broot/launcher/bash/br
