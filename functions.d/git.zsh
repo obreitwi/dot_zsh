@@ -202,4 +202,9 @@ git-grebl() {
 
 alias grebl=git-grebl
 
+# Get a diff between the latest good and currently earliest bad commit
+git-diff-bisect() {
+    git diff $(git bisect log | grep -v "^#" | grep good | tail -n 1 | awk '{print $4}')..$(git bisect log | grep -v "^#" | grep bad | tail -n 1 | awk '{print $4}') "$@"
+}
+
 # vim: ft=zsh
