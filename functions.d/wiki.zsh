@@ -15,7 +15,7 @@ _todos_diary_path="$HOME/wiki/neorg/journal"
 # Get all recent todos
 # Options:
 #   -d --days Number of days to check (default 7)
-get-todos() {
+todos-get() {
     zparseopts -D -E -A args d: -days: -all
     local days="${args[-d]}"
     if [ -z "$days" ]; then
@@ -30,7 +30,7 @@ get-todos() {
 
     cutoff_date="$(($(date +%s) - 3600 * 24 * days))"
 
-    for entry_file in "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort)}"; do
+    for entry_file in "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f -not -name index.norg | sort)}"; do
         entry_date=${entry_file:t:r}
 
         if (( $(date -d "$entry_date" +%s) < cutoff_date )); then
