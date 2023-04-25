@@ -1,0 +1,6 @@
+# right_format = ' $time'
+format = '$time$all'
+
+[time]
+disabled = false
+format = '[$time]($style) '
