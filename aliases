@@ -204,6 +204,10 @@ if which difft &>/dev/null; then
     alias gdifft="gdt diff"
 fi
 
+alias rv=revcli
+
+alias ctl='cd "$(git rev-parse --show-toplevel)"'
+
 source ~/.zsh/aliases-suffix
 
 # vim: ft=zsh
