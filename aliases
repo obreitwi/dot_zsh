@@ -52,11 +52,9 @@ alias psg='ps aux | grep'
 
 # open tmux in 256 color mode and attach to running session
 # -u for utf8 display
-alias tm="tmux -2 -u attach"
+alias tm="tmux -u attach"
 # open tmux to attach to session <target>
-alias tma="tmux -2 -u attach-session -t"
-# open tmux in 256 color mode
-alias tmux="tmux -2"
+alias tma="tmux -u attach-session -t"
 
 # restore environment
 alias tmu="source <(tmux showenv | grep -v '^-' | sed -E 's:^\s*(.*)=(.*)$:export \1=\"\2\":g')"
