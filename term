@@ -5,7 +5,7 @@
 if [[ -z "${TERM}" ]]; then
     if [[ -n "${TMUX}" ]]; then
         # Within tmux set TMUX term
-        export TERM="tmux-256color"
+        # export TERM="tmux-256color"
     elif infocmp rxvt-unicode-256color &>/dev/null; then
         # Set correct term for preferred terminal
         export TERM='rxvt-unicode-256color'
