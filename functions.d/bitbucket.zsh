@@ -56,11 +56,12 @@ bb-pr-id() {
 }
 
 bb-pr-url() {
-    bb-pr-current | jq -r ".links.self[0].href" | tr -d '\n'
+    bb-pr-current | jq -r ".links.self[0].href | select(. != null)" | tr -d '\n'
 }
 
 bb-pr-open() {
-    xdg-open "$(bb-pr-url)"
+    local url=$(bb-pr-url)
+    [ -n "$url" ] && xdg-open "${url}/builds"
 }
 
 bb-pr-cleanup() { # <pr-id>
