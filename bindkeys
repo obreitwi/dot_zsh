@@ -60,6 +60,10 @@ append-detach-no-output-command-line() {
 }
 zvm_define_widget append-detach-no-output-command-line
 
+
+zvm_define_widget insert-from-history
+
+
 for keymap in vicmd viins; do
     # we also want the binding in command mode
     zvm_bindkey ${keymap} "^od" append-detach-command-line
@@ -71,6 +75,7 @@ for keymap in vicmd viins; do
     zvm_bindkey ${keymap} "^ed" insert-datestamp
     zvm_bindkey ${keymap} "^em" insert-datestamp_minsec
     zvm_bindkey ${keymap} "^z" foreground-vim
+    zvm_bindkey ${keymap} "^h" insert-from-history
 done
 
 # # multiline mode
