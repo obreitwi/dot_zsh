@@ -19,3 +19,6 @@
 [submodule "plugins/forgit"]
 	path = plugins/forgit
 	url = https://github.com/wfxr/forgit
+[submodule "plugins/powerlevel10k"]
+	path = plugins/powerlevel10k
+	url = /home/obreitwi/git/toolbox/zsh/plugins/powerlevel10k
