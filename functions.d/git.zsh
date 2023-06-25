@@ -207,4 +207,8 @@ git-diff-bisect() {
     git diff $(git bisect log | grep -v "^#" | grep good | tail -n 1 | awk '{print $4}')..$(git bisect log | grep -v "^#" | grep bad | tail -n 1 | awk '{print $4}') "$@"
 }
 
+git-root() {
+   git rev-parse --show-toplevel
+}
+
 # vim: ft=zsh
