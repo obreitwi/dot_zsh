@@ -29,9 +29,6 @@ alias zcp='zmv -C' zln='zmv -L'
 
 setopt GLOB_COMPLETE
 # setopt nobanghist
-# reclaim ctrl-s
-stty stop undef
-stty start undef
 
 # clever comments on shell start
 #fortune | cowsay -f /opt/local/share/cowsay/cows/$(ls -1 /opt/local/share/cowsay/cows | unsort | head -n 1)
