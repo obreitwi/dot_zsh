@@ -9,7 +9,6 @@ else
     VENV=""
 fi
 }
-add-zsh-hook precmd venv_precmd
 
 # singularity_precmd() {
 # if ! [ -z "${SINGULARITY_NAME}" ]; then
@@ -20,7 +19,7 @@ add-zsh-hook precmd venv_precmd
 # }
 # add-zsh-hook precmd singularity_precmd
 
-show_prompt () {
+show_fallback_prompt () {
 # get colors with the colors module
 autoload colors zsh/terminfo
 if [[ "$terminfo[colors]" -ge 8 ]]; then
@@ -34,22 +33,17 @@ done
 
 PR_NO_COLOR="%{$terminfo[sgr0]%}"
 
+add-zsh-hook precmd venv_precmd
 
 # we have to use double quotes for this one to evaluate the colors
 # TODO Shorten this line!
-if (( ${+NO_STARSHIP} )) || ! which starship >/dev/null; then
 PROMPT="\
 ┌─[${PR_CYAN}%D{%m-%d/%H:%M:%S}${PR_NO_COLOR}|${PR_LIGHT_GREEN}%n${PR_NO_COLOR}@${PR_LIGHT_YELLOW}%m${SINGULARITY_NAME:+${PR_LIGHT_WHITE}~>${PR_NO_COLOR}${PR_ORANGE}${SINGULARITY_NAME}}${PR_NO_COLOR}${SINGULARITY_APPNAME:+${PR_LIGHT_WHITE}»${PR_LIGHT_RED}${SINGULARITY_APPNAME}${PR_NO_COLOR}}:${PR_BLUE}%~${PR_NO_COLOR}]
 └─☉ "
-else
-    eval "$(starship init zsh)"
-fi
 # └─⬧ "
 # └─⧫ "
 # ━
 # └─☉ "
-
-
 
 # OLD PROMPT
 # PROMPT="[%~]
@@ -63,6 +57,12 @@ fi
 # export PS1="%(0#.ROOT.) %B%n%b@%m %~: "
 }
 
-show_prompt
+if ! (( ${+ZSH_MY_PROMPT} )) && ! (( ${NO_P10K} )) && [ -f ~/.zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme ]; then
+    source ~/.zsh/plugins/powerlevel10k/powerlevel10k.zsh-theme
+elif ! (( ${+ZSH_MY_PROMPT} )) && command -v starship >/dev/null; then
+    eval "$(starship init zsh)"
+else
+    show_fallback_prompt
+fi
 
 # vim: ft=zsh

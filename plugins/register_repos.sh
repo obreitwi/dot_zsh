@@ -32,6 +32,7 @@ echo "$CONFIGLOCATION" >> $TRUSTFILE
 
 register_repo fzf-fasd
 register_repo fzf-tab
+register_repo powerlevel10k
 register_repo zsh-autopair
 register_repo zsh-autosuggestions
 register_repo zsh-history-substring-search

@@ -15,4 +15,5 @@ symlink $SRCFLD $HOME/.zsh
 symlink $SRCFLD/zshrc $HOME/.zshrc
 symlink $SRCFLD/zprofile $HOME/.zprofile
 symlink $SRCFLD/starship/starship.toml $HOME/.config
+symlink $SRCFLD/p10k/p10k.zsh $HOME/.p10k.zsh
 
