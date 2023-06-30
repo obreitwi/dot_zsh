@@ -78,3 +78,7 @@ to_gif() {
         ffmpeg -i ${input} -vf "fps=${FPS:-10},scale=-1:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 "${input:t:r}.gif"
     done
 }
+
+xclip-html-to-markdown() {
+    xclip -o -selection clipboard -t text/html | pandoc -f html -t markdown | tr -d '\n' | xclip -i -selection clipboard
+}
