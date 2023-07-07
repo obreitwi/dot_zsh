@@ -80,5 +80,5 @@ to_gif() {
 }
 
 xclip-html-to-markdown() {
-    xclip -o -selection clipboard -t text/html | pandoc -f html -t markdown | tr -d '\n' | xclip -i -selection clipboard
+    xclip -o -selection clipboard -t text/html | pandoc -f html -t markdown | tr '\n' ' ' | xclip -i -selection clipboard
 }
