@@ -55,8 +55,23 @@ bb-pr-id() {
     bb-pr-current | jq '.id'
 }
 
+bb-pr-get-title() {
+    jq -r '.title'
+}
+
+bb-pr-get-url() {
+    jq -r ".links.self[0].href | select(. != null)" | tr -d '\n'
+}
+
 bb-pr-url() {
-    bb-pr-current | jq -r ".links.self[0].href | select(. != null)" | tr -d '\n'
+    bb-pr-current | bb-pr-get-url
+}
+
+bb-pr-md() {
+   local pr
+   pr=$(bb-pr-current)
+
+   { echo -n "[$(bb-pr-get-title <<<"$pr")]($(bb-pr-get-url <<<"$pr"))" | tee /dev/stderr | xclip -i -selection clipboard } 2>&1
 }
 
 bb-pr-open() {
