@@ -21,4 +21,4 @@
 	url = https://github.com/wfxr/forgit
 [submodule "plugins/powerlevel10k"]
 	path = plugins/powerlevel10k
-	url = /home/obreitwi/git/toolbox/zsh/plugins/powerlevel10k
+	url = "https://github.com/romkatv/powerlevel10k"
