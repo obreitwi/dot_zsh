@@ -30,7 +30,7 @@ todos-get() {
 
     cutoff_date="$(($(date +%s) - 3600 * 24 * days))"
 
-    for entry_file in "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f -not -name index.norg | sort)}"; do
+    for entry_file in "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f -name "*.norg" -not -name index.norg | sort)}"; do
         entry_date=${entry_file:t:r}
 
         if (( $(date -d "$entry_date" +%s) < cutoff_date )); then
