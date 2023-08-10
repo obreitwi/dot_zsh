@@ -7,7 +7,13 @@ if which zathura >/dev/null; then
     alias -s pdf=zathura
 fi
 
-if which vlc >/dev/null; then
+if command -v mpv >/dev/null; then
+    alias -s avi=mpv
+    alias -s mkv=mpv
+    alias -s mp3=nmpvc
+    alias -s mp4=mpv
+    alias -s webm=mpv
+elif command -v vlc >/dev/null; then
     alias -s avi=vlc
     alias -s mkv=vlc
     alias -s mp3=nvlcc

@@ -210,6 +210,10 @@ alias sc=slack-cli
 
 alias ctl='cd "$(git rev-parse --show-toplevel)"'
 
+if command -v fastgron &>/dev/null; then
+    alias gron=fastgron
+fi
+
 source ~/.zsh/aliases-suffix
 
 # vim: ft=zsh
