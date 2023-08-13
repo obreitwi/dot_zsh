@@ -12,7 +12,7 @@ else
     zvm_after_init_commands=()
 fi
 
-if which fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
+if command -v fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
     # NOTE: fzf-tab needs to be loaded after compinit, but before plugins which
     # will wrap widgets like zsh-autosuggestions or fast-syntax-highlighting.
     source "${dir_plugins}/fzf-tab/fzf-tab.plugin.zsh"
@@ -20,11 +20,11 @@ if which fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
     zstyle ":completion:*:git-checkout:*" sort false
     zstyle ':completion:*:descriptions' format '[%d]'
     zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-    if which exa >/dev/null; then
+    if command -v exa >/dev/null; then
         zstyle ':fzf-tab:complete:cd:*' fzf-preview 'exa -1 --color=always $realpath'
     fi
 
-    if which fasd >/dev/null; then
+    if command -v fasd >/dev/null; then
         export FZF_FASD_OPTS='--prompt "fasd_cd> "'
         source "${dir_plugins}/fzf-fasd/fzf-fasd.plugin.zsh"
     fi
