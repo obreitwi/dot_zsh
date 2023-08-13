@@ -10,9 +10,9 @@ fi
 if command -v mpv >/dev/null; then
     alias -s avi=mpv
     alias -s mkv=mpv
-    alias -s mp3=nmpvc
     alias -s mp4=mpv
     alias -s webm=mpv
+
 elif command -v vlc >/dev/null; then
     alias -s avi=vlc
     alias -s mkv=vlc
