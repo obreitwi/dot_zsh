@@ -214,6 +214,8 @@ if command -v fastgron &>/dev/null; then
     alias gron=fastgron
 fi
 
+alias g=git
+
 source ~/.zsh/aliases-suffix
 
 # vim: ft=zsh
