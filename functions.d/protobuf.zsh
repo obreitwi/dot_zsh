@@ -6,5 +6,11 @@ proto-msg() {
 }
 
 nvim-proto() {
-   nvim "$(proto-msg)"
+   local file
+   file=$(proto-msg)
+   if [ -n "$file" ]; then
+      nvim "$file"
+   else
+      return 1
+   fi
 }
