@@ -49,7 +49,7 @@ todos-get() {
 
 todos-errorfile() {
     grep -rn "${_todos_ex_grep}" "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort -r)}" \
-        | sed -e 's/\(\*\|-\) \(( )\|\[ \]\) //g'
+        | sed -e 's/\(\*\|-\) \(( )\|\[ \]\) //g' -e 's/ %#taskid[^%]*%//g'
 }
 
 # Open todos in vim
