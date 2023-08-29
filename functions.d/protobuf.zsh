@@ -1,8 +1,21 @@
 #!/usr/bin/env zsh
 
+proto-msg-raw() {
+   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '^\s*message' | sed -e 's:\s*{}\?\s*$::' | fzf --with-nth 2
+}
 # find proto message in current git repo
 proto-msg() {
-   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '^\s*message' | sed -e 's:\s*{}\?\s*$::' | fzf --with-nth 2 | sed 's/:[^:]*$//g'
+   proto-msg-raw | sed 's/:[^:]*$//g'
+}
+
+bat-proto() {
+   local info
+   local file
+   local msg
+   info=$(proto-msg-raw)
+   msg=$(awk '{ print $NF }' <<<"$info")
+   file=$(awk -F : '{ print $1 }' <<<"$info")
+   sed -n "/^message $msg\s*{/,/}/p" "$file" | bat -l proto
 }
 
 nvim-proto() {
