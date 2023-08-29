@@ -8,7 +8,7 @@ proto-msg() {
    proto-msg-raw | sed 's/:[^:]*$//g'
 }
 
-bat-proto() {
+proto-bat() {
    local info
    local file
    local msg
@@ -18,7 +18,7 @@ bat-proto() {
    sed -n "/^message $msg\s*{/,/}/p" "$file" | bat -l proto
 }
 
-nvim-proto() {
+proto-nvim() {
    local file
    file=$(proto-msg)
    if [ -n "$file" ]; then
