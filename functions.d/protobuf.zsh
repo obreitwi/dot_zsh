@@ -1,7 +1,15 @@
 #!/usr/bin/env zsh
 
 proto-msg-raw() {
-   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '^\s*message' | sed -e 's:\s*{}\?\s*$::' | fzf --with-nth 2
+   args=($@)
+   shift $#
+   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '^\s*\(message\|enum\)' | sed -e 's:\s*{}\?\s*$::' | {
+      if (( ${#args} > 0 )); then
+         grep "${args[@]}"
+      else
+         fzf --with-nth 2
+      fi
+   }
 }
 # find proto message in current git repo
 proto-msg() {
@@ -9,21 +17,31 @@ proto-msg() {
 }
 
 proto-bat() {
-   local info
+   local -a info_all
    local file
    local line_no
    local line
    local msg
-   info=$(proto-msg-raw)
-   msg=$(awk '{ print $NF }' <<<"$info")
-   file=$(awk -F : '{ print $1 }' <<<"$info")
-   line_no=$(awk -F : '{ print $2 }' <<<"$info")
-   line=$(tail -n "+$line_no" < "$file" | head -n 1)
-   if grep -qF '{}' <<<"$line"; then
-      bat -l proto <<<"$line"
-   else
-      sed -n "/^message $msg\s*{/,/}/p" "$file" | bat -l proto
-   fi
+   local num_matches
+   local file_info
+
+   info_all=("${(f)$(proto-msg-raw "$@")}")
+   num_matches=${#info_all[@]}
+
+   for info in "${info_all[@]}"; do
+      msg=$(awk '{ print $NF }' <<<"$info")
+      file=$(awk -F : '{ print $1 }' <<<"$info")
+      line_no=$(awk -F : '{ print $2 }' <<<"$info")
+      line=$(tail -n "+$line_no" < "$file" | head -n 1)
+
+      file_info="$file (${num_matches} matches total)"
+
+      if grep -qF '{}' <<<"$line"; then
+         bat --color=always --file-name "$file_info" -l proto <<<"$line"
+      else
+         sed -n "/^\(message\|enum\) $msg\s*{/,/}/p" "$file" | bat --color=always --file-name "$file_info" -l proto
+      fi
+   done
 }
 
 proto-nvim() {
