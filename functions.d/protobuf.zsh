@@ -39,7 +39,7 @@ proto-bat() {
       if grep -qF '{}' <<<"$line"; then
          bat --color=always --file-name "$file_info" -l proto <<<"$line"
       else
-         sed -n "/^\(message\|enum\) $msg\s*{/,/}/p" "$file" | bat --color=always --file-name "$file_info" -l proto
+         sed -n "/^\(message\|enum\) $msg\s*{/,/^}/p" "$file" | bat --color=always --file-name "$file_info" -l proto
       fi
    done
 }
