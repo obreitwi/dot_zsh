@@ -43,7 +43,7 @@ else
     fi
 
     # load fasd if it exists
-    type fasd &> /dev/null && source =(fasd --init auto)
+    command -v fasd &> /dev/null && source =(fasd --init auto)
     # # source  autojump
     # [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
     # # if there is a local version, source it as well
