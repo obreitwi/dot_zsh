@@ -211,4 +211,11 @@ git-root() {
    git rev-parse --show-toplevel
 }
 
+# Checkout the first available dummy branch to indicate worktree is not used
+git-dummy() {
+    local branch
+    branch=$(comm -23 <(seq 10 20 | sed 's:^:dummy_:g') <(git worktree list --porcelain | grep '^branch.*dummy' | awk -F/ '{print $NF}' | sort) | head -n 1 | tr -d '\s')
+    git checkout "$branch"
+}
+
 # vim: ft=zsh
