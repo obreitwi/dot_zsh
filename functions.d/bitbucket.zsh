@@ -19,12 +19,20 @@ bb-url-api_latest() {
     echo "https://$(bb-current-domain)/rest/api/latest/projects/$(bb-current-project)/repos/$(bb-current-repo)"
 }
 
+bb-url-ui_latest() {
+    echo "https://$(bb-current-domain)/rest/ui/latest/projects/$(bb-current-project)/repos/$(bb-current-repo)"
+}
+
 bb-user() {
     jq -r .user ~/.config/bitbucket/config.json
 }
 
+bb-get-raw() { # <endpoint>
+    curl -s --show-error -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$1"
+}
+
 bb-get() { # <endpoint>
-    curl -s --show-error -H "authorization: Bearer $(cat ~/.config/bitbucket/cli.token)" "$(bb-url-api_1)/$1"
+    bb-get-raw "$(bb-url-api_1)/$1"
 }
 
 bb-delete() { # <endpoint>
@@ -84,6 +92,10 @@ bb-pr-cleanup() { # <pr-id>
     local url="https://$(bb-current-domain)/rest/pull-request-cleanup/latest/projects/$(bb-current-project)/repos/$(bb-current-repo)/pull-requests/${pr_id}"
     jo -- deleteSourceRef=true retargetDependents=true \
         | bb-post-raw "$url" | jq
+}
+
+bb-pr-buildsummary() {
+    bb-get-raw "$(bb-url-ui_latest)/pull-requests/$(bb-pr-id)/build-summaries"
 }
 
 bb-pr-check() {
