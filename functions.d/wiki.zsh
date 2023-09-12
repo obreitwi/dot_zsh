@@ -57,9 +57,14 @@ todos() {
     nvim -q <(todos-errorfile) +copen
 }
 
-# ensure journal etnry for today
-journal-today() {
-    local file_journal=$_todos_diary_path/$(date --iso).norg
+# ensure journal entry for today
+journal-day() { # <day=today>
+    local day=today
+    if (( $# > 0 )); then
+        day=$1
+        shift 1
+    fi
+    local file_journal=$_todos_diary_path/$(date --iso -d "$day").norg
     if ! [ -f "$file_journal" ]; then
         cp -v "$_todos_diary_path/../template_journal.norg" "$file_journal"
     fi
