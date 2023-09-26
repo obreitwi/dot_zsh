@@ -216,6 +216,7 @@ git-dummy() {
     local branch
     branch=$(comm -23 <(seq 10 20 | sed 's:^:dummy_:g') <(git worktree list --porcelain | grep '^branch.*dummy' | awk -F/ '{print $NF}' | sort) | head -n 1 | tr -d '\s')
     git checkout "$branch"
+    git rebase origin/main
 }
 
 # vim: ft=zsh

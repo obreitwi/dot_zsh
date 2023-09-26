@@ -31,8 +31,17 @@ fi
 if which carapace >/dev/null; then
     # Loading all of carapace breaks file completion in too many places:
     # just load what we need: gh completions
-    source <(carapace gh zsh)
+    if command -v flutter >/dev/null; then
+        source <(carapace flutter zsh)
+    fi
+    if command -v gh >/dev/null; then
+        source <(carapace gh zsh)
+    fi
+    if command -v nix >/dev/null; then
+        source <(carapace nix zsh)
+    fi
 fi
+
 
 if [ -f /opt/google-cloud-sdk/completion.zsh.inc ]; then
     source /opt/google-cloud-sdk/completion.zsh.inc
