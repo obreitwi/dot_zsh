@@ -32,19 +32,21 @@ proto-bat() {
    info_all=("${(f)$(proto-msg-raw "$@")}")
    num_matches=${#info_all[@]}
 
+   i=1
    for info in "${info_all[@]}"; do
       msg=$(awk -F : '{ n=split($NF, msg, "."); print msg[n]}' <<<"$info")
       file=$(awk -F : '{ print $1 }' <<<"$info")
       line_no=$(awk -F : '{ print $2 }' <<<"$info")
       line=$(tail -n "+$line_no" < "$file" | head -n 1)
 
-      file_info="$file (${num_matches} matches total)"
+      file_info="$file (match $i/${num_matches})"
 
       if grep -qF '{}' <<<"$line"; then
          bat --color=always --file-name "$file_info" -l proto <<<"$line"
       else
          sed -n "${line_no},/^}/p" "$file" | bat --color=always --file-name "$file_info" -l proto
       fi
+      ((i++))
    done
 }
 
