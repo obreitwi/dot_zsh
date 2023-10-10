@@ -3,11 +3,15 @@
 proto-msg-raw() {
    args=($@)
    shift $#
-   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '^\s*\(message\|enum\)' | sed -e 's:\s*{}\?\s*$::' | {
+   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '.' \
+      | sed -e "s://.*$::g" | tr -d '\r' \
+      | awk '$0 ~ /:package\s/ { package=$(NF); gsub(";", "", package) } $0 ~ /:(message|enum)/ { gsub(/:\s*(message|enum)\s/, ":" package "."); print }' \
+      | awk -F : '{ gsub("/ /", "", $NF); print }' \
+      | sed -e 's:\s*{}\?\s*$::' | {
       if (( ${#args} > 0 )); then
          grep "${args[@]}"
       else
-         fzf --with-nth 2
+         fzf -d : --with-nth 3
       fi
    }
 }
@@ -29,7 +33,7 @@ proto-bat() {
    num_matches=${#info_all[@]}
 
    for info in "${info_all[@]}"; do
-      msg=$(awk '{ print $NF }' <<<"$info")
+      msg=$(awk -F : '{ n=split($NF, msg, "."); print msg[n]}' <<<"$info")
       file=$(awk -F : '{ print $1 }' <<<"$info")
       line_no=$(awk -F : '{ print $2 }' <<<"$info")
       line=$(tail -n "+$line_no" < "$file" | head -n 1)
@@ -39,7 +43,7 @@ proto-bat() {
       if grep -qF '{}' <<<"$line"; then
          bat --color=always --file-name "$file_info" -l proto <<<"$line"
       else
-         sed -n "/^\(message\|enum\) $msg\s*{/,/^}/p" "$file" | bat --color=always --file-name "$file_info" -l proto
+         sed -n "${line_no},/^}/p" "$file" | bat --color=always --file-name "$file_info" -l proto
       fi
    done
 }
