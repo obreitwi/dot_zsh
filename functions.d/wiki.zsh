@@ -48,13 +48,16 @@ todos-get() {
 }
 
 todos-errorfile() {
-    grep -rn "${_todos_ex_grep}" "${(@f)$(find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort -r)}" \
+    error_grep_args=( "$@" )
+    shift "$#"
+    find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort -r | xargs grep -n "${_todos_ex_grep}" \
+        | if (( ${#error_grep_args[@]} > 0 )); then grep "${error_grep_args[@]}"; else cat; fi \
         | sed -e 's/\(\*\|-\) \(( )\|\[ \]\) //g' -e 's/ %#taskid[^%]*%//g'
 }
 
 # Open todos in vim
 todos() {
-    nvim -q <(todos-errorfile) +copen
+    nvim -q <(todos-errorfile "${@}") +copen
 }
 
 # ensure journal entry for today
