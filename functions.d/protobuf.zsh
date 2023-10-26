@@ -3,7 +3,7 @@
 proto-msg-raw() {
    args=($@)
    shift $#
-   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '.' \
+   find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '\(package\|message\|enum\)' \
       | sed -e "s://.*$::g" | tr -d '\r' \
       | awk '$0 ~ /:package\s/ { package=$(NF); gsub(";", "", package) } $0 ~ /:(message|enum)/ { gsub(/:\s*(message|enum)\s/, ":" package "."); print }' \
       | awk -F : '{ gsub("/ /", "", $NF); print }' \
