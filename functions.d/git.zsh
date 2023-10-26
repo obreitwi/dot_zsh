@@ -8,6 +8,11 @@ clang_format_head() {
     git status
 }
 
+# get current branch name
+git-branch() {
+    git rev-parse --symbolic-full-name HEAD | sed -e 's:^refs/heads/::g'
+}
+
 git-branch-jira-id() {
     git branch --show-current | cut -d / -f 2
 }
