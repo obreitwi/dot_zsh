@@ -77,6 +77,7 @@ if which parallel-moreutils &>/dev/null; then
 fi
 
 alias copy='xclip -i -selection clipboard'
+alias pastex='xclip -o -selection clipboard'
 
 # Schneller Zugriff auf tief vergrabene Uni Sachen
 
