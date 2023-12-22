@@ -79,6 +79,10 @@ if which ccache >/dev/null; then
     prepend_path PATH /usr/lib/ccache/bin
 fi
 
+if [ -d "$HOME/.ghcup/bin" ]; then
+    prepend_path PATH "$HOME/.ghcup/bin"
+fi
+
 if [ -d $HOME/.local/share/gem/ruby/3.0.0/bin ]; then
     prepend_path PATH $HOME/.local/share/gem/ruby/3.0.0/bin
 fi
