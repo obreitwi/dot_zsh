@@ -1,4 +1,4 @@
-alias nv="neovide --multigrid"
+alias nv="neovide"
 
 vg() {
     nvim -q <(grep -rn "$@")
