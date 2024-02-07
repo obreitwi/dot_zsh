@@ -224,4 +224,19 @@ git-dummy() {
     git rebase origin/main
 }
 
+# fuzzy match on current branch names in worktree and cd into it
+git-cd-worktree() { # <path to repo>
+    local repo
+    if (( $# == 0 )); then
+        echo "# ERROR: no repo specified" >&2
+        return 1
+    fi
+    repo=$1
+    shift 1
+    local target
+    target=$(cd "$repo" && git worktree list | fzf --with-nth 2.. | awk '{ print $1 }')
+    [ -n "$target" ] && cd "$target"
+}
+alias gcw=git-cd-worktree
+
 # vim: ft=zsh
