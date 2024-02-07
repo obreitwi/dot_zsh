@@ -16,7 +16,7 @@ if [ -n "${MANPATH:-}" ]; then
     export MANPATH="$(manpath -g)"
 fi
 
-if which bat>/dev/null; then
+if command -v bat>/dev/null; then
     # Have manpages colored
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 fi
@@ -26,7 +26,7 @@ if [ -z "${SUDO_ASKPASS:-}" ] && [ -e /usr/lib/ssh/ssh-askpass ]; then
     export SUDO_ASKPASS=/usr/lib/ssh/ssh-askpass
 fi
 
-if which bat >/dev/null; then
+if command -v bat >/dev/null; then
     export BAT_PAGER="less -RF"
     export MANPAGER="sh -c 'col -b | bat -l man -p'"
 fi
@@ -45,8 +45,8 @@ fi
 export VIRTUAL_ENV_DISABLE_PROMPT="true"
 
 # force zsh to be looked up (useful for singularity containers)
-if which zsh >/dev/null; then
-    export SHELL=$(which zsh)
+if command -v zsh >/dev/null; then
+    export SHELL=$(command -v zsh)
 else
     export SHELL="/opt/shell/zsh"
 fi
@@ -65,17 +65,17 @@ if [[ "${COLORTERM:-}" == "rxvt" ]]\
     export COLORTERM=truecolor
 fi
 
-if which readlink>/dev/null && [[ "$(readlink -m /etc/locatime)" == "/usr/share/zoneinfo/Etc/UTC" ]] && [ -z "${TZ:-}" ]; then
+if command -v readlink>/dev/null && [[ "$(readlink -m /etc/locatime)" == "/usr/share/zoneinfo/Etc/UTC" ]] && [ -z "${TZ:-}" ]; then
     export TZ=/usr/share/zoneinfo/Europe/Berlin
 fi
 
-if which fasd &>/dev/null && which fzf &>/dev/null; then
+if command -v fasd &>/dev/null && command -v fzf &>/dev/null; then
     # show recent folders on ctrl-t
     export FZF_CTRL_T_COMMAND="fasd -al"
 fi
 
 # setup ccache if exists
-if which ccache >/dev/null; then
+if command -v ccache >/dev/null; then
     prepend_path PATH /usr/lib/ccache/bin
 fi
 

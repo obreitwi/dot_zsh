@@ -1,8 +1,8 @@
-if which broot >/dev/null; then
+if command -v broot >/dev/null; then
     source "${HOME}/.config/broot/launcher/bash/br"
 fi
 
-if which fzf >/dev/null; then
+if command -v fzf >/dev/null; then
     if zvm_available; then
         zvm_after_init_commands+=(
         # system-wide install
@@ -28,7 +28,7 @@ if [ -f /opt/textidote/textidote.zsh ]; then
     source /opt/textidote/textidote.zsh
 fi
 
-if which carapace >/dev/null; then
+if command -v carapace >/dev/null; then
     # Loading all of carapace breaks file completion in too many places:
     # just load what we need: gh completions
     if command -v flutter >/dev/null; then
@@ -50,7 +50,7 @@ if [ -f /opt/google-cloud-sdk/path.zsh.inc ]; then
     source /opt/google-cloud-sdk/path.zsh.inc
 fi
 
-if which ugrep >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
+if command -v ugrep >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
     alias grep='ugrep -G'
     alias egrep='ugrep -E'
     alias fgrep='ugrep -F'
@@ -63,7 +63,7 @@ if which ugrep >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
     alias zxgrep='ugrep -zU --hexdump'
     alias xdump='ugrep -X ""'
 fi
-if which ug >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
+if command -v ug >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
     alias uq='ug -Q'
     alias ux='ug -U --hexdump'
     alias uz='ug -z'
