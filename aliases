@@ -213,6 +213,8 @@ alias ctl='cd "$(git rev-parse --show-toplevel)"'
 
 alias g=git
 
+alias zq="zoxide query"
+
 source ~/.zsh/aliases-suffix
 
 # vim: ft=zsh
