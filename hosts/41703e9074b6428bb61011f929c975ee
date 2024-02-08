@@ -41,9 +41,19 @@ reset_webcam() {
 }
 
 # create a new branch from any story
-git-branch-backlog() { # <args for rev-backlog>
-    local jira
-    jira=$(revcli backlog query "$@" --jira)
+git-branch-backlog() { # [--rev] <args for rev-backlog>
+    local id
+    local arg_id="--jira"
+
+    if (( $# > 0 )); then
+        case "$1" in
+            "--rev")
+                arg_id=--rev
+                shift 1
+                ;;
+        esac
+    fi
+    id=$(revcli backlog query "$@" "$arg_id")
 
     local branch
     if [ -f "/tmp/git-branch-name" ]; then
@@ -51,13 +61,24 @@ git-branch-backlog() { # <args for rev-backlog>
     fi
     branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
-    git checkout -b "ojb/$jira/$branch" origin/main
+    git checkout -b "ojb/$id/$branch" origin/main
 }
 
 # create a new branch
-git-branch-story() {
-    local jira
-    jira=$(revcli stories --jira)
+git-branch-story() { # [--rev]
+    local id
+    local arg_id="--jira"
+
+    if (( $# > 0 )); then
+        case "$1" in
+            "--rev")
+                arg_id=--rev
+                shift 1
+                ;;
+        esac
+    fi
+
+    id=$(revcli stories "$arg_id")
 
     local branch
     if [ -f "/tmp/git-branch-name" ]; then
@@ -65,7 +86,7 @@ git-branch-story() {
     fi
     branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
-    git checkout -b "ojb/$jira/$branch" origin/main
+    git checkout -b "ojb/$id/$branch" origin/main
 }
 
 # create a new branch
