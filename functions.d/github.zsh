@@ -25,6 +25,12 @@ gh-pr-create() {
   gh pr create -t "$title" -b "$body" "${@}" >&2
 }
 
+gh-pr-md() {  
+    local json
+    json=$(gh pr view --json title,url)
+    printf "[%s](%s)\n" "$(jq -r .title <<< "$json")" "$(jq -r .url <<< "$json")"
+}
+
 gh-pr-merge() {
   zparseopts -D -E -A args -upstream:
   local -a git_args
