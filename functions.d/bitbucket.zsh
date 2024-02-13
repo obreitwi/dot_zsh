@@ -78,8 +78,8 @@ bb-pr-url() {
 bb-pr-md() {
    local pr
    pr=$(bb-pr-current)
-
-   { echo -n "[$(bb-pr-get-title <<<"$pr")]($(bb-pr-get-url <<<"$pr"))" | tee /dev/stderr | xclip -i -selection clipboard } 2>&1
+   { printf "[%s](%s)" "$(bb-pr-get-title <<<"$pr")" "$(bb-pr-get-url <<<"$pr")" | tee /dev/stderr | xcopy } 2>&1
+   echo
 }
 
 bb-pr-open() {

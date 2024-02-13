@@ -28,7 +28,8 @@ gh-pr-create() {
 gh-pr-md() {  
     local json
     json=$(gh pr view --json title,url)
-    printf "[%s](%s)\n" "$(jq -r .title <<< "$json")" "$(jq -r .url <<< "$json")"
+    { printf "[%s](%s)" "$(jq -r .title <<< "$json")" "$(jq -r .url <<< "$json")" | tee /dev/stderr | xcopy } 2>&1
+    echo
 }
 
 gh-pr-merge() {

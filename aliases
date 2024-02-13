@@ -76,8 +76,8 @@ if which parallel-moreutils &>/dev/null; then
     alias -g parallel=parallel-moreutils
 fi
 
+# deprecated: use xcopy function
 alias copy='xclip -i -selection clipboard'
-alias pastex='xclip -o -selection clipboard'
 
 # Schneller Zugriff auf tief vergrabene Uni Sachen
 
