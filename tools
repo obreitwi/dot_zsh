@@ -43,11 +43,11 @@ if command -v carapace >/dev/null; then
 fi
 
 
-if [ -f /opt/google-cloud-sdk/completion.zsh.inc ]; then
-    source /opt/google-cloud-sdk/completion.zsh.inc
+if [ -f /opt/google-cloud-cli/completion.zsh.inc ]; then
+    source /opt/google-cloud-cli/completion.zsh.inc
 fi
-if [ -f /opt/google-cloud-sdk/path.zsh.inc ]; then
-    source /opt/google-cloud-sdk/path.zsh.inc
+if [ -f /opt/google-cloud-cli/path.zsh.inc ]; then
+    source /opt/google-cloud-cli/path.zsh.inc
 fi
 
 if command -v ugrep >/dev/null && [ -n "${NO_UGREP:-x}" ]; then
