@@ -129,7 +129,7 @@ unset mycmd
 unset myalias
 
 # reload zsh config
-alias zsh_reload='source ~/.zshrc'
+alias zsh_reload='exec zsh'
 
 alias ww='whatwhen'
 
