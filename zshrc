@@ -19,8 +19,8 @@ ENCHOST=$(mdh)
 if [ -d ~/.oh-my-zsh ]; then
     source $HOME/.zsh/oh-my-zshrc
 else
-    source $HOME/.zsh/plugins/init.zsh
     source $HOME/.zsh/main
+    source $HOME/.zsh/plugins/init.zsh
     source $HOME/.zsh/variables
     source $HOME/.zsh/prompt
     source $HOME/.zsh/lscolors

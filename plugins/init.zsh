@@ -34,7 +34,10 @@ if command -v fzf >/dev/null && [ -d "${dir_plugins}/fzf-tab" ]; then
     source "${dir_plugins}/forgit/forgit.plugin.zsh"
 
     # once tmux 3.2 is installed we could do:
-    # zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+    zstyle ':fzf-tab:*' fzf-command ftb-tmux-popup
+
+    # resolve issue with carapace
+    zstyle ':fzf-tab:*' query-string prefix first
 fi
 
 source "${dir_plugins}/zsh-autosuggestions/zsh-autosuggestions.zsh"
