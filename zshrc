@@ -59,7 +59,9 @@ else
 
 fi
 
-source /home/obreitwi/.config/broot/launcher/bash/br
+if [ -f "$HOME/.config/broot/launcher/bash/br" ]; then
+    source "$HOME/.config/broot/launcher/bash/br"
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
