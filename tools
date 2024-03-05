@@ -12,6 +12,9 @@ if command -v fzf >/dev/null; then
         # local install
         '[ -f ~/.local/share/fzf/key-bindings.zsh ] && source ~/.local/share/fzf/key-bindings.zsh'
         '[ -f ~/.local/share/fzf/completion.zsh ] && source ~/.local/share/fzf/completion.zsh'
+
+        # nix install
+        'command -v fzf-share >/dev/null && source "$(fzf-share)/completion.zsh" && source "$(fzf-share)/key-bindings.zsh"'
         )
     else
         # system-wide install
@@ -21,6 +24,9 @@ if command -v fzf >/dev/null; then
         # local install
         [ -f ~/.local/share/fzf/key-bindings.zsh ] && source ~/.local/share/fzf/key-bindings.zsh
         [ -f ~/.local/share/fzf/completion.zsh ] && source ~/.local/share/fzf/completion.zsh
+
+        # nix install
+        command -v fzf-share >/dev/null && source "$(fzf-share)/completion.zsh" && source "$(fzf-share)/key-bindings.zsh"
     fi
 fi
 
