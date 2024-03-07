@@ -2,12 +2,23 @@
 
 dir_plugins=${${0:A}:h}
 
+_zvm_path_arch=/usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+_zvm_path_nix=/etc/zsh/vi-mode.zsh
 zvm_available() {
-    [ -f /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh ]
+    [ -f "${_zvm_path_arch}" ] || [ -e "${_zvm_path_nix}" ]
 }
 
 if zvm_available; then
-    source /usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+    if [ -f "${_zvm_path_arch}" ]; then
+        source "${_zvm_path_arch}"
+    elif [ -e "${_zvm_path_nix}" ]; then
+        source "${_zvm_path_nix:P}"
+    else
+        {
+            echo -n "# ERROR: no valid path for zsh-vi-mode found despite zvm_available claims it is."
+            echo " This should never happen!"
+        } >&2
+    fi
 else
     zvm_after_init_commands=()
 fi
