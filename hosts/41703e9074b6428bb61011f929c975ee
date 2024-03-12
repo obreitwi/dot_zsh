@@ -41,13 +41,17 @@ reset_webcam() {
 }
 
 # create a new branch from any story
-git-branch-backlog() { # [--rev] <args for rev-backlog>
+git-branch-backlog() { # [--rev|--jira] <args for rev-backlog>
     local id
-    local arg_id="--jira"
+    local arg_id="--rev"
 
     if (( $# > 0 )); then
         case "$1" in
-            "--rev")
+            "-j"|"--jira")
+                arg_id=--jira
+                shift 1
+                ;;
+            "-r"|"--rev")
                 arg_id=--rev
                 shift 1
                 ;;
@@ -65,13 +69,17 @@ git-branch-backlog() { # [--rev] <args for rev-backlog>
 }
 
 # create a new branch
-git-branch-story() { # [--rev]
+git-branch-story() { # [--rev|--jira]
     local id
-    local arg_id="--jira"
+    local arg_id="--rev"
 
     if (( $# > 0 )); then
         case "$1" in
-            "--rev")
+            "-j"|"--jira")
+                arg_id=--jira
+                shift 1
+                ;;
+            "-r"|"--rev")
                 arg_id=--rev
                 shift 1
                 ;;
