@@ -63,6 +63,8 @@ if [[ "${COLORTERM:-}" == "rxvt" ]]\
         && command -v pacman 2>&1 >/dev/null\
         && pacman -Qsq rxvt-unicode-truecolor >/dev/null; then
     export COLORTERM=truecolor
+elif [[ "${TERM:-}" == "alacritty" ]]; then
+    export COLORTERM=truecolor
 fi
 
 if command -v readlink>/dev/null && [[ "$(readlink -m /etc/locatime)" == "/usr/share/zoneinfo/Etc/UTC" ]] && [ -z "${TZ:-}" ]; then
