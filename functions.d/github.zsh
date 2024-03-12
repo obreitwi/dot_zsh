@@ -27,7 +27,7 @@ gh-pr-create() {
 
 gh-pr-md() {  
     local json
-    json=$(gh pr view --json title,url)
+    json=$(gh pr view "$(git-branch)" --json title,url)
     { printf "[%s](%s)" "$(jq -r .title <<< "$json")" "$(jq -r .url <<< "$json")" | tee /dev/stderr | xcopy } 2>&1
     echo
 }
