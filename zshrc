@@ -19,10 +19,10 @@ ENCHOST=$(mdh)
 if [ -d ~/.oh-my-zsh ]; then
     source $HOME/.zsh/oh-my-zshrc
 else
-    source $HOME/.zsh/plugins/init.zsh
     source $HOME/.zsh/main
     source $HOME/.zsh/variables
     source $HOME/.zsh/prompt
+    source $HOME/.zsh/plugins/init.zsh # needs to be after main to avoid double escaping spaces in filename completions
     source $HOME/.zsh/lscolors
     source $HOME/.zsh/functions
     source $HOME/.zsh/aliases
