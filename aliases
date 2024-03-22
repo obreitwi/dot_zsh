@@ -48,6 +48,8 @@ alias calc2="ipython2 -ic 'from math import *; from scipy.constants import *'"
 # alias ack='ack-grep -H --color --nogroup --column'
 # alias ackc='ack -H --color'
 
+alias nixpkgs='xdg-open https://github.com/NixOS/nixpkgs'
+
 alias psg='ps aux | grep'
 
 # open tmux in 256 color mode and attach to running session
