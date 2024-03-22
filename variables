@@ -15,9 +15,9 @@ export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 # Fix gibberish characters in bat if used as manpager, https://github.com/sharkdp/bat/issues/2593#issuecomment-1636468711
 export MANROFFOPT='-c'
 
-if [ -n "${MANPATH:-}" ]; then
-    export MANPATH="$(manpath -g)"
-fi
+# if [ -n "${MANPATH:-}" ]; then
+    # export MANPATH="$(manpath -g)"
+# fi
 
 if command -v bat>/dev/null; then
     # Have manpages colored
