@@ -92,56 +92,7 @@ if [ -d $HOME/.local/share/gem/ruby/3.0.0/bin ]; then
     prepend_path PATH $HOME/.local/share/gem/ruby/3.0.0/bin
 fi
 
-# This is used for auto_cmd
-# CDPATH=.:..:~
-
-# Less Colors for Man Pages
-# export_path LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
-# export_path LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
-# export_path LESS_TERMCAP_me=$'\E[0m'           # end mode
-# export_path LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
-# export_path LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
-# export_path LESS_TERMCAP_ue=$'\E[0m'           # end underline
-# export_path LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
-
-# export_path GREP_OPTIONS="--color=auto"
-
 # vidir arguments
 export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
-
-#VISIONS PATHS
-#  if [ $HOST = Styx ]; then
-	#  export_path VISION_OFFSET_PATH=$HOME/Documents/Project/Vision
-#  else
-	#  export_path VISION_OFFSET_PATH=$HOME/project
-#  fi
-
-#  export_path SYMAP2IC_PATH=$VISION_OFFSET_PATH/symap2ic
-#  export_path FPGASYSTEM_PATH=$SYMAP2IC_PATH/components/fpgasystem
-#  export_path FPGASYSTEMPATH=$FPGASYSTEM_PATH
-#  export_path SPIKEYHAL_PATH=$SYMAP2IC_PATH/components/SpikeyHAL
-#  export_path SPIKEYHALPATH=$SPIKEYHAL_PATH
-#  export_path SCTRL_PATH=$SYMAP2IC_PATH/components/SCtrlTP/userspace
-#  export_path SCTRLPATH=$SCTRL_PATH
-#  export_path PYNNHW_PATH=$SYMAP2IC_PATH/components/pynnhwGM/src/hardware
-#  export_path PYNN_HW_PATH=$PYNNHW_PATH
-#  export_path COMMPATH=$SYMAP2IC_PATH/components/common
-#  export_path WDPATH=$COMMPATH/windriver621
-#  export_path CONFIGTOOL_PATH=$PYNN_HW_PATH/stage2/ConfigTool
-#  export_path QTPATH=/usr/include/qt3
-#  export_path QTDIR=/usr/include/qt3
-#  export_path BOOSTINC=/usr/include/boost
-#  export_path PYTHONINC=/usr/include/python2.5
-#  export_path BOOSTVERSION=boost_python-mt-py25
-#  export_path LD_LIBRARY_PATH=$PYNNHW_PATH/basics/:$LD_LIBRARY_PATH
-#  export_path LIQUID_PATH=$SYMAP2IC_PATH/components/PyNN-Scripts/liquid_computing_stage1
-
-#  export_path PYTHONPATH=$PYNNHW_PATH/stage1gm2/pyhal:$PYNNHW_PATH/stage2/pyhal:$PYTHONPATH
-
-#KIP Proxy
-#export_path ftp_proxy="proxy.kip.uni-heidelberg.de:8080"
-#export_path https_proxy="https://proxy.kip.uni-heidelberg.de:8080"
-#export_path http_proxy="http://proxy.kip.uni-heidelberg.de:8080"
-#export_path socks_proxy="socks://proxy.kip.uni-heidelberg.de:1080"
 
 # vim: ft=zsh

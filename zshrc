@@ -57,11 +57,8 @@ else
     # finally load gmrl zshrc - now only used for neat little functions
     #  source $HOME/.zsh/zshrc_grml
 
-fi
+    source $HOME/.zsh/variables_postrc
+    # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+    [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-if [ -f "$HOME/.config/broot/launcher/bash/br" ]; then
-    source "$HOME/.config/broot/launcher/bash/br"
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

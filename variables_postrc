@@ -1,0 +1,14 @@
+# ensure nix-profile has priority if it exists
+
+prioritize_path_if_exists() { # <path>
+    local to_add=$1
+    shift 1
+    if tr : '\n' <<<"$PATH" | grep -q "^${to_add}\$"; then
+        prepend_path PATH "${to_add}"
+    fi
+}
+
+prioritize_path_if_exists "/nix/var/nix/profiles/default/bin"
+prioritize_path_if_exists "$HOME/.nix-profile/bin"
+
+# vim: ft=zsh
