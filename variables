@@ -9,6 +9,9 @@ GRMLSMALL_SPECIFIC=${GRMLSMALL_SPECIFIC:-1}
 GRML_ALWAYS_LOAD_ALL=${GRML_ALWAYS_LOAD_ALL:-0}
 ZSH_NO_DEFAULT_LOCALE=${ZSH_NO_DEFAULT_LOCALE:-0}
 
+# needed for locale support in nix on other distros
+export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
+
 # Fix gibberish characters in bat if used as manpager, https://github.com/sharkdp/bat/issues/2593#issuecomment-1636468711
 export MANROFFOPT='-c'
 
