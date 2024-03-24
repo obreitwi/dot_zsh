@@ -1,21 +1,11 @@
-#  source $HOME/.zsh/prompt
-#  source $HOME/.zsh/lscolors
-#  source $HOME/.zsh/aliases
 
-#  source $HOME/.zsh/bindkeys
-#  if [ -e $HOME/.zsh/private ]; then
-	#  source $HOME/.zsh/private
-#  fi
+if [ -e "$HOME/.nix-profile/share/zsh/site-functions" ]; then
+    fpath+=("$HOME/.nix-profile/share/zsh/site-functions")
+fi
 
-#  # check for host specific configs
-#  [ -f ~/.zsh/zshrc_$HOST ] && source ~/.zsh/zshrc_$HOST
-
-# support for 256 colors
-#  if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-	#  export TERM='xterm-256color'
-#  else
-	#  export TERM='xterm-color'
-#  fi
+if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+    source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
 
 fpath=($HOME/.zsh/completion $fpath)
 autoload -U +X compinit && compinit -i
