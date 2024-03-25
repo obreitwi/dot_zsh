@@ -11,4 +11,8 @@ prioritize_path_if_exists() { # <path>
 prioritize_path_if_exists "/nix/var/nix/profiles/default/bin"
 prioritize_path_if_exists "$HOME/.nix-profile/bin"
 
+if command -v direnv &>/dev/null; then
+    source <(direnv hook zsh)
+fi
+
 # vim: ft=zsh
