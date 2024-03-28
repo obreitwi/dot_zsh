@@ -65,7 +65,15 @@ git-branch-backlog() { # [--rev|--jira] <args for rev-backlog>
     fi
     branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
-    git checkout -b "ojb/$id/$branch" origin/main
+    git checkout -b "ojb/$id/$branch" "origin/$(git-origin-name)"
+}
+
+git-origin-name() {
+   if git branch -a | grep -q "remotes/origin/main$"; then
+       echo -n "main"
+   else
+       echo -n "master"
+   fi
 }
 
 # create a new branch
@@ -94,7 +102,7 @@ git-branch-story() { # [--rev|--jira]
     fi
     branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
-    git checkout -b "ojb/$id/$branch" origin/main
+    git checkout -b "ojb/$id/$branch" "origin/$(git-origin-name)"
 }
 
 # create a new branch
@@ -105,7 +113,7 @@ git-branch-nostory() {
     fi
     branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
-    git switch -c "ojb/nostory/$branch" origin/main
+    git switch -c "ojb/nostory/$branch" "origin/$(git-origin-name)"
 }
 #
 # create a new branch
