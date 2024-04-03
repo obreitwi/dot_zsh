@@ -189,7 +189,7 @@ git-from-first() {
         return 1
     fi
     local upstream
-    upstream="${args[--upstream]:-"origin/main"}"
+    upstream="${args[--upstream]:-origin/$(git-origin-name)}"
     num_commits=$(git rev-list --count "${upstream}..HEAD")
     git log --skip $((num_commits-1)) -n 1 "--pretty=format:$format"
 }
@@ -221,7 +221,7 @@ git-dummy() {
     local branch
     branch=$(comm -23 <(git branch | tr -d '+* ' | grep '^dummy') <(git worktree list --porcelain | grep '^branch.*dummy' | awk -F/ '{print $NF}' | sort) | head -n 1 | tr -d '\s')
     git checkout "$branch"
-    git rebase origin/main
+    git rebase "origin/$(git-origin-name)"
 }
 
 # fuzzy match on current branch names in worktree and cd into it
