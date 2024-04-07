@@ -3,7 +3,7 @@
 dir_plugins=${${0:A}:h}
 
 _zvm_path_arch=/usr/share/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-_zvm_path_nix=$HOME/.zsh/plugins/zsh-vi-mode.plugin.zsh
+_zvm_path_nix=$HOME/.nix-profile/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 zvm_available() {
     [ -f "${_zvm_path_arch}" ] || [ -e "${_zvm_path_nix}" ]
 }
