@@ -92,6 +92,10 @@ if [ -d $HOME/.local/share/gem/ruby/3.0.0/bin ]; then
     prepend_path PATH $HOME/.local/share/gem/ruby/3.0.0/bin
 fi
 
+if [ -e "$HOME/.nix-profile/share/zsh/site-functions" ]; then
+    fpath+=( "$HOME/.nix-profile/share/zsh/site-functions" )
+fi
+
 # vidir arguments
 export VIDIR_EDITOR_ARGS='-c :set nolist | :set ft=vidir-ls'
 
