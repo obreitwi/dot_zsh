@@ -207,6 +207,9 @@ if which difft &>/dev/null; then
     alias gdifft="gdt diff"
 fi
 
+# strace only file operations
+stracef='strace -y -e trace=open,openat,close,read,write,connect,accept'
+
 alias rv=revcli
 alias nts=neorg-task-sync
 alias sc=slack-cli
