@@ -1,3 +1,4 @@
+#!/usr/bin/env zsh
 
 if [ -e "$HOME/.nix-profile/share/zsh/site-functions" ]; then
     fpath+=("$HOME/.nix-profile/share/zsh/site-functions")
@@ -112,10 +113,10 @@ bindkey -v
 # mit C-v bekommt man das quote von dem was man danach tippt
 # Z.b. eintippen bindkey C-v backspace <funktion> liefert
 
-# mit !<command> erh‰lt man den zuletzt eintippten command der auf <command> zutrifft
-# mit <command> !$ erh‰lt man den command mit den zuletzt eingetippten parametern
+# mit !<command> erh√§lt man den zuletzt eintippten command der auf <command> zutrifft
+# mit <command> !$ erh√§lt man den command mit den zuletzt eingetippten parametern
 
-# Mit **/* kann man einen Befehl rekursiv ausf¸hren
+# Mit **/* kann man einen Befehl rekursiv ausf√ºhren
 
 #######################
 ## aus dem ZSH-Workshop
