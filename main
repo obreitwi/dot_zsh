@@ -8,7 +8,7 @@ if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
     source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
 fi
 
-fpath=($HOME/.zsh/completion $fpath)
+fpath=("$ZSH_CFG_ROOT/completion" $fpath)
 autoload -U +X compinit && compinit -i
 autoload -U +X bashcompinit && bashcompinit
 

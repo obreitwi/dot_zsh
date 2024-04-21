@@ -29,7 +29,9 @@ $PATH
 
 export SEMF_LOGTOFILE=""
 
-source ~/.zsh/prll.sh
+if [ -e "$ZSH_CFG_ROOT/prll.sh" ]; then
+    source "$ZSH_CFG_ROOT/prll.sh"
+fi
 
 # unalias ack
 alias -g ack='ack'

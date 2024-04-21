@@ -222,6 +222,6 @@ alias zq="zoxide query"
 
 alias ndr=nix-direnv-reload
 
-source ~/.zsh/aliases-suffix
+source "$ZSH_CFG_ROOT/aliases-suffix"
 
 # vim: ft=zsh

@@ -49,7 +49,9 @@ $HOME/usr/lib/python2.7/site-packages:\
 /usr/local/lib/python2.7/site-packages:\
 $PYTHONPATH
 
-source ~/.zsh/prll.sh
+if [ -e "$ZSH_CFG_ROOT/prll.sh" ]; then
+    source "$ZSH_CFG_ROOT/prll.sh"
+fi
 
 export LD_LIBRARY_PATH=\
 '/home/obreitwi/usr/lib/nest':\

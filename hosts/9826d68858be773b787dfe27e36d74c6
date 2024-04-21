@@ -24,7 +24,9 @@ export PATH=\
 # export INFOPATH=$INFOPATH:/usr/local/texlive/2010/texmf/doc/info
 # export PYTHONPATH=$PYTHONPATH:$HOME/git/usualStuff/tools/pythonscripts
 
-source ~/.zsh/prll.sh
+if [ -e "$ZSH_CFG_ROOT/prll.sh" ]; then
+    source "$ZSH_CFG_ROOT/prll.sh"
+fi
 
 # unalias ack
 alias -g ack='ack'
