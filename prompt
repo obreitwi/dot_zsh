@@ -57,7 +57,9 @@ PROMPT="\
 # export PS1="%(0#.ROOT.) %B%n%b@%m %~: "
 }
 
-if ! (( ${+ZSH_MY_PROMPT} )) && ! (( ${NO_P10K} )) && [ -f "$ZSH_CFG_ROOT/plugins/powerlevel10k/powerlevel10k.zsh-theme" ]; then
+if ( ${+ZSH_MY_PROMPT} )) && [ -n "${ZSH_VIA_NIX:-}" ]; then
+    true # no op, loaded later
+elif ! (( ${+ZSH_MY_PROMPT} )) && ! (( ${NO_P10K} )) && [ -f "$ZSH_CFG_ROOT/plugins/powerlevel10k/powerlevel10k.zsh-theme" ]; then
     source "$ZSH_CFG_ROOT/plugins/powerlevel10k/powerlevel10k.zsh-theme" 
 elif ! (( ${+ZSH_MY_PROMPT} )) && command -v starship >/dev/null; then
     eval "$(starship init zsh)"
