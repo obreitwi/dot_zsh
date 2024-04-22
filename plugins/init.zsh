@@ -61,9 +61,9 @@ if [ -z "${ZSH_VIA_NIX:-}" ]; then
 
     source "${dir_plugins}/zsh-autopair/autopair.zsh"
     autopair-init
+    # bindings for history-substring search
+    bindkey -M vicmd 'k' history-substring-search-up
+    bindkey -M vicmd 'j' history-substring-search-down
 fi
 
 export ZSH_AUTOSUGGEST_USE_ASYNC=""
-# bindings for history-substring search
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
