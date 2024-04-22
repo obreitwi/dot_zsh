@@ -27,7 +27,10 @@ source "$ZSH_CFG_ROOT/plugins/init.zsh" # needs to be after main to avoid double
 source "$ZSH_CFG_ROOT/lscolors"
 source "$ZSH_CFG_ROOT/functions"
 source "$ZSH_CFG_ROOT/aliases"
-source "$ZSH_CFG_ROOT/widgets"
+
+if [ -z "${ZSH_VIA_NIX:-}" ]; then
+    source "$ZSH_CFG_ROOT/widgets"
+fi
 
 if zvm_available; then
     function zvm_after_lazy_keybindings() {
@@ -45,18 +48,9 @@ fi
 
 # load fasd if it exists
 command -v fasd &> /dev/null && source =(fasd --init auto)
-# # source  autojump
-# [[ -s /etc/profile.d/autojump.zsh ]] && source /etc/profile.d/autojump.zsh
-# # if there is a local version, source it as well
-# [[ -s ~/.autojump/etc/profile.d/autojump.zsh ]] && source ~/.autojump/etc/profile.d/autojump.zsh
 
 # check for host specific configs
 [ -f "$ZSH_CFG_ROOT/hosts/$ENCHOST" ] && source "$ZSH_CFG_ROOT/hosts/$ENCHOST"
-
-# source $HOME/.zsh/completion/*.zsh_completion
-
-# finally load gmrl zshrc - now only used for neat little functions
-#  source $HOME/.zsh/zshrc_grml
 
 source "$ZSH_CFG_ROOT/variables_postrc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.

@@ -12,17 +12,14 @@ fpath=("$ZSH_CFG_ROOT/completion" $fpath)
 autoload -U +X compinit && compinit -i
 autoload -U +X bashcompinit && bashcompinit
 
-# Usefull keep command
-autoload -U keeper && keeper
+# Usefull keep command (that I never use)
+# autoload -U keeper && keeper
 
 autoload -U zmv
 alias zcp='zmv -C' zln='zmv -L'
 
 setopt GLOB_COMPLETE
 # setopt nobanghist
-
-# clever comments on shell start
-#fortune | cowsay -f /opt/local/share/cowsay/cows/$(ls -1 /opt/local/share/cowsay/cows | unsort | head -n 1)
 
 # disabled for preexec version
 # function precmd() {
@@ -69,58 +66,24 @@ zstyle -e ':completion:*:approximate:*' max-errors \
 zstyle ':completion:*:expand:*' tag-order all-expansions
 
 if ! which fzf >/dev/null; then
-# formatting and messages
-zstyle ':completion:*' verbose yes
-zstyle ':completion:*:descriptions' format '%B%d%b'
-zstyle ':completion:*:messages' format '%d'
-zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-zstyle ':completion:*' group-name ''
+    # formatting and messages
+    zstyle ':completion:*' verbose yes
+    zstyle ':completion:*:descriptions' format '%B%d%b'
+    zstyle ':completion:*:messages' format '%d'
+    zstyle ':completion:*:warnings' format 'No matches for: %d'
+    zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+    zstyle ':completion:*' group-name ''
 
-# match uppercase from lowercase
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+    # match uppercase from lowercase
+    zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 
-# offer indexes before parameters in subscripts
-zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+    # offer indexes before parameters in subscripts
+    zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 fi
 
-setopt vi
-
-##########################
-## bindkey options
-##########################
-
-# Funktioniert nicht? O.o
-# bindkey -M menuselect 'i' accept-and-menu-complete
-#  bindkey -e
-
-##########################
 # vi functionality
-#########################
+setopt vi
 bindkey -v
-##########################
-##  Fragen und Anmerkungen
-##########################
-
-# Warum funktioniert bei mir A die interaktive Hilfe nicht, also das ding mit Yes, No, Edit, Abort
-# Wie funktioniert diese Baum Ansicht beim kill
-
-# mit aliased $ALIAS lassen sich Variablen on the fly anpassen
-# mit vared $VARIABLE lassen sich Variablen on the fly anpassen
-
-# mit $CDPATH kann man die Verzeichnisse setzen, in welchen auto_cd suchen soll
-
-# mit C-v bekommt man das quote von dem was man danach tippt
-# Z.b. eintippen bindkey C-v backspace <funktion> liefert
-
-# mit !<command> erhält man den zuletzt eintippten command der auf <command> zutrifft
-# mit <command> !$ erhält man den command mit den zuletzt eingetippten parametern
-
-# Mit **/* kann man einen Befehl rekursiv ausführen
-
-#######################
-## aus dem ZSH-Workshop
-#######################
 
 # displays a menu for tabbing around
 zstyle ':completion:*' menu yes=long-list

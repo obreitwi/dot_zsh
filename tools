@@ -1,4 +1,4 @@
-if command -v broot >/dev/null; then
+if [ -z "${ZSH_VIA_NIX:-}" ] && command -v broot >/dev/null; then
     source "${HOME}/.config/broot/launcher/bash/br"
 fi
 
