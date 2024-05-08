@@ -10,6 +10,7 @@ xpaste() {
 
 source "$ZSH_CFG_ROOT/functions.d/alacritty.zsh"
 source "$ZSH_CFG_ROOT/functions.d/archive.zsh"
+source "$ZSH_CFG_ROOT/functions.d/azure.zsh"
 source "$ZSH_CFG_ROOT/functions.d/bahn.zsh"
 source "$ZSH_CFG_ROOT/functions.d/bitbucket.zsh"
 source "$ZSH_CFG_ROOT/functions.d/browser.zsh"
