@@ -1,3 +1,17 @@
+# nix list derivation contents
+nls() { # <package>
+   if (( $# != 1 )); then
+      echo "# Usage: nls <package>"
+      return
+   fi
+   local out_path
+   out_path=$(nix build --no-link --print-out-paths "nixpkgs#$1")
+
+   if (( $? > 0 )); then
+      return $?
+   fi
+   lsd --tree "$out_path"
+}
 
 # nix show derivation
 nsd() { 
