@@ -58,9 +58,11 @@ prepend_path() {
     # $2: path
     local envvar="$1"
     local path_to_add="$2"
-    clean_path "${envvar}" "${path_to_add}"
-    eval "local oldcontents=\"\${${envvar}}\"" >&2
-    export ${envvar}="${path_to_add}${oldcontents:+:$oldcontents}"
+    if ! [ -e "${path_to_add}" ]; then
+        clean_path "${envvar}" "${path_to_add}"
+        eval "local oldcontents=\"\${${envvar}}\"" >&2
+        export ${envvar}="${path_to_add}${oldcontents:+:$oldcontents}"
+    fi
 }
 
 prepend_root() {
@@ -73,10 +75,12 @@ prepend_root() {
     prepend_path MANPATH "$rootpath/share/man"
     prepend_path PYTHONPATH "$rootpath/lib/python$(get_python_version)/site-packages"
 
-    prepend_path SINGULARITYENV_PREPEND_PATH "$rootpath/bin"
-    prepend_path SINGULARITYENV_LD_LIBRARY_PATH "$rootpath/lib"
-    prepend_path SINGULARITYENV_MANPATH "$rootpath/share/man"
-    prepend_path SINGULARITYENV_PYTHONPATH "$rootpath/lib/python$(get_python_version)/site-packages"
+    if command -v singularity &>/dev/null; then
+        prepend_path SINGULARITYENV_PREPEND_PATH "$rootpath/bin"
+        prepend_path SINGULARITYENV_LD_LIBRARY_PATH "$rootpath/lib"
+        prepend_path SINGULARITYENV_MANPATH "$rootpath/share/man"
+        prepend_path SINGULARITYENV_PYTHONPATH "$rootpath/lib/python$(get_python_version)/site-packages"
+    fi
 }
 
 clean_root() {
@@ -88,10 +92,12 @@ clean_root() {
     clean_path MANPATH "$rootpath/share/man"
     clean_path PYTHONPATH "$rootpath/lib/python$(get_python_version)/site-packages"
 
-    clean_path SINGULARITYENV_PREPEND_PATH "^$rootpath/bin"
-    clean_path SINGULARITYENV_LD_LIBRARY_PATH "^$rootpath/lib"
-    clean_path SINGULARITYENV_MANPATH "^$rootpath/share/man"
-    clean_path SINGULARITYENV_PYTHONPATH "^$rootpath/lib/python$(get_python_version)/site-packages"
+    if command -v singularity &>/dev/null; then
+        clean_path SINGULARITYENV_PREPEND_PATH "^$rootpath/bin"
+        clean_path SINGULARITYENV_LD_LIBRARY_PATH "^$rootpath/lib"
+        clean_path SINGULARITYENV_MANPATH "^$rootpath/share/man"
+        clean_path SINGULARITYENV_PYTHONPATH "^$rootpath/lib/python$(get_python_version)/site-packages"
+    fi
 }
 
 # vim: ft=zsh
