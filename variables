@@ -15,8 +15,16 @@ export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 # Fix gibberish characters in bat if used as manpager, https://github.com/sharkdp/bat/issues/2593#issuecomment-1636468711
 export MANROFFOPT='-c'
 
+# make sure manpath only contains existing folders
 if [ -n "${MANPATH:-}" ]; then
-    export MANPATH="$MANPATH:$(unset MANPATH; manpath):$(unset MANPATH; manpath -g)"
+    clean_manpath=""
+    for mp in $(sed 's/:/\n/g' <<<"$MANPATH:$(unset MANPATH; manpath):$(unset MANPATH; manpath -g)"); do
+        if [ -e "$mp" ]; then
+            clean_manpath="${clean_manpath:+${clean_manpath}:}${mp}"
+        fi
+    done
+    export MANPATH="${clean_manpath}"
+    unset clean_manpath
 fi
 
 if command -v bat>/dev/null; then
