@@ -16,7 +16,7 @@ export LOCALE_ARCHIVE=/usr/lib/locale/locale-archive
 export MANROFFOPT='-c'
 
 if [ -n "${MANPATH:-}" ]; then
-    export MANPATH="$MANPATH:$(manpath):$(manpath -g)"
+    export MANPATH="$MANPATH:$(unset MANPATH; manpath):$(unset MANPATH; manpath -g)"
 fi
 
 if command -v bat>/dev/null; then
