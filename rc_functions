@@ -10,22 +10,6 @@ mdh() {
     echo $(set -- $(echo "$input" | md5sum -); echo $1)
 }
 
-# add path to environment variable if it is not contained already
-export_path() {
-    # $1: name of environment variable
-    # $2: path
-    local envvar="$1"
-    local path_to_add="$2"
-    # if eval "echo \$${envvar}" | grep -qvF "${path_to_add}"
-    # eval "echo \$${envvar}"
-    if eval "echo \$${envvar}" | tr ':' '\n' | grep -qxvF "${path_to_add}"
-    then
-        # eval "echo $envvar: \$$envvar"
-        # echo "export ${envvar}=${path_to_add}:\$${envvar}"
-        eval "export ${envvar}=${path_to_add}:\$${envvar}"
-    fi
-}
-
 get_python_version() {
     python --version 2>&1 | awk '{ print $2 }' | awk -F . '{ print $1 "." $2 }'
 }
@@ -58,7 +42,7 @@ prepend_path() {
     # $2: path
     local envvar="$1"
     local path_to_add="$2"
-    if ! [ -e "${path_to_add}" ]; then
+    if [ -e "${path_to_add}" ]; then
         clean_path "${envvar}" "${path_to_add}"
         eval "local oldcontents=\"\${${envvar}}\"" >&2
         export ${envvar}="${path_to_add}${oldcontents:+:$oldcontents}"
