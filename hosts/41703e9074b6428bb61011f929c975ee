@@ -60,10 +60,9 @@ git-branch-backlog() { # [--rev|--jira] <args for rev-backlog>
     id=$(revcli backlog query "$@" "$arg_id")
 
     local branch
-    if [ -f "/tmp/git-branch-name" ]; then
-        read -r branch < <(tr -d '\n' </tmp/git-branch-name)
+    if ! branch=$(git-branch-name); then
+        return 1
     fi
-    branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
     git checkout -b "ojb/$id/$branch" "origin/$(git-origin-name)"
 }
@@ -74,6 +73,16 @@ git-origin-name() {
    else
        echo -n "master"
    fi
+}
+
+git-branch-name() {
+    local tmp=/tmp/git-branch-name
+    local new_branch_name
+    if new_branch_name=$(gum input --placeholder "branch name" --value "$([ -f "$tmp" ] && tr -d '\n' <"$tmp")"); then
+        cat <<<"$new_branch_name" >"$tmp"
+    else
+        return $?
+    fi
 }
 
 # create a new branch
@@ -97,10 +106,9 @@ git-branch-story() { # [--rev|--jira]
     id=$(revcli stories "$arg_id")
 
     local branch
-    if [ -f "/tmp/git-branch-name" ]; then
-        read -r branch < <(tr -d '\n' </tmp/git-branch-name)
+    if ! branch=$(git-branch-name); then
+        return 1
     fi
-    branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
     git checkout -b "ojb/$id/$branch" "origin/$(git-origin-name)"
 }
@@ -108,10 +116,9 @@ git-branch-story() { # [--rev|--jira]
 # create a new branch
 git-branch-nostory() {
     local branch
-    if [ -f "/tmp/git-branch-name" ]; then
-        read -r branch < <(tr -d '\n' </tmp/git-branch-name)
+    if ! branch=$(git-branch-name); then
+        return 1
     fi
-    branch=$(gum input --placeholder "branch name" --value "$branch" | tee /tmp/git-branch-name)
 
     git switch -c "ojb/nostory/$branch" "origin/$(git-origin-name)"
 }
