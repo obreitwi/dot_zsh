@@ -222,6 +222,9 @@ alias zq="zoxide query"
 
 alias ndr=nix-direnv-reload
 
+alias nix="noglob nix"
+alias nom="noglob nom"
+
 source "$ZSH_CFG_ROOT/aliases-suffix"
 
 # vim: ft=zsh
