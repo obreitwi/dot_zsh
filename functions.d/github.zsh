@@ -56,6 +56,7 @@ gh-pr-update() {
     echo "$body"
     echo
   } >&2
+  gum confirm "Proceed updating pull request?" || return 0
 
   gh pr edit -t "$title" -b "$body" "${@}" >&2
 }
