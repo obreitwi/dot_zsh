@@ -38,6 +38,28 @@ gh-pr-create() {
   gh pr create -t "$title" -b "$body" "${@}" >&2
 }
 
+gh-pr-update() {
+  zparseopts -D -E -A args -upstream:
+  local -a git_args
+  if [ -n "${args[--upstream]}" ]; then
+    git_args+=(--upstream "${args[--upstream]}")
+  fi
+
+  local title
+  local body
+  title="$(git-get-title "${git_args[@]}")"
+  body="$(git-get-body "${git_args[@]}")"
+  {
+    echo "${fg_bold[default]}Updating PR:${reset_color}"
+    echo "$title"
+    echo
+    echo "$body"
+    echo
+  } >&2
+
+  gh pr edit -t "$title" -b "$body" "${@}" >&2
+}
+
 gh-pr-md() {  
     local json
     json=$(gh pr view "$(git-branch)" --json title,url)
