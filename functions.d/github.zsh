@@ -1,4 +1,17 @@
 
+# Checkout the first available dummy branch to indicate worktree is not used
+gh-dummy() {
+  local remove_branch=1
+  local branch_old=$(git-branch)
+  gh pr view --json state | jq --exit-status '.state | match("MERGED")'
+  remove_branch=$?
+
+  git-dummy
+  if (( remove_branch == 0 )); then
+    git branch -d "$branch_old"
+  fi
+}
+
 gh-my-pr() {
     gh pr list -A "$USER"
 }
