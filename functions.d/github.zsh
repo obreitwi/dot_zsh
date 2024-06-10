@@ -3,7 +3,7 @@
 gh-dummy() {
   local remove_branch=1
   local branch_old=$(git-branch)
-  gh pr view --json state | jq --exit-status '.state | match("MERGED")'
+  gh pr view --json state | jq --exit-status '.state | match("MERGED")' >/dev/null
   remove_branch=$?
 
   git-dummy
