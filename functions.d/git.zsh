@@ -13,6 +13,15 @@ git-branch() {
     git rev-parse --symbolic-full-name HEAD | sed -e 's:^refs/heads/::g'
 }
 
+# rename current branch while keeping <initial>/<story-id>/ prefix
+git-b-mv() { # <name>
+    if (( $# != 1 )); then
+        echo "# ERROR: Expected single argument: <branch>"
+        return 1
+    fi
+    git branch -m "$(git-branch | cut -d / -f 1-2)/$1"
+}
+
 git-branch-jira-id() {
     git branch --show-current | cut -d / -f 2
 }
