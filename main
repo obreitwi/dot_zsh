@@ -48,22 +48,29 @@ setopt EXTENDED_GLOB
 # When use with urxvt backspace is correct
 #stty erase "^H"
 
-# Setup new style completion system. To see examples of the old style (compctl
-# based) programmable completion, check Misc/compctl-examples in the zsh
-# distribution.
+# vi functionality
+setopt vi
+bindkey -v
 
-# Completion Styles
-# list of completers to use
-zstyle ':completion:*::::' completer _expand _complete _ignored _approximate
+if false; then
+    # Setup new style completion system. To see examples of the old style (compctl
+    # based) programmable completion, check Misc/compctl-examples in the zsh
+    # distribution.
 
-# zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+    # Completion Styles
+    # list of completers to use (does not work correctly)
+    # TODO: figure out how to complete on redirect 
+    zstyle ':completion:*::::' completer _expand _complete _ignored _approximate _redirect
 
-# allow one error for every three characters typed in approximate completer
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+    # zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
 
-# insert all expansions for expand completer
-zstyle ':completion:*:expand:*' tag-order all-expansions
+    # allow one error for every three characters typed in approximate completer
+    zstyle -e ':completion:*:approximate:*' max-errors \
+        'reply=( $(( ($#PREFIX+$#SUFFIX)/3 )) numeric )'
+
+    # insert all expansions for expand completer
+    zstyle ':completion:*:expand:*' tag-order all-expansions
+fi
 
 if ! which fzf >/dev/null; then
     # formatting and messages
@@ -80,10 +87,6 @@ if ! which fzf >/dev/null; then
     # offer indexes before parameters in subscripts
     zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 fi
-
-# vi functionality
-setopt vi
-bindkey -v
 
 # displays a menu for tabbing around
 zstyle ':completion:*' menu yes=long-list
@@ -145,14 +148,16 @@ zstyle ':chpwd:*' recent-dirs-prune parent
 zstyle ':completion:*:*:git*:*' use-fallback false
 
 
-# 'ctrl-x r' will complete the 12 last modified (mtime) files/directories
-zle -C newest-files complete-word _generic
-bindkey '^B' newest-files
-zstyle ':completion:newest-files:*' completer _files
-zstyle ':completion:newest-files:*' file-patterns '*(omN[1,12])'
-zstyle ':completion:newest-files:*' menu select yes
-zstyle ':completion:newest-files:*' sort false
-zstyle ':completion:newest-files:*' matcher-list 'b:=*' # important
+if false; then
+    # 'ctrl-x r' will complete the 12 last modified (mtime) files/directories
+    zle -C newest-files complete-word _generic
+    bindkey '^B' newest-files
+    zstyle ':completion:newest-files:*' completer _files
+    zstyle ':completion:newest-files:*' file-patterns '*(omN[1,12])'
+    zstyle ':completion:newest-files:*' menu select yes
+    zstyle ':completion:newest-files:*' sort false
+    zstyle ':completion:newest-files:*' matcher-list 'b:=*' # important
+fi
 
 zstyle ':completion:*:processes' command 'ps -ax'
 zstyle ':completion:*:processes-names' command 'ps -aeo comm='
@@ -161,8 +166,10 @@ zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:*:killall:*:processes-names' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:*:killall:*' menu yes select
 
-zle -C complete-files complete-word _generic
-zstyle ':completion:complete-files:*' completer _files
-bindkey "^x^f" complete-files
+if false; then
+    zle -C complete-files complete-word _generic
+    zstyle ':completion:complete-files:*' completer _files
+    bindkey "^x^f" complete-files
+fi
 
 # vim: ft=zsh
