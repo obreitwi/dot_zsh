@@ -157,3 +157,7 @@ _gh-pr-merge() {
   compadd -l -S "${suffix}" -d descriptions -a -- vals
 }
 compdef _gh-pr-merge gh-pr-merge
+
+gh-patch() {
+  { gh pr view --json commits;  gh repo view --json url} | jq -sr ' add | .url + "/compare/" + .commits[0].oid + "%5E.." + .commits[-1].oid + ".patch"'
+}
