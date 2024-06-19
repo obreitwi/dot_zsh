@@ -61,14 +61,14 @@ gh-pr-update() {
   gh pr edit -t "$title" -b "$body" "${@}" >&2
 }
 
-gh-pr-md() {  
+gh-pr-md() {
     local json
     json=$(gh pr view "$(git-branch)" --json title,url)
     { printf "[%s](%s)" "$(jq -r .title <<< "$json")" "$(jq -r .url <<< "$json")" | tee /dev/stderr | xcopy } 2>&1
     echo
 }
 
-gh-pr-md-fancy() {  
+gh-pr-md-fancy() {
     local json
     json=$(gh pr view "$(git-branch)" --json additions,deletions,number,title,url "$@")
     { printf "[:merge: #%s | %s | +%s,-%s](%s)" \
