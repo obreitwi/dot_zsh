@@ -68,6 +68,19 @@ gh-pr-md() {
     echo
 }
 
+gh-pr-md-fancy() {  
+    local json
+    json=$(gh pr view "$(git-branch)" --json additions,deletions,number,title,url "$@")
+    { printf "[:merge: #%s | %s | +%s,-%s](%s)" \
+        "$(jq -r .number <<< "$json")" \
+        "$(jq -r .title <<< "$json")" \
+        "$(jq -r .additions <<< "$json")" \
+        "$(jq -r .deletions <<< "$json")" \
+        "$(jq -r .url <<< "$json")" \
+        | tee /dev/stderr | xcopy } 2>&1
+    echo
+}
+
 gh-pr-merge() {
   zparseopts -D -E -A args -upstream:
   local -a git_args
