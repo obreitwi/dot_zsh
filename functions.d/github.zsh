@@ -71,7 +71,7 @@ gh-pr-md() {
 gh-pr-md-fancy() {
     local json
     json=$(gh pr view "$(git-branch)" --json additions,deletions,number,title,url "$@")
-    { printf "[:merge: #%s | %s | +%s,-%s](%s)" \
+    { printf "[#%s | %s | +%s,-%s](%s)" \
         "$(jq -r .number <<< "$json")" \
         "$(jq -r .title <<< "$json")" \
         "$(jq -r .additions <<< "$json")" \
