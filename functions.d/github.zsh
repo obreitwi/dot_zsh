@@ -80,6 +80,7 @@ gh-pr-md-fancy() {
         | tee /dev/stderr | xcopy } 2>&1
     echo
 }
+alias gpmf=gh-pr-md-fancy
 
 gh-pr-merge() {
   zparseopts -D -E -A args -upstream:
