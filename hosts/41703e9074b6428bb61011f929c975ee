@@ -112,6 +112,7 @@ git-branch-story() { # [--rev|--jira]
 
     git checkout -b "ojb/$id/$branch" "origin/$(git-origin-name)"
 }
+alias gbs=git-branch-story
 
 # create a new branch
 git-branch-nostory() {
