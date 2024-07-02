@@ -161,22 +161,7 @@ git-cd-branches() {
 
 # display features of forgit
 git-show-forgit() {
-cat <<EOF
-* git add selector (ga)
-* git log viewer (glo)
- * The log graph can be disabled by option FORGIT_LOG_GRAPH_ENABLE (see discuss in [issue #71](https://github.com/wfxr/forgit/issues/71)).*
-* .gitignore generator (gi)
-* git diff viewer (gd)
-* git reset HEAD <file> selector (grh)
-* git checkout <file> selector (gcf)
-* git checkout <branch> selector (gcb)
-* git checkout <commit> selector (gco)
-* git stash viewer (gss)
-* git clean selector (gclean)
-* git cherry-pick selector (gcp)
-* git rebase -i selector (grb)
-* git commit --fixup && git rebase -i --autosquash selector (gfu)
-EOF
+    env | grep "^forgit_" | sed -e "s:^forgit_::" -e "s:=: -> :" | column -t
 }
 alias git-help-forgit=git-show-forgit
 
