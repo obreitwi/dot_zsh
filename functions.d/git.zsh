@@ -233,4 +233,8 @@ git-cd-worktree() { # <path to repo>
 }
 alias gcw=git-cd-worktree
 
+gfr() {
+    git fetch origin && git rebase origin/main
+}
+
 # vim: ft=zsh
