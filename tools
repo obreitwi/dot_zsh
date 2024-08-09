@@ -66,7 +66,7 @@ if command -v zoxide >/dev/null; then
     eval "$(zoxide init zsh)"
 fi
 
-if command -v carapace >/dev/null; then
+if [ -z "${ZSH_VIA_NIX:-}" ] && command -v carapace >/dev/null; then
     # exlusions
     # * own gh completions
     # * python completion does not complete files anymore
