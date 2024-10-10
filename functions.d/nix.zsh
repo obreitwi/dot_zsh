@@ -1,3 +1,12 @@
+nix-updates() { # <num older generation>
+   local to_compare=1
+   if (( $# > 0 )); then
+      to_compare=$1
+      shift
+   fi
+   nvd diff $(home-manager generations | tail -n +$((1 + to_compare)) | head -n 1 | awk '{ print $NF }') $(home-manager generations |  head -n 1 | awk '{ print $NF }')
+}
+
 # nix list derivation contents
 nls() { # <package>
    if (( $# != 1 )); then
