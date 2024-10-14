@@ -105,7 +105,9 @@ SAVEHIST=1000000000
 HISTFILE=~/.zsh_history
 
 # All running shells have the same history - always!
-setopt SHARE_HISTORY
+# setopt SHARE_HISTORY 
+# alternatively: load history via `fc -RI`
+alias zr='fc -RI'
 setopt EXTENDED_HISTORY
 # No duplicates...
 setopt HIST_IGNORE_DUPS
