@@ -237,4 +237,18 @@ gfr() {
     git fetch origin && git rebase origin/main
 }
 
+git-is-ancestor() { # <ancestor> <descendant>
+    if (( $# < 2 )); then
+        echo "# ERROR: Specify <ancestor> <descendant>" >&2
+        return 1
+    fi
+    if git merge-base --is-ancestor "$1" "$2"; then
+        echo "$1 ancestor of $2"
+    elif git merge-base --is-ancestor "$2" "$1"; then
+        echo "$2 ancestor of $1"
+    else
+        echo "$1 and $2 not related."
+    fi
+}
+
 # vim: ft=zsh
