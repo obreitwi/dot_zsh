@@ -5,7 +5,7 @@ launch_container() {
     local image
     local app
 
-    local args
+    local -a args
     args=("shell" "-s" "/bin/zsh")
 
     local getent_home

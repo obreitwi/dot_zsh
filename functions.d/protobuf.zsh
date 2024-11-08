@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 proto-msg-raw() {
+   local -a args
    args=($@)
    shift $#
    find $(git-root) -type f -name "*.proto" -print0 | xargs -0 grep -n '\(package\|message\|enum\)' \

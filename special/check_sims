@@ -99,6 +99,7 @@ get_active_eta_short() {
 	if [[ $# -eq 0 ]]; then
 		print "Need at least one argument."
 	fi
+	local -a args
 	args=($@[@])
 	num_dirs=$args[0]
 	args[0]=()

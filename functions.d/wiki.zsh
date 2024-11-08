@@ -48,6 +48,7 @@ todos-get() {
 }
 
 todos-errorfile() {
+    local -a error_grep_args
     error_grep_args=( "$@" )
     shift "$#"
     find "${_todos_diary_path}" -mindepth 1 -maxdepth 1 -type f | sort -r | xargs grep -n "${_todos_ex_grep}" \
