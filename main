@@ -123,7 +123,7 @@ setopt HIST_IGNORE_ALL_DUPS
 setopt SHORT_LOOPS
 
 # cd to directory just by giving it's name
-#setopt auto_cd
+setopt AUTO_CD
 
 # This controls what the line editor considers a word. By default it
 # includes '/', which makes it so that when I M-del (attempting to erase
