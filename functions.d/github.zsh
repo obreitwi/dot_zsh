@@ -97,6 +97,8 @@ gh-pr-md-fancy-emoji() {
       icon=":adhesive_bandage: "
     elif grep -q '^doc'<<<"${title}"; then
       icon=":pencil: "
+    elif grep -q '^refactor'<<<"${title}"; then
+      icon=":building_construction: "
     fi
     { printf "%s[#%s | %s | +%s,-%s](%s)" \
         "${icon}" \
