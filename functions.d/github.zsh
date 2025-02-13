@@ -92,7 +92,7 @@ gh-pr-md-fancy-emoji() {
     if grep -q '^feat'<<<"${title}"; then
       icon=":hammer_and_wrench: "
     elif grep -q '^chore'<<<"${title}"; then
-      icon=":gear: "
+      icon=":broom: "
     elif grep -q '^fix'<<<"${title}"; then
       icon=":adhesive_bandage: "
     elif grep -q '^doc'<<<"${title}"; then
