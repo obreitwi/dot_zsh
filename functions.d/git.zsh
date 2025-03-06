@@ -213,7 +213,7 @@ git-root() {
 # Checkout the first available dummy branch to indicate worktree is not used
 git-dummy() {
     local branch
-    branch=$(comm -23 <(git branch | tr -d '+* ' | grep '^dummy') <(git worktree list --porcelain | grep '^branch.*dummy' | awk -F/ '{print $NF}' | sort) | head -n 1 | tr -d '\s')
+    branch=$(comm -23 <(git branch | tr -d '+* ' | grep '^dummy' | sort) <(git worktree list --porcelain | grep '^branch.*dummy' | awk -F/ '{print $NF}' | sort) | head -n 1 | tr -d '\s')
     git checkout "$branch"
     git rebase "origin/$(git-origin-name)"
 }
