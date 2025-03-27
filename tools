@@ -2,23 +2,25 @@ if [ -z "${ZSH_VIA_NIX:-}" ] && command -v broot >/dev/null; then
     source "${HOME}/.config/broot/launcher/bash/br"
 fi
 
-if command -v fzf >/dev/null; then
-    if zvm_available; then
-        zvm_after_init_commands+=(
-        # system-wide install
-        '[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh'
-        '[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh'
+if [ -z "${ZSH_VIA_NIX:-}" ]; then
+    if command -v fzf >/dev/null; then
+        if zvm_available; then
+            zvm_after_init_commands+=(
+            # system-wide install
+            '[ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh'
+            '[ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh'
 
-        # nix install
-        'command -v fzf-share >/dev/null && source "$(fzf-share)/completion.zsh" && source "$(fzf-share)/key-bindings.zsh"'
-        )
-    else
-        # system-wide install
-        [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
-        [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
+            # nix install
+            'command -v fzf-share >/dev/null && source "$(fzf-share)/completion.zsh" && source "$(fzf-share)/key-bindings.zsh"'
+            )
+        else
+            # system-wide install
+            [ -f /usr/share/fzf/key-bindings.zsh ] && source /usr/share/fzf/key-bindings.zsh
+            [ -f /usr/share/fzf/completion.zsh ] && source /usr/share/fzf/completion.zsh
 
-        # nix install
-        command -v fzf-share >/dev/null && source "$(fzf-share)/completion.zsh" && source "$(fzf-share)/key-bindings.zsh"
+            # nix install
+            command -v fzf-share >/dev/null && source "$(fzf-share)/completion.zsh" && source "$(fzf-share)/key-bindings.zsh"
+        fi
     fi
 fi
 
