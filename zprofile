@@ -1,7 +1,13 @@
 # source /etc/profile
 
+# Determine correct readlink (on mac etc)
+READLINK=$(command -v readlink)
+if [ -f "$HOME/.nix-profile/bin/readlink" ]; then
+    READLINK="$HOME/.nix-profile/bin/readlink"
+fi
+
 if [ -z "${ZSH_CFG_ROOT:-}" ]; then
-    ZSH_CFG_ROOT="$(dirname "$(readlink -m "${(%):-%N}")")"
+    ZSH_CFG_ROOT="$(dirname "$("$READLINK" -m "${(%):-%N}")")"
     export ZSH_CFG_ROOT
 fi
 source "$ZSH_CFG_ROOT/rc_functions"
