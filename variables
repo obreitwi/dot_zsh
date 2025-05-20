@@ -87,6 +87,9 @@ if command -v fasd &>/dev/null && command -v fzf &>/dev/null; then
     export FZF_CTRL_T_COMMAND="fasd -al"
 fi
 
+# explicitly add ~/.local/bin
+prepend_path PATH "$HOME/.local/bin"
+
 # setup ccache if exists
 if command -v ccache >/dev/null; then
     prepend_path PATH /usr/lib/ccache/bin
