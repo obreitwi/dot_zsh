@@ -58,6 +58,9 @@ command -v fasd &> /dev/null && source =(fasd --init auto)
 # check for host specific configs
 [ -f "$ZSH_CFG_ROOT/hosts/$ENCHOST" ] && source "$ZSH_CFG_ROOT/hosts/$ENCHOST"
 
+# check for untracked local config
+[ -f "$HOME/.config/zsh/rc.local" ] && source "$HOME/.config/zsh/rc.local"
+
 source "$ZSH_CFG_ROOT/variables_postrc"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f "$ZSH_CFG_ROOT/p10k/p10k.zsh" ]] || source "$ZSH_CFG_ROOT/p10k/p10k.zsh"
