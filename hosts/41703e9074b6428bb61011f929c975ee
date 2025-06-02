@@ -67,14 +67,6 @@ git-branch-backlog() { # [--rev|--jira] <args for rev-backlog>
     git checkout -b "ojb/$id/$branch" "origin/$(git-origin-name)"
 }
 
-git-origin-name() {
-   if git branch -a | grep -q "remotes/origin/main$"; then
-       echo -n "main"
-   else
-       echo -n "master"
-   fi
-}
-
 git-branch-name() {
     local tmp=/tmp/git-branch-name
     local new_branch_name

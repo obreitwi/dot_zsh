@@ -177,6 +177,14 @@ git-get-body() {
     git-from-first --format "%b" "$@"
 }
 
+git-origin-name() {
+   if git branch -a | grep -q "remotes/origin/main$"; then
+       echo -n "main"
+   else
+       echo -n "master"
+   fi
+}
+
 # Returns info from the first commit after the current --upstream branch in the form of --format
 git-from-first() {
     zparseopts -D -E -A args -upstream: -format:
