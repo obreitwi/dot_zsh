@@ -1,11 +1,11 @@
 
 # helper functions
 xcopy() {
-    xclip -i -selection clipboard
+    xclip -i -selection clipboard "$@"
 }
 
 xpaste() {
-    xclip -o -selection clipboard
+    xclip -o -selection clipboard "$@"
 }
 
 source "$ZSH_CFG_ROOT/functions.d/alacritty.zsh"

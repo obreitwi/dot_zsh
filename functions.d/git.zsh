@@ -33,7 +33,7 @@ alias -g git-with-ci-ids='-m "$(rev-git-ids $(rev-backlog -j $(git-branch-jira-i
 gitlg() {
     PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
 }
-# ncier git log with iso timestamps
+# nicer git log with iso timestamps
 gitlgi() {
     PAGER=/usr/bin/less git log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit $@ --
 }

@@ -112,6 +112,36 @@ gh-pr-md-fancy-emoji() {
 }
 alias gpmfe=gh-pr-md-fancy-emoji
 
+gh-pr-url-fancy-emoji() {
+    local json
+    local icon
+    local title
+
+    json=$(gh pr view "$(git-branch)" --json additions,deletions,number,title,url "$@")
+    title=$(jq -r .title <<< "$json")
+    if grep -q '^feat'<<<"${title}"; then
+      icon="🛠️ "
+    elif grep -q '^chore'<<<"${title}"; then
+      icon="🧹"
+    elif grep -q '^fix'<<<"${title}"; then
+      icon="🩹"
+    elif grep -q '^doc'<<<"${title}"; then
+      icon="📝"
+    elif grep -q '^refactor'<<<"${title}"; then
+      icon="🏗"
+    fi
+    { printf "<html><head></head><body><a href=\"%s\">%s #%s | %s | +%s,-%s</a></body></html>" \
+        "$(jq -r .url <<< "$json")" \
+        "${icon}" \
+        "$(jq -r .number <<< "$json")" \
+        "$(jq -r .title <<< "$json")" \
+        "$(jq -r .additions <<< "$json")" \
+        "$(jq -r .deletions <<< "$json")" \
+        | tee /dev/stderr | xcopy -t text/html } 2>&1
+    echo
+}
+alias gpufe=gh-pr-url-fancy-emoji
+
 gh-pr-merge() {
   zparseopts -D -E -A args -upstream:
   local -a git_args
