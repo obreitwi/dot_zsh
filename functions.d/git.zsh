@@ -230,6 +230,16 @@ git-dummy() {
     git rebase "origin/$(git-origin-name)"
 }
 
+git-remove-if-merged()  {
+    local branch
+    if git branch -r --contains HEAD --format "%(refname:short)" | grep -q "\\borigin/$(git-origin-name)\\b"; then
+        branch=$(git-branch)
+        git-dummy
+        git branch -d "${branch}"
+    fi
+}
+alias grim=git-remove-if-merged
+
 # fuzzy match on current branch names in worktree and cd into it
 git-cd-worktree() { # <path to repo>
     local repo
