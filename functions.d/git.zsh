@@ -232,6 +232,7 @@ git-dummy() {
 
 git-remove-if-merged()  {
     local branch
+    git-fetch-rebase
     if git branch -r --contains HEAD --format "%(refname:short)" | grep -q "\\borigin/$(git-origin-name)\\b"; then
         branch=$(git-branch)
         git-dummy
@@ -255,9 +256,10 @@ git-cd-worktree() { # <path to repo>
 }
 alias gcw=git-cd-worktree
 
-gfr() {
-    git fetch origin && git rebase origin/main
+git-fetch-rebase() {
+    git fetch origin && git rebase origin/$(git-origin-name)
 }
+alias gfr=git-fetch-rebase
 
 git-is-ancestor() { # <ancestor> <descendant>
     if (( $# < 2 )); then
