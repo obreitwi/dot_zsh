@@ -79,7 +79,11 @@ if which parallel-moreutils &>/dev/null; then
 fi
 
 # deprecated: use xcopy function
-alias copy='xclip -i -selection clipboard'
+if command -v xclip &>/dev/null; then
+    alias copy='xclip -i -selection clipboard'
+else
+    alias copy='pbcopy'
+fi
 
 # Schneller Zugriff auf tief vergrabene Uni Sachen
 

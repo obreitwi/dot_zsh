@@ -28,7 +28,7 @@ get_history_lines_p0() {
 }
 
 copy_from_history() {
-    get_from_history "$@" | xclip -i -selection clipboard
+    get_from_history "$@" | xcopy
 }
 alias hic=copy_from_history
 
