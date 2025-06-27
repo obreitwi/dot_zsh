@@ -81,8 +81,8 @@ done
 # # multiline mode
 # zvm_bindkey viins "^j" vi-open-line-below
 
-# Search history
-if which fzf > /dev/null; then
+# Search history (if atuin not present)
+if ! command -v atuin &>/dev/null && command -v fzf &>/dev/null; then
     zvm_bindkey vicmd "^r" fzf-history-widget
 fi
 # zvm_bindkey vicmd "^n" history-incremental-search-forward 
