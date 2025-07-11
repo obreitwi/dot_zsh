@@ -232,7 +232,6 @@ git-dummy() {
 
 git-remove-if-merged()  {
     local branch
-    git-fetch-rebase
     if git branch -r --contains HEAD --format "%(refname:short)" | grep -q "\\borigin/$(git-origin-name)\\b"; then
         branch=$(git-branch)
         git-dummy
