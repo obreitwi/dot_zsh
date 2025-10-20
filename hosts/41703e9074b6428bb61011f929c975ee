@@ -19,7 +19,6 @@ fi
 PYTHONPATH="$HOME/.local/lib/python$(get_python_version)/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
 export PYTHONPATH
 
-alias restic-mimir="restic -r sftp:$USER@zqnr.de:backup/restic/mimir --password-command=\"op item get 3kvwprrtuezerlo6oofod6re3q --fields password\""
 alias setup_1password="op signin --account freiheit > ~/.op/session; source ~/.op/session"
 alias rblm='rev-backlog -m -c'
 
