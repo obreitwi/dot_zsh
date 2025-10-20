@@ -1,6 +1,6 @@
 
 # helper functions
-if command -v xclip &>/dev/null && [[ "${XDG_BACKEND_TYPE:-}" != wayland ]]; then
+if command -v xclip &>/dev/null && [[ "${XDG_BACKEND:-}" != wayland ]]; then
 xcopy() {
     xclip -i -selection clipboard "$@"
 }
@@ -8,7 +8,7 @@ xcopy() {
 xpaste() {
     xclip -o -selection clipboard "$@"
 }
-elif [[ "${XDG_BACKEND_TYPE:-}" != wayland ]]; then
+elif [[ "${XDG_BACKEND:-}" == wayland ]]; then
 xcopy() {
     wl-copy "$@"
 }
