@@ -8,7 +8,7 @@ xcopy() {
 xpaste() {
     xclip -o -selection clipboard "$@"
 }
-else if [[ "${XDG_BACKEND_TYPE:-}" != wayland ]]; then
+elif [[ "${XDG_BACKEND_TYPE:-}" != wayland ]]; then
 xcopy() {
     wl-copy "$@"
 }
