@@ -29,10 +29,10 @@ setopt GLOB_COMPLETE
     # fi
 # }
 function preexec() {
-    newLine="$1"
+    newline="$1"
     if [ "$(id -u)" -ne 0 ]; then
         FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
-        echo "$USER@$(hostname):$(pwd) [$(date -u)] $newLine" >> ${FULL_CMD_LOG}
+        echo "$USER@$(hostname):$(pwd) [$(date -u)] $newline" >> ${FULL_CMD_LOG}
     fi
     # set window title
     echo -ne "\e]2;$newline\a"
