@@ -35,7 +35,7 @@ function preexec() {
         echo "$USER@$(hostname):$(pwd) [$(date -u)] $newLine" >> ${FULL_CMD_LOG}
     fi
     # set window title
-    echo -ne "\e]1;$newline\a"
+    echo -ne "\e]2;$newline\a"
 }
 
 # keep background processes at full speed
