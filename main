@@ -34,6 +34,8 @@ function preexec() {
         FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
         echo "$USER@$(hostname):$(pwd) [$(date -u)] $newLine" >> ${FULL_CMD_LOG}
     fi
+    # set window title
+    echo -ne "\e]1;$newline\a"
 }
 
 # keep background processes at full speed
