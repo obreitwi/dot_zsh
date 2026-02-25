@@ -16,9 +16,6 @@ if command -v bat >/dev/null; then
     export MANPAGER="sh -c 'col -b | bat -l man -p'"
 fi
 
-PYTHONPATH="$HOME/.local/lib/python$(get_python_version)/site-packages${PYTHONPATH:+:${PYTHONPATH}}"
-export PYTHONPATH
-
 alias setup_1password="op signin --account freiheit > ~/.op/session; source ~/.op/session"
 alias rblm='rev-backlog -m -c'
 
@@ -123,7 +120,5 @@ git-story-open() {
 image-flutter() {
     grep -A 1 '"flutter-web"' "$(git rev-parse --show-toplevel)/Jenkinsfile" | tail -n 1 | awk '{print $2}' | tr -d "','"
 }
-
-source "$HOME/doc-fdc/scripts/custom.zsh"
 
 # vim: ft=sh
