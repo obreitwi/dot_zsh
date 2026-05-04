@@ -22,12 +22,12 @@ git-b-mv() { # <name>
     git branch -m "$(git-branch | cut -d / -f 1-2)/$1"
 }
 
-git-branch-jira-id() {
+git-branch-ci-id() {
     git branch --show-current | cut -d / -f 2
 }
 
-alias -g git-with-ci-ids-local='-m "$(git-rev-from-jira $(git-branch-jira-id))"'
-alias -g git-with-ci-ids='-m "$(rev-git-ids $(rev-backlog -j $(git-branch-jira-id)))"'
+alias -g git-with-ci-ids-local='-m "$(git-rev-from-jira $(git-branch-ci-id))"'
+alias -g git-with-ci-ids='-m "$(rev-git-ids $(rev-backlog -j $(git-branch-ci-id)))"'
 
 # nicer git log
 gitlg() {
@@ -80,6 +80,10 @@ git-get-ci-ids() {
         | sed "s:^\s*::g"
 }
 compdef __git_branch_names git-get-ci-ids
+
+git-ci-id() {
+    echo -n "Rev: $(git-branch-ci-id)"
+}
 
 git-rev-from-jira() {
     if (( $# == 0 )); then
