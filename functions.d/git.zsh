@@ -278,4 +278,18 @@ git-is-ancestor() { # <ancestor> <descendant>
     fi
 }
 
+git-show-worktree () {
+        local repo
+        if (( $# == 0 ))
+        then
+                echo "# ERROR: no repo specified" >&2
+                return 1
+        fi
+        repo=$1
+        shift 1
+        local target
+        target=$(cd "$repo" && git worktree list | fzf --with-nth 2.. | awk '{ print $1 }')
+        [ -n "$target" ] && echo -n "$target"
+}
+
 # vim: ft=zsh
